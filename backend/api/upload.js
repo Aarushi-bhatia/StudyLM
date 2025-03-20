@@ -1,12 +1,10 @@
 import multer from "multer";
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import { getDocument } from "pdfjs-dist";
+import extractTextFromPDF from "../utils/extractText.js";
+import { getAnswerFromGemini } from "../utils/geminiAI.js";
 
+// Middleware for file upload using memory storage
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
-
-// Initialize Google Generative AI
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "https://doc-chat-xi.vercel.app");
@@ -21,33 +19,21 @@ export default async function handler(req, res) {
   }
 
   upload.single("document")(req, res, async (err) => {
-    if (err) {
-      return res.status(500).json({ error: "File upload error" });
-    }
+    if (err) return res.status(500).json({ error: "File upload error" });
 
     try {
-      if (!req.file) {
-        return res.status(400).json({ error: "No file uploaded" });
-      }
+      if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
-      // Extract text from the PDF file using pdfjs-dist
-      const pdfData = new Uint8Array(req.file.buffer);
-      const pdf = await getDocument(pdfData).promise;
-      let text = "";
+      const { question } = req.body;
+      if (!question) return res.status(400).json({ error: "No question provided" });
 
-      for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i);
-        const content = await page.getTextContent();
-        text += content.items.map(item => item.str).join(" ");
-      }
+      // Extract text from PDF
+      const documentText = await extractTextFromPDF(req.file.buffer);
 
-      // Summarize the extracted text using Gemini API
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
-      const result = await model.generateContent(`Summarize the following text:\n\n${text}`);
-      const response = await result.response;
-      const summary = response.text(); // Correctly access the text content
+      // Get AI-generated answer
+      const answer = await getAnswerFromGemini(question, documentText);
 
-      res.json({ summary });
+      res.json({ answer });
     } catch (error) {
       console.error("Error:", error);
       res.status(500).json({ error: error.message });
