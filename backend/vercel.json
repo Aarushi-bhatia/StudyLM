@@ -16,6 +16,12 @@
           "value": "Content-Type"
         }
       ]
+    },
+    {
+      "routes": [
+        { "src": "/upload", "dest": "/api/upload" }
+      ]
     }
+    
   ]
 }
