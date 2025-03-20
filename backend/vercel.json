@@ -1,29 +1,12 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "index.js",
-      "use": "@vercel/node"
-    }
+    { "src": "index.js", "use": "@vercel/node" },
+    { "src": "upload.js", "use": "@vercel/node" },
+    { "src": "ask.js", "use": "@vercel/node" }
   ],
   "routes": [
-    {
-      "src": "/api/upload",
-      "dest": "/upload.js"
-    },
-    {
-      "src": "/api/ask",
-      "dest": "/ask.js"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
-      ]
-    }
+    { "src": "/upload", "dest": "upload.js" },
+    { "src": "/ask", "dest": "ask.js" }
   ]
 }
