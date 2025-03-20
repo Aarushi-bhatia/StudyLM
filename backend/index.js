@@ -7,8 +7,11 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: ["https://doc-chat-xi.vercel.app/"]
+  origin: "https://doc-chat-xi.vercel.app",
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"]
 }));
+
 app.use(express.json());
 
 // Connect to MongoDB
