@@ -1,12 +1,10 @@
 {
   "version": 2,
   "builds": [
-    { "src": "index.js", "use": "@vercel/node" },
-    { "src": "upload.js", "use": "@vercel/node" },
-    { "src": "ask.js", "use": "@vercel/node" }
+    { "src": "backend/index.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/upload", "dest": "upload.js" },
-    { "src": "/ask", "dest": "ask.js" }
+    { "src": "/api/upload", "dest": "/backend/api/upload.js" },
+    { "src": "/api/ask", "dest": "/backend/api/ask.js" }
   ]
 }
