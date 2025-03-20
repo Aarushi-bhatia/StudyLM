@@ -145,7 +145,7 @@ const DocumentQA = () => {
       {/* Header with gradient underline */}
       <header className="p-4 flex justify-between items-center border-b border-blue-500/30">
         <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
-          DocWise
+          DocChat
         </div>
 
         {/* Document indicator when uploaded */}
