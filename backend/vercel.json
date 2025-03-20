@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "functions": {
-    "api/upload.js": {
-      "runtime": "nodejs18.x"
-    }
-  }
+  "builds": [
+    { "src": "api/upload.js", "use": "@vercel/node" },
+    { "src": "api/ask.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/upload", "dest": "/api/upload.js" },
+    { "src": "/api/ask", "dest": "/api/ask.js" }
+  ]
 }
