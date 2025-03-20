@@ -24,9 +24,7 @@ export default async function handler(req, res) {
     try {
       if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
-      const { question } = req.body;
-      if (!question) return res.status(400).json({ error: "No question provided" });
-
+     
       // Extract text from PDF
       const documentText = await extractTextFromPDF(req.file.buffer);
 
