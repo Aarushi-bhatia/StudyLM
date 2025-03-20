@@ -3,33 +3,52 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import multer from "multer";
-import OpenAI from "openai";
-import fs from "fs";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { getDocument } from "pdfjs-dist";
 
 dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.MONGO_URI);
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch(err => console.error("MongoDB connection error:", err));
 
+// Multer setup for file upload
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// Initialize Google Generative AI
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 app.post("/upload", upload.single("document"), async (req, res) => {
   try {
-    const text = req.file.buffer.toString("utf-8");
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
 
-    const response = await openai.completions.create({
-      model: "gpt-4",
-      prompt: `Summarize this document:\n\n${text}`,
-      max_tokens: 200,
-    });
+    // Extract text from the PDF file using pdfjs-dist
+    const pdfData = new Uint8Array(req.file.buffer);
+    const pdf = await getDocument(pdfData).promise;
+    let text = "";
 
-    res.json({ summary: response.choices[0].text.trim() });
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      text += content.items.map(item => item.str).join(" ");
+    }
+
+    // Summarize the extracted text using Gemini API
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+    const result = await model.generateContent(`Summarize the following text:\n\n${text}`);
+    const response = await result.response;
+    const summary = response.text(); // Correctly access the text content
+
+    res.json({ summary });
   } catch (error) {
+    console.error("Error:", error);
     res.status(500).json({ error: error.message });
   }
 });
