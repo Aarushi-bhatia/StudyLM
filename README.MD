@@ -12,5 +12,4 @@ DocChat is a MERN stack web app that allows users to upload documents, generate 
 - **Frontend:** React, Tailwind CSS  
 - **Backend:** Node.js, Express  
 - **Database:** MongoDB  
-- **File Storage:** Firebase/AWS S3  
-- **AI Processing:** OpenAI API  
+- **AI Processing:** Gemini API  
