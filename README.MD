@@ -3,7 +3,7 @@
 DocChat is a MERN stack web app that allows users to upload documents, generate summaries, and interact with them using AI-powered Q&A.  
 
 ## **Features**  
-✅ Upload and store documents (PDF, DOC, TXT)  
+✅ Upload PDF documents  
 ✅ Extract text from uploaded files  
 ✅ Get AI-generated summaries  
 ✅ Ask questions related to the document  
