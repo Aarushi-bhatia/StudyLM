@@ -36,7 +36,7 @@ const DocumentQA = () => {
     formData.append("document", file);
 
     try {
-      const response = await fetch("https://doc-chat-lqv6.vercel.app/upload", {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/upload`, {
         method: "POST",
         body: formData,
       });
@@ -96,7 +96,7 @@ const DocumentQA = () => {
     formData.append("question", currentQuestion);
 
     try {
-      const response = await fetch("https://doc-chat-lqv6.vercel.app/ask", {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/ask`, {
         method: "POST",
         body: formData,
       });

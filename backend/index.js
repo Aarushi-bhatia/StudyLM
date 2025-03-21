@@ -4,16 +4,13 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import multer from "multer";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { getDocument, GlobalWorkerOptions } from "pdfjs-dist";
-import pdfWorker from "pdfjs-dist/build/pdf.worker.mjs";
-import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.js";
+import { getDocument } from "pdfjs-dist";
 
 dotenv.config();
 const app = express();
-app.use(cors({ origin: "https://doc-chat-xi.vercel.app" })); // Allow frontend access
+app.use(cors()); 
 app.use(express.json());
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = "pdfjs-dist/legacy/build/pdf.worker.js";
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
