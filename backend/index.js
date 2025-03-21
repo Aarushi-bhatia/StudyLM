@@ -4,7 +4,9 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import multer from "multer";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { getDocument } from "pdfjs-dist";
+import { PDFExtract } from "pdf.js-extract";
+
+
 
 dotenv.config();
 const app = express();
@@ -23,6 +25,20 @@ const upload = multer({ storage });
 
 // Initialize Google Generative AI
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const pdfExtract = new PDFExtract();
+
+
+const extractTextFromPDF = async (buffer) => {
+  return new Promise((resolve, reject) => {
+    pdfExtract.extractBuffer(buffer, {}, (err, data) => {
+      if (err) return reject(err);
+      const extractedText = data.pages
+        .map(page => page.content.map(item => item.str).join(" "))
+        .join("\n");
+      resolve(extractedText);
+    });
+  });
+};
 
 app.post("/upload", upload.single("document"), async (req, res) => {
   try {
@@ -31,15 +47,7 @@ app.post("/upload", upload.single("document"), async (req, res) => {
     }
 
     // Extract text from the PDF file using pdfjs-dist
-    const pdfData = new Uint8Array(req.file.buffer);
-    const pdf = await getDocument(pdfData).promise;
-    let text = "";
-
-    for (let i = 1; i <= pdf.numPages; i++) {
-      const page = await pdf.getPage(i);
-      const content = await page.getTextContent();
-      text += content.items.map(item => item.str).join(" ");
-    }
+    const text = await extractTextFromPDF(req.file.buffer);
 
     // Summarize the extracted text using Gemini API
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
