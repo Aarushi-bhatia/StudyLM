@@ -6,8 +6,6 @@ import multer from "multer";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { PDFExtract } from "pdf.js-extract";
 
-
-
 dotenv.config();
 const app = express();
 app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
@@ -75,15 +73,7 @@ app.post("/ask", upload.single("document"), async (req, res) => {
     }
 
     // Extract text from the PDF file using pdfjs-dist
-    const pdfData = new Uint8Array(req.file.buffer);
-    const pdf = await getDocument(pdfData).promise;
-    let text = "";
-
-    for (let i = 1; i <= pdf.numPages; i++) {
-      const page = await pdf.getPage(i);
-      const content = await page.getTextContent();
-      text += content.items.map(item => item.str).join(" ");
-    }
+    const text = await extractTextFromPDF(req.file.buffer);
 
     // Use Gemini API to answer the question
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
