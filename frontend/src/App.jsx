@@ -141,10 +141,10 @@ const DocumentQA = () => {
     setError("");
   };
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+    <div className="flex flex-col h-screen bg-[#2C2025] from-gray-900 to-gray-800 text-white">
       {/* Header with gradient underline */}
-      <header className="p-4 flex justify-between items-center border-b border-blue-500/30">
-        <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+      <header className="p-4 flex justify-between items-center border-b border-[#453940]">
+        <div className="text-2xl font-bold text-[#FFFFF]">
           DocChat
         </div>
 
@@ -169,7 +169,7 @@ const DocumentQA = () => {
             </div>
             <button
               onClick={handleResetDocument}
-              className="px-3 py-2 ml-4 cursor-pointer rounded-lg font-medium text-sm transition-all bg-gray-700 hover:bg-gray-600 border border-gray-600"
+              className="px-3 py-2 ml-4 cursor-pointer rounded-lg font-medium text-sm transition-all bg-[#EA775C] hover:bg-gray-600 border border-gray-600"
             >
               <div className="flex items-center">
                 <svg
@@ -197,21 +197,7 @@ const DocumentQA = () => {
         {!isDocumentUploaded && answers.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full">
             {/* Welcome message */}
-            <div className="bg-gray-800/70 backdrop-blur-sm rounded-full px-6 py-3 flex items-center mb-8 shadow-lg shadow-blue-500/10 border border-blue-500/20">
-              <div className="mr-3 text-blue-400">
-                <svg
-                  viewBox="0 0 24 24"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                >
-                  <rect width="20" height="20" rx="4" fill="currentColor" />
-                </svg>
-              </div>
-              <span className="font-medium">
-                New! Introducing AI Document Q&A
-              </span>
-            </div>
+            
 
             <h1 className="text-5xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
               What do you want to ask?
@@ -258,8 +244,8 @@ const DocumentQA = () => {
                   className={`px-4 py-2 mr-2 rounded-lg font-medium cursor-pointer text-sm transition-all
                 ${
                   loading
-                    ? "bg-gray-700 cursor-not-allowed"
-                    : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 shadow-md hover:shadow-blue-500/20"
+                    ? "bg-[#EA775C] cursor-not-allowed"
+                    : "bg-[#EA775C] hover:from-blue-500 hover:to-blue-400 shadow-md hover:shadow-blue-500/20"
                 }`}
                   disabled={loading}
                 >
