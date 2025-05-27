@@ -141,7 +141,7 @@ const DocumentQA = () => {
     setError("");
   };
   return (
-    <div className="flex flex-col h-screen bg-[#2C2025] from-gray-900 to-gray-800 text-white">
+    <div className="flex flex-col h-screen bg-[#2C2025] text-white">
       {/* Header with gradient underline */}
       <header className="p-4 flex justify-between items-center border-b border-[#453940]">
         <div className="text-2xl font-bold text-[#FFFFF]">
