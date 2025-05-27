@@ -5,13 +5,7 @@ import Welcome from "../components/Welcome";
 import Chatpage from "./Chatpage";
 
 const Homepage = () => {
-  const [file, setFile] = useState(null);
-  const [summary, setSummary] = useState("");
-  const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [fileName, setFileName] = useState("");
   const [isDocumentUploaded, setIsDocumentUploaded] = useState(false);
 
   return (

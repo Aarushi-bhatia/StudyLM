@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 const Conversation = () => {
+  const [error, setError] = useState("");
+
   return (
     <div
       key={index}

@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Nav = () => {
+  const [file, setFile] = useState(null);
+  const [summary, setSummary] = useState("");
+  const [error, setError] = useState("");
+    const [answers, setAnswers] = useState([]);
   
+  const [fileName, setFileName] = useState("");
+  const [isDocumentUploaded, setIsDocumentUploaded] = useState(false);
+
   const handleResetDocument = () => {
     // Reset document state
     setFile(null);
@@ -13,7 +20,8 @@ const Nav = () => {
   };
 
   return (
-    <header className="p-4 flex justify-between items-center border-b border-[#453940]">
+    <header className="p-4 z-50 flex bg-[#2C2025] justify-between items-center border-b border-[#453940]">
+      <div className="max-w-2xl mx-auto">
       <div className="text-2xl font-bold text-[#FFFFF]">DocChat</div>
 
       {/* Document indicator when uploaded */}
@@ -58,6 +66,7 @@ const Nav = () => {
           </button>
         </div>
       )}
+      </div>
     </header>
   );
 };
