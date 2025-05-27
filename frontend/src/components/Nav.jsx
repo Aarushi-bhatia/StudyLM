@@ -1,6 +1,17 @@
 import React from "react";
 
 const Nav = () => {
+  
+  const handleResetDocument = () => {
+    // Reset document state
+    setFile(null);
+    setFileName("");
+    setSummary("");
+    setAnswers([]);
+    setIsDocumentUploaded(false);
+    setError("");
+  };
+
   return (
     <header className="p-4 flex justify-between items-center border-b border-[#453940]">
       <div className="text-2xl font-bold text-[#FFFFF]">DocChat</div>

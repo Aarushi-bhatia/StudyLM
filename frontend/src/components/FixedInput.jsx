@@ -1,6 +1,73 @@
 import React from "react";
 
 const FixedInput = () => {
+  const handleAskQuestion = async (e) => {
+    e.preventDefault();
+
+    if (!isDocumentUploaded) {
+      setError("Please upload a document first.");
+      return;
+    }
+
+    if (!question.trim()) {
+      setError("Please enter a question.");
+      return;
+    }
+
+    const currentQuestion = question;
+    setQuestion("");
+    setLoading(true);
+    setError("");
+
+    // Immediately add the question to the conversation
+    setAnswers((prev) => [
+      ...prev,
+      {
+        type: "question",
+        content: currentQuestion,
+      },
+    ]);
+
+    const formData = new FormData();
+    formData.append("document", file);
+    formData.append("question", currentQuestion);
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/ask`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Add the answer to the conversation
+      setAnswers((prev) => [
+        ...prev,
+        {
+          type: "answer",
+          content: data.answer,
+        },
+      ]);
+    } catch (error) {
+      setError("An error occurred while processing your question.");
+      console.error("Error:", error);
+
+      // Add the error to the conversation
+      setAnswers((prev) => [
+        ...prev,
+        {
+          type: "error",
+          content: "An error occurred while processing your question.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="p-4 border-t border-gray-700 bg-gray-900">
       {/* Error message */}

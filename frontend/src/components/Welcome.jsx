@@ -1,6 +1,61 @@
 import React from "react";
 
 const Welcome = () => {
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      setFileName(selectedFile.name);
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!file) {
+      setError("Please select a file.");
+      return;
+    }
+
+    if (file.type !== "application/pdf") {
+      setError("Please upload a PDF file.");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+    const formData = new FormData();
+    formData.append("document", file);
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setSummary(data.summary);
+      setIsDocumentUploaded(true);
+
+      // Add the summary as the first message in the conversation
+      setAnswers([
+        {
+          type: "summary",
+          content: data.summary,
+        },
+      ]);
+    } catch (error) {
+      setError("An error occurred while uploading the file.");
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="flex flex-col items-center justify-center h-full">
       {/* Welcome message */}
