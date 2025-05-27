@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 const FixedInput = () => {
+  const [question, setQuestion] = useState("");
+  const [answers, setAnswers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const handleAskQuestion = async (e) => {
     e.preventDefault();
 
