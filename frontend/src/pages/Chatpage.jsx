@@ -1,19 +1,14 @@
-import React from 'react'
+import React from "react";
 
 const Chatpage = () => {
   return (
     <div className="space-y-6 pb-4">
-            {/* Conversation messages */}
-            {answers.map((item, index) => (
-              <Conversation />
-            ))}
+      {answers.map((item, index) => (
+        <Conversation />
+      ))}
+      {loading && <Loading />}
+    </div>
+  );
+};
 
-            {/* Loading indicator */}
-            {loading && (
-              <Loading />
-            )}
-          </div>
-  )
-}
-
-export default Chatpage
+export default Chatpage;

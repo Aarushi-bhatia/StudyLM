@@ -8,7 +8,7 @@ import Welcome from "../components/Welcome";
 import Chatpage from "./Chatpage";
 
 const Homepage = () => {
-    const [file, setFile] = useState(null);
+  const [file, setFile] = useState(null);
   const [summary, setSummary] = useState("");
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState([]);
@@ -42,10 +42,13 @@ const Homepage = () => {
     formData.append("document", file);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/upload`, {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -149,9 +152,8 @@ const Homepage = () => {
 
   return (
     <div className="flex flex-col h-screen bg-[#2C2025] text-white">
-      
       <Nav />
-<main className="flex-grow overflow-y-auto p-4">
+      <main className="flex-grow overflow-y-auto p-4">
         {!isDocumentUploaded && answers.length === 0 ? (
           <Welcome />
         ) : (
@@ -160,11 +162,9 @@ const Homepage = () => {
       </main>
 
       {/* Fixed input box at bottom */}
-      {isDocumentUploaded && (
-        <FixedInput />
-      )}
+      {isDocumentUploaded && <FixedInput />}
     </div>
-  )
-}
+  );
+};
 
-export default Homepage
+export default Homepage;
