@@ -1,10 +1,24 @@
 import React, { useState } from "react";
 
-const FixedInput = () => {
+const FixedInput = ({
+  answers,
+  setAnswers,
+  loading,
+  setLoading,
+  file,
+  setFile,
+  isDocumentUploaded,
+}) => {
   const [question, setQuestion] = useState("");
-  const [answers, setAnswers] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const handleFileUpload = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      setError(""); // clear any previous error
+    }
+  };
 
   const handleAskQuestion = async (e) => {
     e.preventDefault();
@@ -74,7 +88,7 @@ const FixedInput = () => {
     }
   };
   return (
-    <div className="p-4 border-t border-gray-700 bg-gray-900">
+    <div className="p-4 bg-[#2C2025] ">
       {/* Error message */}
       {error && (
         <div className="max-w-3xl mx-auto mb-4 p-3 bg-red-900/30 backdrop-blur-sm border border-red-500/50 rounded-lg text-red-200 shadow-lg">
@@ -101,6 +115,22 @@ const FixedInput = () => {
       <form onSubmit={handleAskQuestion} className="max-w-3xl mx-auto">
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-700/50 transition-all hover:border-blue-500/30">
           <div className="flex items-center">
+            <label className="cursor-pointer bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition">
+              📄 Upload
+              <input
+                type="file"
+                className="hidden"
+                accept=".pdf,.docx,.txt"
+                onChange={handleFileUpload}
+              />
+            </label>
+            {/* Show file name */}
+            {file && (
+              <span className="text-sm text-gray-300 truncate max-w-xs">
+                {file.name}
+              </span>
+            )}
+
             <textarea
               className="flex-grow bg-gray-700/50 border border-gray-600 rounded-lg p-3 outline-none resize-none h-12 text-white placeholder-gray-400 focus:border-blue-500/50 transition-colors"
               placeholder="Ask a question about your document..."
@@ -113,6 +143,7 @@ const FixedInput = () => {
                 }
               }}
             />
+
             <button
               type="submit"
               className={`ml-3 px-4 py-3 rounded-lg font-medium transition-all
