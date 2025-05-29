@@ -75,7 +75,7 @@ const Welcome = () => {
       <h1 className="text-5xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"></h1>
       <div className="flex gap-40">
         {/* Subheading */}
-        <div className="relative text-left">
+        <div className="relative text-left mt-10">
           <h1 className="text-7xl text-[#FF8163] font-bold">Ask. Read.</h1>
           <h1 className="text-7xl text-white font-bold">Understand.</h1>
           <p className="text-[#D6C7BA] text-2xl mb-10 max-w-2xl mt-4">
