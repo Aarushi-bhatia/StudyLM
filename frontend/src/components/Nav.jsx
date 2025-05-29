@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FileCode } from 'lucide-react';
 
 const Nav = () => {
   const [file, setFile] = useState(null);
@@ -22,6 +23,7 @@ const Nav = () => {
   return (
     <header className="p-4 z-50 flex bg-[#2C2025] justify-between items-center border-b border-[#453940]">
       <div className="max-w-2xl mx-auto">
+      <FileCode />
       <div className="text-2xl font-bold text-[#FFFFF]">DocChat</div>
 
       {/* Document indicator when uploaded */}
