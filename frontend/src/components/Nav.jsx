@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { FileCode } from 'lucide-react';
+import { FileCode } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const Nav = () => {
+  const location = useLocation();
+  const path = location.pathname;
+
   const [file, setFile] = useState(null);
   const [summary, setSummary] = useState("");
   const [error, setError] = useState("");
-    const [answers, setAnswers] = useState([]);
-  
+  const [answers, setAnswers] = useState([]);
+
   const [fileName, setFileName] = useState("");
   const [isDocumentUploaded, setIsDocumentUploaded] = useState(false);
 
@@ -21,13 +25,63 @@ const Nav = () => {
   };
 
   return (
-    <header className="p-4 z-50 flex bg-[#2C2025] justify-between items-center border-b border-[#453940]">
-      <div className="max-w-2xl mx-auto">
-      <FileCode />
-      <div className="text-2xl font-bold text-[#FFFFF]">DocChat</div>
+    <header className="px-6 py-3 z-50 w-full flex bg-[#2C2025] border-b border-[#453940]">
+      <div className="max-w-7xl mx-auto w-full flex justify-between items-center">
+        {/* left */}
+        <div className="flex items-center gap-2 text-white">
+          <FileCode />
+          <div className="text-2xl font-bold text-[#FFFFF]">DocChat</div>
+        </div>
 
-      {/* Document indicator when uploaded */}
-      {isDocumentUploaded && (
+        {/* middle */}
+        <div className="flex items-center gap-6">
+          <nav className="hidden md:flex gap-6 text-white text-sm font-medium">
+            {/* {path === "/" && (
+              <>
+                <Link
+                  to="#features"
+                  className="hover:text-[#EA775C] transition"
+                >
+                  Features
+                </Link>
+
+                <Link to="#about" className="hover:text-[#EA775C] transition">
+                  About
+                </Link>
+              </>
+            )} */}
+            {path === "/conversation" && (
+              <>
+                <Link
+                  to="/"
+                  className="text-sm px-4 py-2 bg-[#4A3F55] hover:bg-[#5e4d68] text-white rounded-lg transition-all"
+                >
+                  Back to Home
+                </Link>
+              </>
+            )}
+
+            
+          </nav>
+
+          {/* right */}
+          <div className="flex gap-3">
+            <Link
+              to="/login"
+              className="text-md font-semibold text-white px-4 py-2 rounded-lg hover:bg-[#3f2f42] transition"
+            >
+              Login
+            </Link>
+            <Link
+              to="/get-started"
+              className="text-sm px-4 py-2 bg-[#EA775C] text-white rounded-lg hover:bg-[#cf644e] transition"
+            >
+              Get Started
+            </Link>
+          </div>
+        </div>
+        {/* Document indicator when uploaded */}
+        {/* {isDocumentUploaded && (
         <div className="flex items-center">
           <div className="flex items-center px-3 py-2 bg-blue-500/20 rounded-lg border border-blue-500/30">
             <svg
@@ -67,7 +121,7 @@ const Nav = () => {
             </div>
           </button>
         </div>
-      )}
+      )} */}
       </div>
     </header>
   );
