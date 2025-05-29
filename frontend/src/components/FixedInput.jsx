@@ -113,7 +113,7 @@ const FixedInput = ({
 
       {/* Question input form */}
       <form onSubmit={handleAskQuestion} className="max-w-3xl mx-auto">
-        <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-700/50 transition-all hover:border-blue-500/30">
+        <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-700/50 transition-all hover:border-black-500/30">
           <div className="flex items-center">
             <label className="cursor-pointer bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition">
               📄 Upload
@@ -150,7 +150,7 @@ const FixedInput = ({
                     ${
                       loading
                         ? "bg-gray-700 cursor-not-allowed"
-                        : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 shadow-md hover:shadow-blue-500/20"
+                        : "bg-gradient-to-r from-[#FF8163] to-[#FF8166] hover:from-blue-500 hover:to-blue-400 shadow-md hover:shadow-blue-500/20"
                     }`}
               disabled={loading}
             >
