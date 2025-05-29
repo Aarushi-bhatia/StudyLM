@@ -11,7 +11,7 @@ const Homepage = () => {
   return (
     <div className="flex flex-col h-screen bg-[#2C2025] text-white">
       <Nav />
-      <main className="flex-grow overflow-y-auto p-4">
+      <main className="flex-grow p-4">
         {!isDocumentUploaded && answers.length === 0 ? (
           <Welcome />
         ) : (
