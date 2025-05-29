@@ -74,7 +74,7 @@ const Nav = () => {
             </Link>
             <Link
               to="/get-started"
-              className="text-sm px-4 py-2 bg-[#EA775C] text-white rounded-lg hover:bg-[#cf644e] transition"
+              className="text-base px-4 py-2 bg-[#FF8163] text-white font-semibold rounded-lg transition-all"
             >
               Get Started
             </Link>
