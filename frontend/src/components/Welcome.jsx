@@ -68,6 +68,7 @@ const Welcome = () => {
     <div className="flex flex-col items-center justify-center h-full max-w-5xl mx-auto">
       {/* Welcome message */}
       <div className="absolute w-[200px] h-[200px] rounded-full bg-[radial-gradient(circle,_#E2745B_0%,_transparent_80%)] blur-3xl opacity-50 -top-5 left-120 z-0"></div>
+
       <div className="absolute w-[350px] h-[350px] rounded-full bg-[radial-gradient(circle,_#1E90FF_0%,_transparent_35%)] blur-3xl opacity-50 top-130 left-170 z-0"></div>
 
       <h1 className="text-5xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
