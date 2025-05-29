@@ -66,7 +66,7 @@ const Welcome = () => {
     }
   };
   return (
-    <div className="relative flex flex-col items-center justify-center h-full max-w-7xl mx-auto">
+    <div className="relative  flex flex-col items-center justify-center h-full max-w-7xl mx-auto">
       {/* Welcome message */}
       <div className="absolute w-[200px] h-[200px] rounded-full bg-[radial-gradient(circle,_#E2745B_0%,_transparent_80%)] blur-3xl opacity-50 -top-30 left-50 z-0"></div>
 
