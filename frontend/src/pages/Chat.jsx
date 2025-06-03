@@ -117,7 +117,9 @@ const PDFChatHomepage = () => {
           </div>
         )}
       </div>
+      <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#E2745B_0%,_transparent_40%)] blur-3xl opacity-50 top-20 left-250 z-0"></div>
 
+      <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#E2745B_0%,_transparent_35%)] blur-3xl opacity-30 top-90 left-50 z-0"></div>
       {/* Main Content */}
       <div className="flex-1 flex max-w-4xl mx-auto w-full">
         {/* Chat Area */}

@@ -84,7 +84,7 @@ const Welcome = () => {
             effortlessly.
           </p>
           <Link
-            to="/conversation"
+            to="/chat"
             className="text-base px-4 py-3 bg-[#FF8163] text-white font-semibold rounded-lg transition-all"
           >
             Go to Conversation
