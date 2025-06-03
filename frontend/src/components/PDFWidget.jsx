@@ -142,7 +142,7 @@ const PDFWidget = () => {
                   <div
                     className={`max-w-[75%] px-3 py-2 rounded-2xl text-xs font-medium ${
                       msg.type === "user"
-                        ? "bg-blue-500 text-white shadow-lg "
+                        ? "bg-[#FF8163] text-white shadow-lg "
                         : "bg-gray-700/80 text-gray-100 shadow-lg"
                     }`}
                   >
@@ -190,7 +190,7 @@ const PDFWidget = () => {
         </div>
       </div>
 
-      <div className="absolute -left-17 bottom-10 w-18 h-18 bg-[#3E2C31] rounded-2xl flex items-center justify-center shadow-2xl border border-[#3E2C31]">
+      <div className="absolute -left-17 bottom-10 w-18 h-18 bg-[#3E2C31] rounded-2xl flex items-center justify-center shadow-2xl border border-white/20">
         <Cpu className="w-8 h-8 text-white" />
       </div>
 

@@ -39,7 +39,7 @@ const Nav = () => {
           <nav className="hidden md:flex gap-6 text-white text-sm font-medium">
             {
               <Link
-                to="/chat"
+                to="/conversation"
                 className="text-sm px-4 py-2 bg-[#4A3F55] hover:bg-[#5e4d68] text-white rounded-lg transition-all"
               >
                 Chat
@@ -62,7 +62,7 @@ const Nav = () => {
             }
             
     
-            {path === "/conversation" && (
+            {path === "/chat" && (
               <>
                 <Link
                   to="/"
