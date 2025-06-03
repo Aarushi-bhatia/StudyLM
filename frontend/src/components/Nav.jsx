@@ -10,6 +10,7 @@ const Nav = () => {
   const [summary, setSummary] = useState("");
   const [error, setError] = useState("");
   const [answers, setAnswers] = useState([]);
+  
 
   const [fileName, setFileName] = useState("");
   const [isDocumentUploaded, setIsDocumentUploaded] = useState(false);
@@ -36,7 +37,15 @@ const Nav = () => {
         {/* middle */}
         <div className="flex items-center gap-6">
           <nav className="hidden md:flex gap-6 text-white text-sm font-medium">
-            {/* {path === "/" && (
+            {
+              <Link
+                to="/chat"
+                className="text-sm px-4 py-2 bg-[#4A3F55] hover:bg-[#5e4d68] text-white rounded-lg transition-all"
+              >
+                Chat
+              </Link>
+              
+              /* {path === "/" && (
               <>
                 <Link
                   to="#features"
@@ -49,7 +58,10 @@ const Nav = () => {
                   About
                 </Link>
               </>
-            )} */}
+            )} */
+            }
+            
+    
             {path === "/conversation" && (
               <>
                 <Link
@@ -60,8 +72,6 @@ const Nav = () => {
                 </Link>
               </>
             )}
-
-            
           </nav>
 
           {/* right */}
