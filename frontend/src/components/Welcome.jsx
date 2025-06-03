@@ -73,8 +73,7 @@ const Welcome = () => {
 
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#1E90FF_0%,_transparent_35%)] blur-3xl opacity-30 top-90 left-50 z-0"></div>
 
-      <h1 className="text-5xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"></h1>
-      <div className="flex gap-20">
+      <div className="flex gap-10 -ml-20">
         {/* Subheading */}
         <div className="relative text-left mt-20">
           <h1 className="text-7xl text-[#FF8163] font-bold">Ask. Read.</h1>
@@ -90,12 +89,10 @@ const Welcome = () => {
             Go to Conversation
           </Link>
         </div>
-        {/* Right Side (You can place image, animation, or illustration here) */}
         <div className="z-10">
           
           <PDFWidget />
         </div>
-        {/* Or replace with Lottie animation, upload form, etc. */}
       </div>
     </div>
   );
