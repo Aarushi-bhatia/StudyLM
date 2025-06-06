@@ -38,27 +38,27 @@ const extractTextFromPDF = async (buffer) => {
   });
 };
 
-app.post("/upload", upload.single("document"), async (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).json({ error: "No file uploaded" });
-    }
+// app.post("/upload", upload.single("document"), async (req, res) => {
+//   try {
+//     if (!req.file) {
+//       return res.status(400).json({ error: "No file uploaded" });
+//     }
 
-    // Extract text from the PDF file using pdfjs-dist
-    const text = await extractTextFromPDF(req.file.buffer);
+//     // Extract text from the PDF file using pdfjs-dist
+//     const text = await extractTextFromPDF(req.file.buffer);
 
-    // Summarize the extracted text using Gemini API
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
-    const result = await model.generateContent(`Summarize the following text:\n\n${text}`);
-    const response = await result.response;
-    const summary = response.text(); // Correctly access the text content
+//     // Summarize the extracted text using Gemini API
+//     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+//     const result = await model.generateContent(`Summarize the following text:\n\n${text}`);
+//     const response = await result.response;
+//     const summary = response.text(); // Correctly access the text content
 
-    res.json({ summary });
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: error.message });
-  }
-});
+//     res.json({ summary });
+//   } catch (error) {
+//     console.error("Error:", error);
+//     res.status(500).json({ error: error.message });
+//   }
+// });
 
 app.post("/ask", upload.single("document"), async (req, res) => {
   try {
@@ -76,7 +76,7 @@ app.post("/ask", upload.single("document"), async (req, res) => {
     const text = await extractTextFromPDF(req.file.buffer);
 
     // Use Gemini API to answer the question
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(`Answer the following question based on the document:\n\nQuestion: ${question}\n\nDocument:\n${text}`);
     const response = await result.response;
     const answer = response.text(); // Correctly access the text content

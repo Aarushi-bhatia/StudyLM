@@ -10,6 +10,7 @@ import {
   FileCheck,
 } from "lucide-react";
 import Nav from "../components/Nav";
+import axios from "axios";
 
 const PDFChatHomepage = () => {
   const [messages, setMessages] = useState([
@@ -36,8 +37,8 @@ const PDFChatHomepage = () => {
     scrollToBottom();
   }, [messages]);
 
-  const handleSendMessage = () => {
-    if (!inputValue.trim()) return;
+  const handleSendMessage = async () => {
+    if (!inputValue.trim() || !uploadedFile) return;
 
     const newMessage = {
       id: Date.now(),
@@ -50,20 +51,51 @@ const PDFChatHomepage = () => {
     setInputValue("");
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      setIsTyping(false);
+    try {
+      const formData = new FormData();
+      formData.append("document", uploadedFile);
+      formData.append("question", inputValue);
+
+      const response = await axios.post("http://localhost:5000/ask", formData, {
+        headers : {
+          "Content-Type" : "multipart/form-data",
+        }
+      })
+      
       const botResponse = {
         id: Date.now() + 1,
+        type : "bot",
+        content : response.data.answer || "Sorry no answer was returned",
+        timestamp : new Date()
+      }
+      setMessages((prev)=>[...prev, botResponse]);
+    }catch(error){
+      const errorMessage = {
+        id: Date.now(),
         type: "bot",
-        content: uploadedFile
-          ? `Based on your PDF "${uploadedFile.name}", I can see that... [This would be the AI's analysis of your document]`
-          : "Please upload a PDF first so I can analyze it and answer your questions!",
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, botResponse]);
-    }, 1500);
-  };
+      content: "Oops, something went wrong. Please try again.",
+      timestamp: new Date(),
+      }
+      setMessages((prev)=>[...prev, errorMessage])
+      console.error(error)
+    } finally {
+      setIsTyping(false);
+    }
+    }
+    // Simulate AI response
+    // setTimeout(() => {
+    //   setIsTyping(false);
+    //   const botResponse = {
+    //     id: Date.now() + 1,
+    //     type: "bot",
+    //     content: uploadedFile
+    //       ? `Based on your PDF "${uploadedFile.name}", I can see that... [This would be the AI's analysis of your document]`
+    //       : "Please upload a PDF first so I can analyze it and answer your questions!",
+    //     timestamp: new Date(),
+    //   };
+    //   setMessages((prev) => [...prev, botResponse]);
+    // }, 1500);
+//}
 
   const handleFileUpload = (file) => {
     if (file && file.type === "application/pdf") {
@@ -271,7 +303,7 @@ const PDFChatHomepage = () => {
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+                  onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
                   placeholder={
                     uploadedFile
                       ? "Ask anything about your PDF..."
