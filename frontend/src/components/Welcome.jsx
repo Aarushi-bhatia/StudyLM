@@ -90,7 +90,6 @@ const Welcome = () => {
           </Link>
         </div>
         <div className="z-10">
-          
           <PDFWidget />
         </div>
       </div>
