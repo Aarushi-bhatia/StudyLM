@@ -102,7 +102,7 @@ const PDFWidget = () => {
             <div className="flex items-center space-x-2 px-3 py-1 rounded-full ">
               <Brain className="w-4 h-4 text-white" />
               <span className="text-sm text-white font-semibold bg-purple-400 to-pink-400 bg-clip-text text-transparent">
-                DocChat
+                Ask Your Doc
               </span>
             </div>
           </div>
@@ -126,8 +126,6 @@ const PDFWidget = () => {
 
           {/* Enhanced Chat Preview */}
           <div className="relative bg-gradient-to-br from-black/40 to-[#362428] rounded-xl p-4 mb-6 h-60 overflow-hidden border border-white/10">
-            
-
             <div className="space-y-3 h-full overflow-hidden">
               {mockMessages.slice(0, currentMessage + 1).map((msg, index) => (
                 <div

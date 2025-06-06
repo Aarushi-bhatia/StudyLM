@@ -31,7 +31,7 @@ const Nav = () => {
         {/* left */}
         <div className="flex items-center gap-2 text-white">
           <FileCode />
-          <div className="text-2xl font-bold text-[#FFFFF]">DocChat</div>
+          <div className="text-2xl font-bold text-[#FFFFF]">Ask Your Doc</div>
         </div>
 
         {/* middle */}

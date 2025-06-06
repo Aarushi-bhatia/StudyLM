@@ -57,45 +57,45 @@ const PDFChatHomepage = () => {
       formData.append("question", inputValue);
 
       const response = await axios.post("http://localhost:5000/ask", formData, {
-        headers : {
-          "Content-Type" : "multipart/form-data",
-        }
-      })
-      
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
       const botResponse = {
         id: Date.now() + 1,
-        type : "bot",
-        content : response.data.answer || "Sorry no answer was returned",
-        timestamp : new Date()
-      }
-      setMessages((prev)=>[...prev, botResponse]);
-    }catch(error){
+        type: "bot",
+        content: response.data.answer || "Sorry no answer was returned",
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, botResponse]);
+    } catch (error) {
       const errorMessage = {
         id: Date.now(),
         type: "bot",
-      content: "Oops, something went wrong. Please try again.",
-      timestamp: new Date(),
-      }
-      setMessages((prev)=>[...prev, errorMessage])
-      console.error(error)
+        content: "Oops, something went wrong. Please try again.",
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+      console.error(error);
     } finally {
       setIsTyping(false);
     }
-    }
-    // Simulate AI response
-    // setTimeout(() => {
-    //   setIsTyping(false);
-    //   const botResponse = {
-    //     id: Date.now() + 1,
-    //     type: "bot",
-    //     content: uploadedFile
-    //       ? `Based on your PDF "${uploadedFile.name}", I can see that... [This would be the AI's analysis of your document]`
-    //       : "Please upload a PDF first so I can analyze it and answer your questions!",
-    //     timestamp: new Date(),
-    //   };
-    //   setMessages((prev) => [...prev, botResponse]);
-    // }, 1500);
-//}
+  };
+  // Simulate AI response
+  // setTimeout(() => {
+  //   setIsTyping(false);
+  //   const botResponse = {
+  //     id: Date.now() + 1,
+  //     type: "bot",
+  //     content: uploadedFile
+  //       ? `Based on your PDF "${uploadedFile.name}", I can see that... [This would be the AI's analysis of your document]`
+  //       : "Please upload a PDF first so I can analyze it and answer your questions!",
+  //     timestamp: new Date(),
+  //   };
+  //   setMessages((prev) => [...prev, botResponse]);
+  // }, 1500);
+  //}
 
   const handleFileUpload = (file) => {
     if (file && file.type === "application/pdf") {

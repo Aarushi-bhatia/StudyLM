@@ -10,7 +10,7 @@ const Homepage = () => {
     <div className="flex flex-col h-screen bg-[#2C2025] text-white">
       <Nav />
       <main className="flex-grow p-4">
-          <Welcome />
+        <Welcome />
       </main>
     </div>
   );
