@@ -12,6 +12,7 @@ import {
   Flame,
   Cpu,
   Globe,
+  MessageSquareCode,
 } from "lucide-react";
 
 const PDFWidget = () => {
@@ -100,7 +101,7 @@ const PDFWidget = () => {
           </div>
           <div className="flex items-center space-x-3">
             <div className="flex items-center space-x-2 px-3 py-1 rounded-full ">
-              <Brain className="w-4 h-4 text-white" />
+              <MessageSquareCode className="w-4 h-4 text-white" />
               <span className="text-sm text-white font-semibold bg-purple-400 to-pink-400 bg-clip-text text-transparent">
                 Ask Your Doc
               </span>
