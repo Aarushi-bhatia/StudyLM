@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FileCode } from "lucide-react";
+import { FileCode, MessageSquareCode } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const Nav = () => {
@@ -30,7 +30,8 @@ const Nav = () => {
       <div className="max-w-7xl mx-auto w-full flex justify-between items-center">
         {/* left */}
         <div className="flex items-center gap-2 text-white">
-          <FileCode />
+          {/* <img src="/logo.png" alt="" className="w-10 h-10" /> */}
+          <MessageSquareCode />
           <div className="text-2xl font-bold text-[#FFFFF]">AskYourDoc</div>
         </div>
 
