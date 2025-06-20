@@ -2,9 +2,7 @@ import { chunkText } from "../utils/chunker.js";
 import { getEmbeddings } from "./embedder.js";
 import { addToStore, retrieveRelevantChunks } from "./vectorStore.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+import geminiApiKey from "../utils/geminiApiKey.js"
 
 export async function processWithRAG(pdfText, question, docId = null) {
   try {
@@ -38,11 +36,14 @@ export async function processWithRAG(pdfText, question, docId = null) {
     const questionEmbedding = await getEmbeddings(question);
 
     // Retrieve relevant chunks
-    const relevantChunks = await retrieveRelevantChunks(questionEmbedding,docId);
+    const relevantChunks = await retrieveRelevantChunks(questionEmbedding, docId);
 
     // Create context from relevant chunks
     const context = relevantChunks.join("\n");
 
+    const genAI = new GoogleGenerativeAI(geminiApiKey.getRandomGeminiKey());
+
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     // Generate response using Gemini
     const result = await model.generateContent(
       `Use the following context to answer the question.\n\nContext:\n${context}\n\nQuestion: ${question}`
@@ -50,7 +51,7 @@ export async function processWithRAG(pdfText, question, docId = null) {
 
     const response = await result.response;
     return response.text();
-    
+
   } catch (error) {
     console.error('Error in processWithRAG:', error);
     throw error;
