@@ -28,7 +28,7 @@ router.post("/", upload.single("document"), async (req, res) => {
     });
 
    
-    const answer = await processWithRAG(pdfText, req.body.question); 
+    const answer = await processWithRAG(pdfText, req.body.question, doc._id.toString()); 
 
     res.json({ answer });
   } catch (error) {
