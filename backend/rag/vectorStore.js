@@ -23,15 +23,26 @@ export async function addToStore(embeddings, chunks, docId) {
   await index.upsert(vectors);
 }
 
+
+
 export async function retrieveRelevantChunks(questionEmbedding, docId, topK = 3) {
   const index = await getIndex();
 
-  const queryResult = await index.query({
+if(!docId){
+  console.warn("No docId provided");
+}
+
+  const queryOptions = {
     vector: questionEmbedding,
     topK,
-    filter: { docId },
     includeMetadata: true,
-  });
+  };
+  if(docId){
+    queryOptions.filter = { docId}
+     
+  }
 
+  const queryResult = await index.query(queryOptions);
+  
   return queryResult.matches.map((match) => match.metadata.chunk);
 }
