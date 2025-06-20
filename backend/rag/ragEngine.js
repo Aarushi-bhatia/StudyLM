@@ -38,7 +38,7 @@ export async function processWithRAG(pdfText, question, docId = null) {
     const questionEmbedding = await getEmbeddings(question);
 
     // Retrieve relevant chunks
-    const relevantChunks = await retrieveRelevantChunks(questionEmbedding);
+    const relevantChunks = await retrieveRelevantChunks(questionEmbedding,docId);
 
     // Create context from relevant chunks
     const context = relevantChunks.join("\n");
