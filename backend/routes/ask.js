@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import { extractTextFromPDF } from "../utils/extractPdf.js";
+import extractTextFromPDF from "../utils/extractPdf.js";
 import { processWithRAG } from "../rag/ragEngine.js";
 import Document from "../models/Document.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
@@ -23,8 +23,8 @@ router.post("/", upload.single("document"), async (req, res) => {
 
      const doc = await Document.create({
       name: req.file.originalname,
-      userId: req.user.id,
-      chunkCount: text.split(" ").length
+      userId: "test-user",
+      chunkCount: pdfText.split(" ").length
     });
 
    

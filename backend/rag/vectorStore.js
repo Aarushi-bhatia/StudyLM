@@ -1,13 +1,19 @@
 import { Pinecone } from "@pinecone-database/pinecone";
 
-const pinecone = new Pinecone({
-  apiKey: process.env.PINECONE_API_KEY,
-  environment: process.env.PINECONE_ENVIRONMENT,
-});
+let index;
 
-const index = await pinecone.index(process.env.PINECONE_INDEX_NAME);
+async function getIndex() {
+  if (!index) {
+    const pinecone = new Pinecone({
+      apiKey: process.env.PINECONE_API_KEY,
+    });
+    index = pinecone.index(process.env.PINECONE_INDEX_NAME);
+  }
+  return index;
+}
 
 export async function addToStore(embeddings, chunks, docId) {
+  const index = await getIndex();
   const vectors = embeddings.map((embedding, i) => ({
     id: `${docId}-${i}-${Date.now()}`, // unique ID
     values: embedding,
@@ -17,11 +23,9 @@ export async function addToStore(embeddings, chunks, docId) {
   await index.upsert(vectors);
 }
 
-export async function retrieveRelevantChunks(
-  questionEmbedding,
-  docId,
-  topK = 3
-) {
+export async function retrieveRelevantChunks(questionEmbedding, docId, topK = 3) {
+  const index = await getIndex();
+
   const queryResult = await index.query({
     vector: questionEmbedding,
     topK,

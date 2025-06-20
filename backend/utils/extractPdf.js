@@ -14,3 +14,5 @@ const extractTextFromPDF = async (buffer) => {
     });
   });
 };
+
+export default extractTextFromPDF

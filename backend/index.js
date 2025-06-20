@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import multer from "multer";
+import askRoutes from "./routes/ask.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 dotenv.config();
