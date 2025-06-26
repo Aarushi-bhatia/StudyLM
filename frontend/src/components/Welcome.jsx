@@ -84,7 +84,7 @@ const Welcome = () => {
           </p>
           <Link
             to="/chat"
-            className="text-base bg-[#FF8163] text-white px-6 py-4 rounded-full border border-gray-300 font-medium hover:opacity-90 transition"
+            className="text-base bg-[#FF8163] text-white px-6 py-4 rounded-full border/10 border-gray-300 font-medium hover:opacity-90 transition"
           >
             Go to Conversation
           </Link>

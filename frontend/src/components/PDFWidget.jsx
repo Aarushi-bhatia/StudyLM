@@ -1,17 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  FileText,
-  MessageSquare,
-  Sparkles,
-  Users,
-  TrendingUp,
-  Zap,
-  Brain,
-  Activity,
-  Star,
-  Flame,
-  Cpu,
-  Globe,
   MessageSquareCode,
 } from "lucide-react";
 
@@ -172,25 +160,6 @@ const PDFWidget = () => {
           </div>
         </div>
       </div>
-
-      {/* <div className="absolute -left-17 bottom-10 w-18 h-18 bg-[#3E2C31] rounded-2xl flex items-center justify-center shadow-2xl border border-white/20">
-        <Cpu className="w-8 h-8 text-white" />
-      </div>
-      <div className="absolute -top-8 -right-12 bg-gray-900/20 backdrop-blur-xl rounded-2xl p-4 border border-white/20 shadow-2xl">
-        <div className="flex items-center space-x-2 mb-2">
-          <Star className="w-4 h-4 text-yellow-400" />
-          <span className="text-xs text-yellow-400 font-bold">PRO TIER</span>
-        </div>
-        <div className="flex items-center space-x-3">
-          <span className="text-2xl font-bold text-white">847</span>
-          <div className="text-xs text-gray-400">
-            <div>/ 1000 queries</div>
-          </div>
-        </div>
-        <div className="w-20 h-2 bg-gray-700 rounded-full mt-3 overflow-hidden">
-          <div className="w-16 h-2 bg-[#FF8163] rounded-full"></div> */}
-        {/* </div>
-      </div> */}
     </div>
   );
 };
