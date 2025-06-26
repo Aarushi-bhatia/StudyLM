@@ -73,7 +73,7 @@ const Auth = () => {
             type="password"
             placeholder="Enter Password"
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full text-gray-100  p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+            className="w-full text-gray-100  p-2 border  border-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
           />
 
           {!isLogin && (

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import multer from "multer";
 import askRoutes from "./routes/ask.js";
+import authRoutes from "./routes/authRoutes.js"
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 dotenv.config();
@@ -11,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
+app.use("/api", authRoutes);
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("Connected to MongoDB"))
