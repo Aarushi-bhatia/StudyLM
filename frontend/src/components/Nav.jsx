@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { MessageSquareCode } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import Modal from "./Modal";
+import Auth from "../auth/Auth";
 
 const navlinks = [
   { navs: "/#home", name: "Home" },
@@ -13,6 +15,8 @@ const navlinks = [
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
   const handleResetDocument = () => {
     // Reset document state
@@ -62,21 +66,20 @@ const Nav = () => {
                 </a>
               </li>
             ))}
-         <li className="md:hidden">
+            <li className="md:hidden">
               <a
                 href="/auth"
-                className="block px-6 py-1 text-lg border border-gray-800 rounded-full text-gray-300 font-[550] bg-primary hover:opacity-90 transition shadow-[0_4px_12px_rgba(0,0,0,0.2)] text-center"
-                onClick={() => setIsOpen(false)}
+                className="block px-6 py-1 text-lg border/10 border-gray-800 rounded-full text-gray-300 font-[550] bg-primary hover:opacity-90 transition shadow-[0_4px_12px_rgba(0,0,0,0.2)] text-center"
               >
                 Login / Signup
               </a>
             </li>
           </ul>
         </div>
-          <div className="hidden md:flex items-center">
+        <div className="hidden md:flex items-center">
           <a
             href="/auth"
-            className="px-6 py-1 text-lg border border-white rounded-full text-white font-[550] bg-[#FF8163] hover:opacity-90 transition shadow-[0_4px_12px_rgba(0,0,0,0.2)]"
+            className="px-6 py-1 text-lg border/10 border-white rounded-full text-white font-[550] bg-[#FF8163] hover:opacity-90 transition shadow-[0_4px_12px_rgba(0,0,0,0.2)]"
           >
             Login / Signup
           </a>
