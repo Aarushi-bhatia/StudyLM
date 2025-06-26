@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
+  const navigate = useNavigate();
+
   const [isLogin, setIsLogin] = useState(true);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -8,14 +11,72 @@ const Auth = () => {
   const [agreed, setAgreed] = useState(false);
   const [message, setMessage] = useState("");
 
-  const handleAuth = () => {
-    // Handle login/signup here
+  const handleAuth = async () => {
+    setMessage("");
+
+    if (!email || !password || (!isLogin && !name)) {
+      setMessage("Please fill in all required fields.");
+      return;
+    }
+
+    if (!isLogin && !agreed) {
+      setMessage("You must agree to the Terms & Conditions.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/${isLogin ? "login" : "signup"}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(
+            isLogin ? { email, password } : { username: name, email, password }
+          ),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setMessage(data.message || "Something went wrong.");
+        return;
+      }
+
+      if (isLogin) {
+        // Save token to localStorage
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        setMessage("Logged in successfully ✅");
+        navigate("/chat");
+      } else {
+        const loginRes = await fetch("http://localhost:5000/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const loginData = await loginRes.json();
+
+        if (!loginRes.ok) {
+          setMessage(loginData.message || "Signup succeeded but login failed.");
+          return;
+        }
+
+        localStorage.setItem("token", loginData.token);
+        localStorage.setItem("user", JSON.stringify(loginData.user));
+        setMessage("Signed up and logged in ✅");
+        navigate("/chat");
+      }
+    } catch (err) {
+      setMessage("Server error. Please try again.");
+      console.error(err);
+    }
   };
 
   return (
-
     <div className="flex justify-center items-center h-[100vh] bg-[#2C2025] relative">
-         <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#E2745B_0%,_transparent_60%)] blur-3xl opacity-50 -top-30 left-200 z-0"></div>
+      <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#E2745B_0%,_transparent_60%)] blur-3xl opacity-50 -top-30 left-200 z-0"></div>
 
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#E2745B_0%,_transparent_35%)] blur-3xl opacity-50 top-90 left-50 z-0"></div>
 
@@ -32,7 +93,9 @@ const Auth = () => {
           <button
             onClick={() => setIsLogin(true)}
             className={`px-6 py-2 rounded-xl border font-bold mr-2 shadow-md hover:shadow-lg transition ${
-              isLogin ? "bg-[#FF8163] text-gray-100  border-gray-400/10" : "text-gray-100 border-gray-400"
+              isLogin
+                ? "bg-[#FF8163] text-gray-100  border-gray-400/10"
+                : "text-gray-100 border-gray-400"
             }`}
           >
             Login
@@ -40,7 +103,9 @@ const Auth = () => {
           <button
             onClick={() => setIsLogin(false)}
             className={`px-6 py-2 rounded-xl border font-bold shadow-md hover:shadow-lg transition ${
-              !isLogin ? "bg-[#FF8163]  text-gray-100  border-gray-400/10" : "text-gray-100 border-gray-400"
+              !isLogin
+                ? "bg-[#FF8163]  text-gray-100  border-gray-400/10"
+                : "text-gray-100 border-gray-400"
             }`}
           >
             SignUp
