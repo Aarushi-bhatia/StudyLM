@@ -108,8 +108,8 @@ const PDFWidget = () => {
             </div>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
-            <span className="text-xs text-green-400 font-medium">NEURAL</span>
+            <div className="w-2 h-2 bg-white rounded-full"></div>
+            <span className="text-xs text-white font-medium">CORE</span>
           </div>
         </div>
 
@@ -118,7 +118,7 @@ const PDFWidget = () => {
           {/* Header Section */}
           <div className="flex items-center justify-between mb-6">
             <div className="relative">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent">
+              <h3 className="text-2xl font-bold bg-white bg-clip-text text-transparent">
                 AI Document Chat
               </h3>
             </div>
@@ -170,34 +170,12 @@ const PDFWidget = () => {
               )}
             </div>
           </div>
-
-          {/* Enhanced Stats Grid */}
-          <div className="grid grid-cols-3 gap-4">
-            <div className="text-center p-3 bg-[#362428]/70 rounded-xl border border-[#362428]/60">
-              <div className="text-2xl font-bold text-[#FF8163]">1.2K</div>
-              <div className="text-xs text-gray-400 font-medium">Documents</div>
-            </div>
-            <div className="text-center p-3 bg-[#362428]/70 rounded-xl border border-[#362428]/60">
-              <div className="text-2xl font-bold text-[#FF8163]">99.7%</div>
-              <div className="text-xs text-gray-400 font-medium">Accuracy</div>
-            </div>
-            <div className="text-center p-3 bg-[#362428]/70 rounded-xl border border-[#362428]/60">
-              <div className="text-2xl font-bold text-[#FF8163]">0.8s</div>
-              <div className="text-xs text-gray-400 font-medium">Response</div>
-            </div>
-          </div>
         </div>
       </div>
 
-      <div className="absolute -left-17 bottom-10 w-18 h-18 bg-[#3E2C31] rounded-2xl flex items-center justify-center shadow-2xl border border-white/20">
+      {/* <div className="absolute -left-17 bottom-10 w-18 h-18 bg-[#3E2C31] rounded-2xl flex items-center justify-center shadow-2xl border border-white/20">
         <Cpu className="w-8 h-8 text-white" />
       </div>
-
-      {/* <div className="absolute -left-12 bottom-16 w-14 h-14 bg-cyan-400 via-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-2xl  border border-cyan-400/40">
-        <Globe className="w-6 h-6 text-white" />
-      </div> */}
-
-      {/* Premium Usage Card */}
       <div className="absolute -top-8 -right-12 bg-gray-900/20 backdrop-blur-xl rounded-2xl p-4 border border-white/20 shadow-2xl">
         <div className="flex items-center space-x-2 mb-2">
           <Star className="w-4 h-4 text-yellow-400" />
@@ -210,9 +188,9 @@ const PDFWidget = () => {
           </div>
         </div>
         <div className="w-20 h-2 bg-gray-700 rounded-full mt-3 overflow-hidden">
-          <div className="w-16 h-2 bg-[#FF8163] rounded-full"></div>
-        </div>
-      </div>
+          <div className="w-16 h-2 bg-[#FF8163] rounded-full"></div> */}
+        {/* </div>
+      </div> */}
     </div>
   );
 };
