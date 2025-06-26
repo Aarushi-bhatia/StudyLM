@@ -20,7 +20,7 @@ export async function addToStore(embeddings, chunks, docId) {
     metadata: { chunk: chunks[i], docId },
   }));
 
-  await index.upsert(vectors);
+  await index.upsert({vectors, namespace: docId});
 }
 
 
@@ -36,6 +36,7 @@ if(!docId){
     vector: questionEmbedding,
     topK,
     includeMetadata: true,
+    namespace: docId,
   };
   if(docId){
     queryOptions.filter = { docId}
