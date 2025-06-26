@@ -243,7 +243,7 @@ const PDFChatHomepage = () => {
                 <div
                   className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl ${
                     message.type === "user"
-                      ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white"
+                      ? "bg-[#FF8163]/20  text-white backdrop-blur-sm border border-white/20"
                       : message.type === "system"
                       ? "bg-green-500/20 text-green-300 border border-green-500/30"
                       : "bg-white/10 text-white backdrop-blur-sm border border-white/20"
@@ -310,13 +310,13 @@ const PDFChatHomepage = () => {
                       : "Upload a PDF to start chatting..."
                   }
                   disabled={!uploadedFile}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent backdrop-blur-sm disabled:opacity-50"
+                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF8163]  focus:border-transparent backdrop-blur-sm disabled:opacity-50"
                 />
               </div>
               <button
                 onClick={handleSendMessage}
                 disabled={!inputValue.trim() || !uploadedFile}
-                className="px-4 py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 disabled:from-gray-600 disabled:to-gray-600 text-white rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-3 bg-[#FF8163] hover:bg-[#FF8163]/80 disabled:from-gray-600 disabled:to-gray-600 text-white rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send className="w-5 h-5" />
               </button>
