@@ -8,7 +8,7 @@ import { runRAG } from "../rag/rag.js";
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-router.post("/", upload.single("document"), async (req, res) => {
+router.post("/", authMiddleware, upload.single("document"), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
@@ -22,7 +22,7 @@ router.post("/", upload.single("document"), async (req, res) => {
     // Save doc metadata to DB
     await Document.create({
       name: req.file.originalname,
-      userId: "test", 
+      userId: req.user.id, 
     });
 
     res.json({ answer });
