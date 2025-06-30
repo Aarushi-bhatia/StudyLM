@@ -3,7 +3,7 @@ import multer from "multer";
 import extractTextFromPDF from "../utils/extractPdf.js";
 import Document from "../models/Document.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
-import genAI from "../utils/gemini.js"; 
+import { runRAG } from "../rag/rag.js";
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -17,12 +17,7 @@ router.post("/", upload.single("document"), async (req, res) => {
 
     const pdfText = await extractTextFromPDF(req.file.buffer);
 
-    const truncatedText = pdfText.slice(0, 10000);
-
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const result = await model.generateContent(`Answer the following question based on the document:\n\nQuestion: ${question}\n\nDocument:\n${truncatedText}`);
-    const response = await result.response;
-    const answer = response.text();
+   const answer = await runRAG(pdfText, question);
 
     // Save doc metadata to DB
     await Document.create({
