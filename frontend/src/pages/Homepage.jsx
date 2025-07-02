@@ -8,7 +8,7 @@ const Homepage = () => {
   const [isDocumentUploaded, setIsDocumentUploaded] = useState(false);
 
   return (
-    <div className="flex flex-col h-screen bg-[#2C2025] text-white">
+    <div className="flex flex-col h-screen bg-[#2C2025] text-white overflow-hidden">
       <AuthProvider>
       <Nav />
       </AuthProvider>

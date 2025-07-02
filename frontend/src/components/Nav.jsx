@@ -40,7 +40,7 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
   };
 
   return (
-    <main className="bg-none px-[3%] pt-6">
+    <main className="top-0 sticky z-10 bg-none px-[3%] pt-6">
       <nav className="flex justify-between items-center px-6 md:px-12 py-3 bg-transparent sticky top-0 z-50 rounded-2xl border border-none shadow-[0_12px_24px_rgba(0,0,0,0.25)] backdrop-blur-md">
         {/* left */}
         <div className="flex items-center gap-2 text-white">
@@ -99,7 +99,7 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
                 </span>
                 <button
                   onClick={handleResetDocument}
-                  className="text-green-300 hover:text-red-500"
+                  className="text-green-300 hover:text-green-500 cursor-pointer"
                   title="Remove file"
                 >
                   <X className="w-4 h-4" />
@@ -109,12 +109,12 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
           </div>
           {username ? (
             <div className="flex items-center gap-4">
-              <span className="px-6 py-1 text-lg font-semibold text-white">
+              <span className="px-6 py-1 text-lg font-semibold text-white/80">
                 {username}
               </span>
               <button
                 onClick={handleLogout}
-                className="px-4 py-1 text-sm font-semibold text-white bg-red-500 rounded-full hover:bg-red-600 transition"
+                className="px-4 py-2 rounded-2xl text-sm font-semibold text-white bg-red-500/10 border border-red-600/20 hover:bg-red-600/20 transition cursor-pointer"
               >
                 Logout
               </button>
