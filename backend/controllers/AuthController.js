@@ -1,20 +1,37 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import validator from "validator";
 
 export const signup = async (req, res) => {
   const { username, email, password } = req.body;
 
+  if (!username || !email || !password) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
+  if (!validator.isEmail(email)) {
+    return res.status(400).json({ message: "Invalid email format." });
+  }
+  const strongPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$/;
+  if (!strongPassword.test(password)) {
+    return res.status(400).json({
+      message:
+        "Password must be at least 6 characters and include at least one letter and one number.",
+    });
+  }
+
   try {
     const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: "Email already registered." });
+    if (existingUser)
+      return res.status(400).json({ message: "Email already registered." });
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = new User({
       username,
       email,
-      passwordHash: hashedPassword
+      passwordHash: hashedPassword,
     });
 
     await user.save();

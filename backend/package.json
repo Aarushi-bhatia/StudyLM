@@ -29,6 +29,7 @@
     "npm": "^11.4.2",
     "pdf-parse": "^1.1.1",
     "pdf.js-extract": "^0.2.1",
-    "pdfjs-dist": "^5.0.375"
+    "pdfjs-dist": "^5.0.375",
+    "validator": "^13.15.15"
   }
 }
