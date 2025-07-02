@@ -2,20 +2,35 @@ import React, { useState } from "react";
 import Nav from "../components/Nav";
 import Welcome from "../components/Welcome";
 import { AuthProvider } from "../context/AuthContext";
+import Features from "../HomeComponents/Features";
+import AboutUs from "../HomeComponents/AboutUs";
+import FAQ from "../HomeComponents/FAQ";
+import Reviews from "../HomeComponents/Reviews";
+import CTA from "../HomeComponents/CTA";
+import Footer from "../HomeComponents/Footer";
+import VerticalMoving from "../HomeComponents/Carousal";
 
 const Homepage = () => {
-  const [answers, setAnswers] = useState([]);
-  const [isDocumentUploaded, setIsDocumentUploaded] = useState(false);
 
   return (
-    <div className="flex flex-col h-screen bg-[#2C2025] text-white overflow-hidden">
-      <AuthProvider>
+    <>
+    <AuthProvider>
       <Nav />
       </AuthProvider>
+    <div className="flex flex-col h-screen bg-[#2C2025]">
+      
       <main className="flex-grow p-4">
         <Welcome />
       </main>
-    </div>
+      </div>
+      <Features />
+      <AboutUs />
+      {/* <FAQ /> */}
+      <Reviews />
+      {/* <CTA /> */}
+      <Footer />
+    
+    </>
   );
 };
 

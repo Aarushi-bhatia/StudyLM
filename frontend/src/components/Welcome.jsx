@@ -67,13 +67,13 @@ const Welcome = () => {
     }
   };
   return (
-    <div className="relative  flex flex-col items-center justify-center h-full max-w-7xl mx-auto">
+    <div className="relative flex flex-col items-center justify-center h-full max-w-7xl mx-auto">
       {/* Welcome message */}
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#E2745B_0%,_transparent_60%)] blur-3xl opacity-50 -top-30 left-150 z-0"></div>
 
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#1E90FF_0%,_transparent_35%)] blur-3xl opacity-30 top-90 left-50 z-0"></div>
 
-      <div className="flex gap-10 -ml-30">
+      <div className="flex gap-10 -ml-30 -mt-16">
         {/* Subheading */}
         <div className="relative text-left mt-20">
           <h1 className="text-7xl text-[#FF8163] font-bold">Ask. Read.</h1>
