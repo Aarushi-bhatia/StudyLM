@@ -85,20 +85,7 @@ const PDFChatHomepage = () => {
       setIsTyping(false);
     }
   };
-  // Simulate AI response
-  // setTimeout(() => {
-  //   setIsTyping(false);
-  //   const botResponse = {
-  //     id: Date.now() + 1,
-  //     type: "bot",
-  //     content: uploadedFile
-  //       ? `Based on your PDF "${uploadedFile.name}", I can see that... [This would be the AI's analysis of your document]`
-  //       : "Please upload a PDF first so I can analyze it and answer your questions!",
-  //     timestamp: new Date(),
-  //   };
-  //   setMessages((prev) => [...prev, botResponse]);
-  // }, 1500);
-  //}
+  
 
   const handleFileUpload = (file) => {
     if (file && file.type === "application/pdf") {
@@ -112,6 +99,20 @@ const PDFChatHomepage = () => {
       setMessages((prev) => [...prev, uploadMessage]);
     }
   };
+
+const handleResetDocument = () => {
+  setUploadedFile(null);
+  setMessages([
+    {
+      id: 1,
+      type: "bot",
+      content:
+        "Hi! I'm ready to help you analyze your PDF. Upload a document and ask me anything about it!",
+      timestamp: new Date(),
+    },
+  ]);
+  setInputValue("");
+};
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -141,19 +142,10 @@ const PDFChatHomepage = () => {
     <div className="min-h-screen bg-[#2C2025] via-purple-900 to-slate-900 flex flex-col">
       {/* Header */}
       <AuthProvider>
-        <Nav />
+        <Nav uploadedFile={uploadedFile} handleResetDocument={handleResetDocument} />
       </AuthProvider>
 
-      <div className="max-w-4xl mx-auto flex align-right justify-between">
-        {uploadedFile && (
-          <div className="flex items-center mt-2 space-x-2 bg-green-500/20 px-3 py-2 rounded-lg border border-green-500/30">
-            <FileCheck className="w-4 h-4 text-green-400" />
-            <span className="text-sm text-green-300 truncate max-w-32">
-              {uploadedFile.name}
-            </span>
-          </div>
-        )}
-      </div>
+     
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#E2745B_0%,_transparent_40%)] blur-3xl opacity-50 top-20 left-250 z-0"></div>
 
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#E2745B_0%,_transparent_35%)] blur-3xl opacity-30 top-90 left-50 z-0"></div>
