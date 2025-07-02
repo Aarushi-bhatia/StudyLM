@@ -9,7 +9,7 @@ const navlinks = [
   { navs: "/#home", name: "Home" },
   { navs: "/#features", name: "Features" },
   { navs: "/#aboutus", name: "About Us" },
-  { navs: "/#faqs", name: "FAQs" },
+  // { navs: "/#faqs", name: "FAQs" },
   { navs: "/#reviews", name: "Review" },
 ];
 
@@ -40,7 +40,7 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
   };
 
   return (
-    <main className="top-0 sticky z-10 bg-none px-[3%] pt-6">
+    <main className="top-0 sticky z-30 bg-none px-[3%] pt-6">
       <nav className="flex justify-between items-center px-6 md:px-12 py-3 bg-transparent sticky top-0 z-50 rounded-2xl border border-none shadow-[0_12px_24px_rgba(0,0,0,0.25)] backdrop-blur-md">
         {/* left */}
         <div className="flex items-center gap-2 text-white">
