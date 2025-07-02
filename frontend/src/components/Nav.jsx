@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MessageSquareCode } from "lucide-react";
+import { FileCheck, MessageSquareCode, X } from "lucide-react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import Auth from "../auth/Auth";
@@ -13,22 +13,11 @@ const navlinks = [
   { navs: "/#reviews", name: "Review" },
 ];
 
-const Nav = () => {
+const Nav = ({ uploadedFile, handleResetDocument }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
-
-
-  const handleResetDocument = () => {
-    // Reset document state
-    setFile(null);
-    setFileName("");
-    setSummary("");
-    setAnswers([]);
-    setIsDocumentUploaded(false);
-    setError("");
-  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -101,6 +90,23 @@ const Nav = () => {
           </div>
         )}
         <div className="hidden md:flex items-center">
+          <div className="max-w-4xl mx-auto flex align-right justify-between">
+            {uploadedFile && (
+              <div className="flex items-center mt-2 space-x-2 bg-green-500/20 px-3 py-2 rounded-lg border border-green-500/30">
+                <FileCheck className="w-4 h-4 text-green-400" />
+                <span className="text-sm text-green-300 truncate max-w-32">
+                  {uploadedFile.name}
+                </span>
+                <button
+                  onClick={handleResetDocument}
+                  className="text-green-300 hover:text-red-500"
+                  title="Remove file"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+          </div>
           {username ? (
             <div className="flex items-center gap-4">
               <span className="px-6 py-1 text-lg font-semibold text-white">
