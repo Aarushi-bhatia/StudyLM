@@ -21,28 +21,44 @@ export const signup = async (req, res) => {
 
     res.status(201).json({ message: "User created successfully." });
   } catch (err) {
+    // console.error("Signup Error:", err);
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
+  // console.log("Login request:", email, password); // 👈 log input
 
   try {
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "Invalid email or password." });
+    if (!user) {
+      // console.log("No user found for email:", email);
+      return res.status(400).json({ message: "Invalid email or password." });
+    }
 
     const isMatch = await bcrypt.compare(password, user.passwordHash);
-    if (!isMatch) return res.status(400).json({ message: "Invalid email or password." });
+    if (!isMatch) {
+      // console.log("Password does not match for user:", user.username);
+      return res.status(400).json({ message: "Invalid email or password." });
+    }
 
     const token = jwt.sign(
       { id: user._id, username: user.username, email: user.email },
       process.env.JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: "3d" }
     );
 
-    res.status(200).json({ token, user: { username: user.username, email: user.email } });
+    // console.log("Login successful for:", user.username);
+    res.status(200).json({
+      token,
+      user: {
+        username: user.username,
+        email: user.email,
+      },
+    });
   } catch (err) {
+    // console.error("Login error:", err);
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
