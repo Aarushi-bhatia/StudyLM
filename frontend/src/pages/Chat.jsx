@@ -245,7 +245,7 @@ const handleResetDocument = () => {
                       : "bg-white/10 text-white backdrop-blur-sm border border-white/20"
                   }`}
                 >
-                  <p className="text-sm"><ReactMarkdown>{message.content}</ReactMarkdown></p>
+                  <div className="text-sm"><ReactMarkdown>{message.content}</ReactMarkdown></div>
                   <span className="text-xs opacity-70 mt-1 block">
                     {message.timestamp.toLocaleTimeString()}
                   </span>
