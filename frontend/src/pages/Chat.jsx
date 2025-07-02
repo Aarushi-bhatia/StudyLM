@@ -6,12 +6,11 @@ import {
   Sparkles,
   MessageSquare,
   Zap,
-  Brain,
-  FileCheck,
 } from "lucide-react";
 import Nav from "../components/Nav";
 import axios from "axios";
 import { AuthProvider } from "../context/AuthContext";
+import ReactMarkdown from "react-markdown";
 
 const PDFChatHomepage = () => {
   const [messages, setMessages] = useState([
@@ -150,7 +149,7 @@ const handleResetDocument = () => {
 
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#E2745B_0%,_transparent_35%)] blur-3xl opacity-30 top-90 left-50 z-0"></div>
       {/* Main Content */}
-      <div className="flex-1 flex max-w-4xl mx-auto w-full">
+      <div className="flex-1 flex max-w-4xl mx-auto w-full ">
         {/* Chat Area */}
         <div className="flex-1 flex flex-col">
           {/* Messages */}
@@ -246,7 +245,7 @@ const handleResetDocument = () => {
                       : "bg-white/10 text-white backdrop-blur-sm border border-white/20"
                   }`}
                 >
-                  <p className="text-sm">{message.content}</p>
+                  <p className="text-sm"><ReactMarkdown>{message.content}</ReactMarkdown></p>
                   <span className="text-xs opacity-70 mt-1 block">
                     {message.timestamp.toLocaleTimeString()}
                   </span>
@@ -293,7 +292,7 @@ const handleResetDocument = () => {
           )}
 
           {/* Input Area */}
-          <div className="p-6 bg-black/20 backdrop-blur-xl border-t border-white/10">
+          <div className="sticky bottom-0 p-6 bg-black/20 backdrop-blur-xl border-t border-white/10">
             <div className="flex space-x-3">
               <div className="flex-1 relative">
                 <input
