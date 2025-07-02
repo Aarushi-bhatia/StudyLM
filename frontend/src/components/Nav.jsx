@@ -46,7 +46,7 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
         <div className="flex items-center gap-2 text-white">
           {/* <img src="/logo.png" alt="" className="w-10 h-10" /> */}
           <MessageSquareCode />
-          <div className="text-2xl font-bold text-[#FFFFF]">AskYourDoc</div>
+          <div className="text-2xl font-bold text-[#FFFFF] cursor-pointer" onClick={() => navigate("/")}>AskYourDoc</div>
         </div>
 
         {/* Hamburger Icon */}
