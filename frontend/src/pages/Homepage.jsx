@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Nav from "../components/Nav";
 import Welcome from "../components/Welcome";
+import { AuthProvider } from "../context/AuthContext";
 
 const Homepage = () => {
   const [answers, setAnswers] = useState([]);
@@ -8,7 +9,9 @@ const Homepage = () => {
 
   return (
     <div className="flex flex-col h-screen bg-[#2C2025] text-white">
+      <AuthProvider>
       <Nav />
+      </AuthProvider>
       <main className="flex-grow p-4">
         <Welcome />
       </main>

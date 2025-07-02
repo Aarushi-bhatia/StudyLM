@@ -46,7 +46,7 @@ const Auth = () => {
       if (isLogin) {
         // Save token to localStorage
         localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("username", data.user.username);
         setMessage("Logged in successfully ✅");
         navigate("/chat");
       } else {
@@ -64,7 +64,7 @@ const Auth = () => {
         }
 
         localStorage.setItem("token", loginData.token);
-        localStorage.setItem("user", JSON.stringify(loginData.user));
+        localStorage.setItem("username", loginData.user.username);
         setMessage("Signed up and logged in ✅");
         navigate("/chat");
       }

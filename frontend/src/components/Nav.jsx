@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { MessageSquareCode } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import Auth from "../auth/Auth";
+import { useEffect } from "react";
 
 const navlinks = [
   { navs: "/#home", name: "Home" },
@@ -15,8 +16,9 @@ const navlinks = [
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const [username, setUsername] = useState("");
+  const navigate = useNavigate();
+
 
   const handleResetDocument = () => {
     // Reset document state
@@ -26,6 +28,26 @@ const Nav = () => {
     setAnswers([]);
     setIsDocumentUploaded(false);
     setError("");
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const name = localStorage.getItem("username");
+    if (token && name) {
+      setUsername(name);
+    } else {
+      setUsername("");
+    }
+  }, [location]);
+
+  const isChatRoute = location.pathname === "/chat";
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("user");
+    setUsername("");
+    navigate("/");
   };
 
   return (
@@ -49,40 +71,56 @@ const Nav = () => {
         </button>
 
         {/* Navigation Links */}
-        <div className="absolute md:static inset-x-0 md:flex md:justify-center mx-auto">
-          <ul
-            className={`flex-col md:flex md:flex-row md:justify-center gap-6 text-lg font-semibold text-gray-300 absolute md:static top-full left-0 w-full md:w-auto bg-white md:bg-transparent px-6 md:px-0 py-4 md:py-0 transition-all duration-300 ease-in ${
-              isOpen ? "flex" : "hidden"
-            }`}
-          >
-            {navlinks.map((item, index) => (
-              <li key={index}>
+        {!isChatRoute && (
+          <div className="absolute md:static inset-x-0 md:flex md:justify-center mx-auto">
+            <ul
+              className={`flex-col md:flex md:flex-row md:justify-center gap-6 text-lg font-semibold text-gray-300 absolute md:static top-full left-0 w-full md:w-auto bg-white md:bg-transparent px-6 md:px-0 py-4 md:py-0 transition-all duration-300 ease-in ${
+                isOpen ? "flex" : "hidden"
+              }`}
+            >
+              {navlinks.map((item, index) => (
+                <li key={index}>
+                  <a
+                    href={item.navs}
+                    className="block py-2 md:py-0 hover:text-secondary transition"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </a>
+                </li>
+              ))}
+              <li className="md:hidden">
                 <a
-                  href={item.navs}
-                  className="block py-2 md:py-0 hover:text-secondary transition"
-                  onClick={() => setIsOpen(false)}
+                  href="/auth"
+                  className="block px-6 py-1 text-lg border/10 border-gray-800 rounded-full text-gray-300 font-[550] bg-primary hover:opacity-90 transition shadow-[0_4px_12px_rgba(0,0,0,0.2)] text-center"
                 >
-                  {item.name}
+                  Login / Signup
                 </a>
               </li>
-            ))}
-            <li className="md:hidden">
-              <a
-                href="/auth"
-                className="block px-6 py-1 text-lg border/10 border-gray-800 rounded-full text-gray-300 font-[550] bg-primary hover:opacity-90 transition shadow-[0_4px_12px_rgba(0,0,0,0.2)] text-center"
-              >
-                Login / Signup
-              </a>
-            </li>
-          </ul>
-        </div>
+            </ul>
+          </div>
+        )}
         <div className="hidden md:flex items-center">
-          <a
-            href="/auth"
-            className="px-6 py-1 text-lg border/10 border-white rounded-full text-white font-[550] bg-[#FF8163] hover:opacity-90 transition shadow-[0_4px_12px_rgba(0,0,0,0.2)]"
-          >
-            Login / Signup
-          </a>
+          {username ? (
+            <div className="flex items-center gap-4">
+              <span className="px-6 py-1 text-lg font-semibold text-white">
+                {username}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-1 text-sm font-semibold text-white bg-red-500 rounded-full hover:bg-red-600 transition"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <a
+              href="/auth"
+              className="px-6 py-1 text-lg border/10 border-white rounded-full text-white font-[550] bg-[#FF8163] hover:opacity-90 transition shadow-[0_4px_12px_rgba(0,0,0,0.2)]"
+            >
+              Login / Signup
+            </a>
+          )}
         </div>
       </nav>
     </main>

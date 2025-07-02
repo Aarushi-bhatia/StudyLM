@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Nav from "../components/Nav";
 import axios from "axios";
+import { AuthProvider } from "../context/AuthContext";
 
 const PDFChatHomepage = () => {
   const [messages, setMessages] = useState([
@@ -55,10 +56,12 @@ const PDFChatHomepage = () => {
       const formData = new FormData();
       formData.append("document", uploadedFile);
       formData.append("question", inputValue);
+      const token = localStorage.getItem("token");
 
       const response = await axios.post("http://localhost:5000/ask", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -137,7 +140,9 @@ const PDFChatHomepage = () => {
   return (
     <div className="min-h-screen bg-[#2C2025] via-purple-900 to-slate-900 flex flex-col">
       {/* Header */}
-      <Nav />
+      <AuthProvider>
+        <Nav />
+      </AuthProvider>
 
       <div className="max-w-4xl mx-auto flex align-right justify-between">
         {uploadedFile && (
