@@ -3,71 +3,9 @@ import { Link } from "react-router-dom";
 import PDFWidget from "./PDFWidget";
 
 const Welcome = () => {
-  const [file, setFile] = useState(null);
-  const [summary, setSummary] = useState("");
-  const [answers, setAnswers] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [fileName, setFileName] = useState("");
-  const [isDocumentUploaded, setIsDocumentUploaded] = useState(false);
 
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-      setFileName(selectedFile.name);
-    }
-  };
-
-  const handleUpload = async () => {
-    if (!file) {
-      setError("Please select a file.");
-      return;
-    }
-
-    if (file.type !== "application/pdf") {
-      setError("Please upload a PDF file.");
-      return;
-    }
-
-    setLoading(true);
-    setError("");
-    const formData = new FormData();
-    formData.append("document", file);
-
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/upload`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setSummary(data.summary);
-      setIsDocumentUploaded(true);
-
-      // Add the summary as the first message in the conversation
-      setAnswers([
-        {
-          type: "summary",
-          content: data.summary,
-        },
-      ]);
-    } catch (error) {
-      setError("An error occurred while uploading the file.");
-      console.error("Error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
   return (
-    <div className="relative flex flex-col items-center justify-center h-full max-w-7xl mx-auto">
+    <div id="home" className="relative flex flex-col items-center justify-center h-full max-w-7xl mx-auto">
       {/* Welcome message */}
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#E2745B_0%,_transparent_60%)] blur-3xl opacity-50 -top-30 left-150 z-0"></div>
 
