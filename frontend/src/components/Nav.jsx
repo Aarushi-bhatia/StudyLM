@@ -51,7 +51,7 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
 
         {/* Hamburger Icon */}
         <button
-          className="md:hidden text-2xl focus:outline-none"
+          className="md:hidden  text-white z-30 text-2xl focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle navigation"
         >
@@ -63,7 +63,7 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
         {!isChatRoute && (
           <div className="absolute md:static inset-x-0 md:flex md:justify-center mx-auto">
             <ul
-              className={`flex-col md:flex md:flex-row md:justify-center gap-6 text-lg font-semibold text-gray-300 absolute md:static top-full left-0 w-full md:w-auto bg-white md:bg-transparent px-6 md:px-0 py-4 md:py-0 transition-all duration-300 ease-in ${
+              className={`flex-col rounded-lg md:flex md:flex-row md:justify-center gap-6 text-lg font-semibold text-white absolute md:static top-full left-0 w-full md:w-auto bg-[#2C2025] md:bg-transparent px-6 md:px-0 py-4 md:py-0 transition-all duration-300 ease-in ${
                 isOpen ? "flex" : "hidden"
               }`}
             >
@@ -81,7 +81,7 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
               <li className="md:hidden">
                 <a
                   href="/auth"
-                  className="block px-6 py-1 text-lg border/10 border-gray-800 rounded-full text-gray-300 font-[550] bg-primary hover:opacity-90 transition shadow-[0_4px_12px_rgba(0,0,0,0.2)] text-center"
+                  className="block px-6 py-1 text-lg border/10 border-white rounded-full text-white font-[550] bg-[#FF8163] hover:opacity-90 transition shadow-[0_4px_12px_rgba(0,0,0,0.2)] text-center"
                 >
                   Login / Signup
                 </a>

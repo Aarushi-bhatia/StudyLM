@@ -30,6 +30,7 @@ const Welcome = () => {
         <div className="z-10">
           <PDFWidget />
         </div>
+        
       </div>
     </div>
   );

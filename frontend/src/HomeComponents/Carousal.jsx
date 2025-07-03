@@ -51,50 +51,50 @@ const Carousal = () => {
   const extendedReviews = [...reviews, ...reviews, ...reviews];
 
   return (
-    <div className="py-16 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4">
+    <div className="py-12 sm:py-16 lg:py-20 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Horizontal scrolling container */}
         <div className="relative">
           {/* Left fade */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#2C2025] via-transparent to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-r from-[#2C2025] via-transparent to-transparent z-10 pointer-events-none"></div>
 
           {/* Right fade */}
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#2C2025] via-transparent to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-l from-[#2C2025] via-transparent to-transparent z-10 pointer-events-none"></div>
 
           <div className="overflow-hidden">
-            <div className="flex animate-scroll gap-6 hover:pause">
+            <div className="flex animate-scroll gap-4 sm:gap-6 hover:pause">
               {extendedReviews.map((review, index) => (
                 <div
                   key={`${review.id}-${Math.floor(index / reviews.length)}`}
-                  className="flex-shrink-0 w-80 bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300"
+                  className="flex-shrink-0 w-72 sm:w-80 lg:w-96 bg-white/10 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300"
                 >
                   {/* Stars */}
-                  <div className="flex mb-4">
+                  <div className="flex mb-3 sm:mb-4">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <Star
                         key={star}
-                        className="w-4 h-4 fill-yellow-400 text-yellow-400"
+                        className="w-3 h-3 sm:w-4 sm:h-4 fill-yellow-400 text-yellow-400"
                       />
                     ))}
                   </div>
 
                   {/* Review text */}
-                  <p className="text-gray-200 text-sm leading-relaxed mb-4 line-clamp-4">
+                  <p className="text-gray-200 text-xs sm:text-sm lg:text-base leading-relaxed mb-3 sm:mb-4 line-clamp-4">
                     "{review.text}"
                   </p>
 
                   {/* User info */}
                   <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-orange-400 to-pink-500 flex items-center justify-center mr-3">
-                      <span className="text-white font-semibold text-sm">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-orange-400 to-pink-500 flex items-center justify-center mr-2 sm:mr-3 flex-shrink-0">
+                      <span className="text-white font-semibold text-xs sm:text-sm">
                         {review.initials}
                       </span>
                     </div>
-                    <div>
-                      <h4 className="text-white font-semibold text-sm">
+                    <div className="min-w-0">
+                      <h4 className="text-white font-semibold text-xs sm:text-sm truncate">
                         {review.name}
                       </h4>
-                      <p className="text-gray-400 text-xs">{review.role}</p>
+                      <p className="text-gray-400 text-xs truncate">{review.role}</p>
                     </div>
                   </div>
                 </div>
@@ -110,7 +110,29 @@ const Carousal = () => {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(calc(-320px * ${reviews.length}));
+            transform: translateX(calc(-288px * ${reviews.length}));
+          }
+        }
+
+        @media (min-width: 640px) {
+          @keyframes scroll {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(calc(-320px * ${reviews.length}));
+            }
+          }
+        }
+
+        @media (min-width: 1024px) {
+          @keyframes scroll {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(calc(-384px * ${reviews.length}));
+            }
           }
         }
 
