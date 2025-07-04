@@ -13,6 +13,8 @@ import { AuthProvider } from "../context/AuthContext";
 import ReactMarkdown from "react-markdown";
 
 const PDFChatHomepage = () => {
+  const backend_IP = import.meta.env.VITE_BACKEND_IP
+
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -57,7 +59,7 @@ const PDFChatHomepage = () => {
       formData.append("question", inputValue);
       const token = localStorage.getItem("token");
 
-      const response = await axios.post("http://localhost:5000/ask", formData, {
+      const response = await axios.post(`${backend_IP}/ask`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
