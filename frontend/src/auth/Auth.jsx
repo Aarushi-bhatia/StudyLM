@@ -27,32 +27,48 @@ const backend_IP = import.meta.env.VITE_BACKEND_IP
     }
 
     try {
-      const response = await fetch(
-        `${backend_IP}/api/${isLogin ? "login" : "signup"}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(
-            isLogin ? { email, password } : { username: name, email, password }
-          ),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setMessage(data.message || "Something went wrong.");
-        return;
-      }
-
       if (isLogin) {
-        // Save token to localStorage
+        // Login flow
+        const response = await fetch(
+          `${backend_IP}/api/login`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          setMessage(data.message || "Something went wrong.");
+          return;
+        }
+
         localStorage.setItem("token", data.token);
         localStorage.setItem("username", data.user.username);
         setMessage("Logged in successfully ✅");
         navigate("/chat");
       } else {
-        const loginRes = await fetch(`${backend_IP}/login`, {
+
+        const response = await fetch(
+          `${backend_IP}/api/signup`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: name, email, password }),
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          setMessage(data.message || "Something went wrong.");
+          return;
+        }
+
+        // After successful signup, attempt login
+        const loginRes = await fetch(`${backend_IP}/api/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),
@@ -61,7 +77,8 @@ const backend_IP = import.meta.env.VITE_BACKEND_IP
         const loginData = await loginRes.json();
 
         if (!loginRes.ok) {
-          setMessage(loginData.message || "Signup succeeded but login failed.");
+          setMessage("Account created successfully! Please log in.");
+          setIsLogin(true); // Switch to login mode
           return;
         }
 
