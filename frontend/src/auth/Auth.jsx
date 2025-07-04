@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const navigate = useNavigate();
+ 
+const backend_IP = import.meta.env.VITE_BACKEND_IP
 
   const [isLogin, setIsLogin] = useState(true);
   const [name, setName] = useState("");
@@ -26,7 +28,7 @@ const Auth = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/${isLogin ? "login" : "signup"}`,
+        `${backend_IP}/api/${isLogin ? "login" : "signup"}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -50,7 +52,7 @@ const Auth = () => {
         setMessage("Logged in successfully ✅");
         navigate("/chat");
       } else {
-        const loginRes = await fetch("http://localhost:5000/api/login", {
+        const loginRes = await fetch(`${backend_IP}/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),

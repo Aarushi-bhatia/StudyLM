@@ -27,7 +27,6 @@
     "mongoose": "^8.12.1",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.10",
-    "npm": "^11.4.2",
     "pdf-parse": "^1.1.1",
     "pdf.js-extract": "^0.2.1",
     "pdfjs-dist": "^5.0.375",
