@@ -1,3 +1,5 @@
 node_modules
 .env
-textRag.js
+testRag.js
+/backend/rag/*
+!/backend/rag/README.md
