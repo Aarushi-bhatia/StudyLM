@@ -1,15 +1,21 @@
-# **DocChat - AI-Powered Document Q&A**  
+# **AskYourDoc - AI-Powered Document Q&A**  
 
-DocChat is a MERN stack web app that allows users to upload documents, generate summaries, and interact with them using AI-powered Q&A.  
+A platform to chat with your documents using AI. Fast, human-friendly, and RAG-powered.
 
 ## **Features**  
-✅ Upload PDF documents  
-✅ Extract text from uploaded files  
-✅ Get AI-generated summaries  
-✅ Ask questions related to the document  
+✅ Upload PDFs and ask context-aware questions
+✅ Fast, accurate answers using **Gemini Pro + RAG**
+✅ Embedding with **Google Gemini** and **Pinecone**
+✅ JWT-based **multi-user authentication**
+
+Try it live : [🔗 askyourdoc.vercel.app](https://askyourdoc.vercel.app)
+
 
 ## **Tech Stack**  
-- **Frontend:** React, Tailwind CSS  
-- **Backend:** Node.js, Express  
-- **Database:** MongoDB  
-- **AI Processing:** Gemini API  
+| Category        | Tech Used                                  |
+|----------------|---------------------------------------------|
+| Frontend       | React, Tailwind CSS, React Router           |
+| Backend        | Node.js, Express, Gemini API, Pinecone |
+| Auth & Tiers   | JWT, MongoDB                          |
+| AI & Search    | RAG (Retrieval-Augmented Generation), Langchain |
+| DevOps         | AWS, Vercel                           |
