@@ -7,7 +7,7 @@ const Reviews = () => {
       id="reviews"
       className="min-h-screen flex items-center justify-center text-white py-12 sm:py-16 lg:py-20"
     >
-      <div className="max-w-sm  sm:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-sm  sm:max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 relative z-10">
         <div>
           <div className="text-center mb-8 sm:mb-4 lg:mb-6">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6">
