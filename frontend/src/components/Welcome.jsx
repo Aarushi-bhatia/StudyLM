@@ -11,7 +11,7 @@ const Welcome = () => {
 
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#1E90FF_0%,_transparent_35%)] blur-3xl opacity-30 top-90 left-50 z-0"></div>
 
-      <div className="flex gap-10 -ml-30 -mt-16">
+      <div className="flex gap-10 -ml-30 -mt-20">
         {/* Subheading */}
         <div className="relative text-left mt-20">
           <h1 className="text-7xl text-[#FF8163] font-bold">Ask. Read.</h1>
