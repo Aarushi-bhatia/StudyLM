@@ -3,10 +3,10 @@
 A platform to chat with your documents using AI. Fast, human-friendly, and RAG-powered.
 
 ## **Features**  
-✅ Upload PDFs and ask context-aware questions
-✅ Fast, accurate answers using **Gemini Pro + RAG**
-✅ Embedding with **Google Gemini** and **Pinecone**
-✅ JWT-based **multi-user authentication**
+- ✅ Upload PDFs and ask context-aware questions
+- ✅ Fast, accurate answers using **Gemini Pro + RAG**
+- ✅ Embedding with **Google Gemini** and **Pinecone**
+- ✅ JWT-based **multi-user authentication**
 
 Try it live : [🔗 askyourdoc.vercel.app](https://askyourdoc.vercel.app)
 
