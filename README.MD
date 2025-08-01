@@ -1,4 +1,4 @@
-# **AskYourDoc - AI-Powered Document Q&A**  
+# **StudyLM - AI-Powered Document Q&A**  
 
 A platform to chat with your documents using AI. Fast, human-friendly, and RAG-powered.
 
