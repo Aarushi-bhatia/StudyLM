@@ -1,19 +1,20 @@
 import { useState } from "react";
-import { FileCheck, MessageSquareCode, X } from "lucide-react";
+import { FileCheck, MessageSquareCode, Moon, Sun, X } from "lucide-react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-import Modal from "./Modal";
-import Auth from "../auth/Auth";
 import { useEffect } from "react";
+import useDarkMode from "../hooks/useDarkMode";
+import SunMoonToggle from "./SunMoonToggle";
 
 const navlinks = [
   { navs: "/#home", name: "Home" },
   { navs: "/#features", name: "Features" },
-  { navs: "/#aboutus", name: "About Us" },
+  // { navs: "/#aboutus", name: "About Us" },
   // { navs: "/#faqs", name: "FAQs" },
-  { navs: "/#reviews", name: "Review" },
+  // { navs: "/#reviews", name: "Review" },
 ];
 
 const Nav = ({ uploadedFile, handleResetDocument }) => {
+  const { isDark, toggleDarkMode } = useDarkMode();
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const [username, setUsername] = useState("");
@@ -40,13 +41,18 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
   };
 
   return (
-    <main className="top-0 sticky z-30 bg-none px-[3%] pt-6">
-      <nav className="flex justify-between items-center px-6 md:px-12 py-3 bg-transparent sticky top-0 z-50 rounded-2xl border border-none shadow-[0_12px_24px_rgba(0,0,0,0.25)] backdrop-blur-md">
+    <main className="top-0 sticky z-30 bg-none px-[3%] bg-background text-text">
+      <nav className="flex justify-between items-center px-6 md:px-12 py-4 bg-white dark:bg-[#0F172A] bg-background text-text sticky top-0 z-50 rounded-2xl border border-none ">
         {/* left */}
-        <div className="flex items-center gap-2 text-white">
+        <div className="flex items-center gap-2 text-text text-black">
           {/* <img src="/logo.png" alt="" className="w-10 h-10" /> */}
           <MessageSquareCode />
-          <div className="text-2xl font-bold text-[#FFFFF] cursor-pointer" onClick={() => navigate("/")}>AskYourDoc</div>
+          <div
+            className="text-2xl font-bold text-black text-text cursor-pointer"
+            onClick={() => navigate("/")}
+          >
+            StudyLM
+          </div>
         </div>
 
         {/* Hamburger Icon */}
@@ -81,7 +87,7 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
               <li className="md:hidden">
                 <a
                   href="/auth"
-                  className="block px-6 py-1 text-lg border/10 border-white rounded-full text-white font-[550] bg-[#FF8163] hover:opacity-90 transition shadow-[0_4px_12px_rgba(0,0,0,0.2)] text-center"
+                  className="block px-6 py-1 text-lg border border-black/40 rounded-full text-white font-[550] bg-white hover:opacity-90 transition text-center"
                 >
                   Login / Signup
                 </a>
@@ -107,6 +113,20 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
               </div>
             )}
           </div>
+          <div className="">
+          <button
+            onClick={toggleDarkMode}
+            className="cursor-pointer flex items-center justify-center mx-4"
+            aria-label="Toggle Dark Mode"
+          >
+            {isDark ? (
+              <Moon className="w-5 h-5 text-white drop-shadow-[0_0_6px_rgba(250,204,21,0.7)]" />
+            ) : (
+              <Sun className="w-5 h-5 text-black drop-shadow-[0_0_6px_rgba(250,204,21,0.7)]" />
+            )}
+            {/* <SunMoonToggle /> */}
+          </button>
+          </div>
           {username ? (
             <div className="flex items-center gap-4">
               <span className="px-6 py-1 text-lg font-semibold text-white/80">
@@ -122,7 +142,7 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
           ) : (
             <a
               href="/auth"
-              className="px-6 py-1 text-lg border/10 border-white rounded-full text-white font-[550] bg-[#FF8163] hover:opacity-90 transition shadow-[0_4px_12px_rgba(0,0,0,0.2)]"
+              className="px-6 py-1 text-lg border border-black/30 rounded-2xl text-black font-[550] bg-white hover:opacity-90 transition"
             >
               Login / Signup
             </a>

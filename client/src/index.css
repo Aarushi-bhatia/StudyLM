@@ -1,5 +1,49 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
-html, body {
-  background-color: #2C2025; 
+@theme {
+  --color-background: #ffffff;
+  --color-text: #111111;
+}
+
+@layer theme {
+  .dark {
+    --color-background: #0F172A;
+    --color-text: #F8FAFC;
+  }
+}
+
+@font-face {
+  font-family: 'shoika';
+  src: url('./Shoika/Shoika Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+.font-myfont {
+  font-family: 'shoika', sans-serif;
+}
+
+.textShine {
+    background: linear-gradient(
+        to right,
+        #3EFC57 , 10%,
+        #00affa 30%,
+        #0190cd 70%,
+        #764ada 80%,
+        #6F87F9
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+    background-size: 500% auto;
+    animation: textShine 3s ease-in-out infinite alternate;
+}
+@keyframes textShine {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
 }

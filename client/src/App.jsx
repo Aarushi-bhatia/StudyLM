@@ -10,9 +10,7 @@ const DocumentQA = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage />} />
-        
         <Route path="/chat" element={<ProtectedRoute> <PDFChatHomepage /> </ProtectedRoute>}/>
-        
         <Route path="/auth" element={<Auth />} />
         <Route />
       </Routes>

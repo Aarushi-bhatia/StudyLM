@@ -9,16 +9,16 @@ const PDFWidget = () => {
   const [particlePositions, setParticlePositions] = useState([]);
 
   const mockMessages = [
-    { type: "user", text: "🔍 Analyze this research paper", avatar: "👤" },
+    { type: "user", text: "Analyze this research paper", avatar: "👤" },
     {
       type: "bot",
-      text: "✨ Found 12 key insights about quantum computing...",
+      text: "Found 12 key insights about quantum computing...",
       avatar: "🤖",
     },
-    { type: "user", text: "🎯 What about the methodology?", avatar: "👤" },
+    { type: "user", text: " What about the methodology?", avatar: "👤" },
     {
       type: "bot",
-      text: "🧠 The paper uses novel ML approaches for...",
+      text: "The paper uses novel ML approaches for...",
       avatar: "🤖",
     },
   ];
@@ -68,7 +68,7 @@ const PDFWidget = () => {
         {particlePositions.map((particle) => (
           <div
             key={particle.id}
-            className="absolute w-1 h-1 bg-purple-400 to-pink-400 rounded-full opacity-30"
+            className="absolute w-1 h-1 bg-black rounded-full opacity-30"
             style={{
               left: `${particle.x}px`,
               top: `${particle.y}px`,
@@ -79,7 +79,7 @@ const PDFWidget = () => {
       </div>
 
       {/* Main Mac Window with Glass Effect */}
-      <div className="relative w-[420px] bg-gradient-to-br from-[#533A43] via-[#482D2D] to-[#362428] backdrop-blur-2xl rounded-2xl shadow-2xl overflow-hidden">
+      <div className="relative w-[420px] bg-white backdrop-blur-2xl rounded-2xl shadow-2xl overflow-hidden">
         {/* Enhanced Mac Title Bar */}
         <div className="relative flex items-center justify-between px-6 py-3 bg-gray-900/40 via-slate-800/80 to-gray-900/80 border-b border-white/10 backdrop-blur-xl">
           <div className="flex items-center space-x-3">
@@ -91,13 +91,9 @@ const PDFWidget = () => {
             <div className="flex items-center space-x-2 px-3 py-1 rounded-full ">
               <MessageSquareCode className="w-4 h-4 text-white" />
               <span className="text-sm text-white font-semibold bg-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Ask Your Doc
+                StudyLM
               </span>
             </div>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-white rounded-full"></div>
-            <span className="text-xs text-white font-medium">CORE</span>
           </div>
         </div>
 
@@ -106,15 +102,15 @@ const PDFWidget = () => {
           {/* Header Section */}
           <div className="flex items-center justify-between mb-6">
             <div className="relative">
-              <h3 className="text-2xl font-bold bg-white bg-clip-text text-transparent">
-                AI Document Chat
+              <h3 className="text-2xl font-bold bg-black bg-clip-text text-transparent">
+                AI Study Assistant
               </h3>
             </div>
             <div className="flex items-center space-x-2"></div>
           </div>
 
           {/* Enhanced Chat Preview */}
-          <div className="relative bg-gradient-to-br from-black/40 to-[#362428] rounded-xl p-4 mb-6 h-60 overflow-hidden border border-white/10">
+          <div className="relative bg-white rounded-xl p-4 mb-6 h-60 overflow-hidden border border-white/10">
             <div className="space-y-3 h-full overflow-hidden">
               {mockMessages.slice(0, currentMessage + 1).map((msg, index) => (
                 <div
@@ -129,8 +125,8 @@ const PDFWidget = () => {
                   <div
                     className={`max-w-[75%] px-3 py-2 rounded-2xl text-xs font-medium ${
                       msg.type === "user"
-                        ? "bg-[#FF8163] text-white shadow-lg "
-                        : "bg-gray-700/80 text-gray-100 shadow-lg"
+                        ? "bg-[#7182FF] text-white shadow-lg "
+                        : "bg-black/30 text-gray-100 shadow-lg"
                     }`}
                   >
                     {msg.text}
@@ -141,15 +137,15 @@ const PDFWidget = () => {
               {currentMessage < mockMessages.length - 1 && (
                 <div className="flex items-start space-x-2">
                   <div className="text-lg">🤖</div>
-                  <div className="bg-gray-700/80 to-purple-800/40 px-3 py-2 rounded-2xl border border-white/10">
+                  <div className="bg- px-3 py-2 rounded-2xl border border-black/30">
                     <div className="flex space-x-1">
-                      <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce"></div>
+                      <div className="w-1.5 h-1.5 bg-black rounded-full animate-bounce"></div>
                       <div
-                        className="w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce"
+                        className="w-1.5 h-1.5 bg-black rounded-full animate-bounce"
                         style={{ animationDelay: "0.1s" }}
                       ></div>
                       <div
-                        className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce"
+                        className="w-1.5 h-1.5 bg-black rounded-full animate-bounce"
                         style={{ animationDelay: "0.2s" }}
                       ></div>
                     </div>
