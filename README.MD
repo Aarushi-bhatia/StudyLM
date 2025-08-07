@@ -1,4 +1,4 @@
-# **StudyLM - AI-Powered Document Q&A**  
+# **StudyLM - AI-Powered Study Assistant**  
 
 A platform to chat with your documents using AI. Fast, human-friendly, and RAG-powered.
 
@@ -8,7 +8,7 @@ A platform to chat with your documents using AI. Fast, human-friendly, and RAG-p
 - ✅ Embedding with **Google Gemini** and **Pinecone**
 - ✅ JWT-based **multi-user authentication**  
 
-Try it live : [🔗 askyourdoc.vercel.app](https://askyourdoc.vercel.app)
+Try it live : [🔗 studylm.vercel.app](https://studylm.vercel.app)
 
 
 ## **Tech Stack**  
