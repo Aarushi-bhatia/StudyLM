@@ -11,7 +11,7 @@ const Homepage = () => {
       <AuthProvider>
         <Nav />
       </AuthProvider>
-      <div className="flex flex-col font-myfont h-screen bg-white  dark:bg-[#0F172A]">
+      <div className="flex flex-col font-myfont h-screen bg-white dark:bg-[#0F172A]">
         <main className="hidden sm:block sm:flex-grow sm:p-4">
           <Welcome />
         </main>
