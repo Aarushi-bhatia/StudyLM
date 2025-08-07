@@ -77,7 +77,7 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
                 <li key={index}>
                   <a
                     href={item.navs}
-                    className="block py-2 md:py-0 hover:text-secondary transition"
+                    className="block py-2 md:py-0 text-black dark:text-white hover:text-secondary transition"
                     onClick={() => setIsOpen(false)}
                   >
                     {item.name}
