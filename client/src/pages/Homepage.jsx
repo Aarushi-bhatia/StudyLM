@@ -1,8 +1,8 @@
 import Nav from "../components/Nav";
 import Welcome from "../components/Welcome";
 import { AuthProvider } from "../context/AuthContext";
-import Features from "../HomeComponents/Features";
-import Footer from "../HomeComponents/Footer";
+import Features from "../components/Features";
+import Footer from "../components/Footer";
 
 const Homepage = () => {
   return (
