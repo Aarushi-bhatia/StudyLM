@@ -65,20 +65,20 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
         </div>
 
         {/* Hamburger Icon */}
-        <button
-          className="md:hidden  text-white z-30 text-2xl focus:outline-none"
+        {/* <button
+          className="md:hidden  text-black dark:text-white z-30 text-2xl focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle navigation"
         >
-          {/* Hamburger icon */}
+          
           <span>{isOpen ? <>&#x2715;</> : <>&#9776;</>}</span>
-        </button>
+        </button> */}
 
         {/* Navigation Links */}
         {!isChatRoute && (
           <div className="absolute md:static inset-x-0 md:flex md:justify-center mx-auto">
             <ul
-              className={`flex-col rounded-lg md:flex md:flex-row md:justify-center gap-6 text-lg font-semibold text-white absolute md:static top-full left-0 w-full md:w-auto bg-[#2C2025] md:bg-transparent px-6 md:px-0 py-4 md:py-0 transition-all duration-300 ease-in ${
+              className={`flex-col rounded-lg md:flex md:flex-row md:justify-center gap-6 text-lg font-semibold text-white absolute md:static top-full left-0 w-full md:w-auto bg-white/50 md:bg-transparent px-6 md:px-0 py-4 md:py-0 transition-all duration-300 ease-in ${
                 isOpen ? "flex" : "hidden"
               }`}
             >
