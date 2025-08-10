@@ -77,9 +77,9 @@ const PDFWidget = () => {
       </div>
 
       {/* Main Mac Window with Glass Effect */}
-      <div className="relative w-[420px] bg-white backdrop-blur-2xl rounded-2xl shadow-2xl overflow-hidden">
+      <div className="relative w-[420px]  backdrop-blur-2xl rounded-2xl shadow-2xl overflow-hidden">
         {/* Enhanced Mac Title Bar */}
-        <div className="relative flex items-center justify-between px-6 py-3 bg-gray-900/40 via-slate-800/80 to-gray-900/80 border-b border-white/10 backdrop-blur-xl">
+        <div className="relative flex items-center justify-between px-6 dark:bg-gray-400/10 via-slate-800/80 to-gray-900/80 py-3 bg-gray-900/40 via-slate-800/80 to-gray-900/80 border-b border-white/10 backdrop-blur-xl">
           <div className="flex items-center space-x-3">
             <div className="w-3 h-3 bg-red-500 rounded-full shadow-lg"></div>
             <div className="w-3 h-3 bg-yellow-500 rounded-full shadow-lg"></div>
@@ -106,11 +106,11 @@ const PDFWidget = () => {
         </div>
 
         {/* Content Area with Enhanced Design */}
-        <div className="relative p-6">
+        <div className="relative p-6 dark:bg-[#3b4a6d]">
           {/* Header Section */}
           <div className="flex items-center justify-between mb-6">
             <div className="relative">
-              <h3 className="text-2xl font-bold bg-black bg-clip-text text-transparent">
+              <h3 className="text-2xl font-bold text-black dark:text-white">
                 AI Study Assistant
               </h3>
             </div>
@@ -118,7 +118,7 @@ const PDFWidget = () => {
           </div>
 
           {/* Enhanced Chat Preview */}
-          <div className="relative bg-white rounded-xl p-4 mb-6 h-60 overflow-hidden border border-white/10">
+          <div className="relative bg-white dark:bg-[#3b4a6d] rounded-xl p-4 mb-6 h-60 overflow-hidden dark:border dark:border-white/2">
             <div className="space-y-3 h-full overflow-hidden">
               {mockMessages.slice(0, currentMessage + 1).map((msg, index) => (
                 <div
@@ -145,15 +145,15 @@ const PDFWidget = () => {
               {currentMessage < mockMessages.length - 1 && (
                 <div className="flex items-start space-x-2">
                   <div className="text-lg">🤖</div>
-                  <div className="bg- px-3 py-2 rounded-2xl border border-black/30">
+                  <div className="bg- px-3 py-2 rounded-2xl border border-black/30 dark:border-white/30">
                     <div className="flex space-x-1">
-                      <div className="w-1.5 h-1.5 bg-black rounded-full animate-bounce"></div>
+                      <div className="w-1.5 h-1.5 bg-black dark:bg-white rounded-full animate-bounce"></div>
                       <div
-                        className="w-1.5 h-1.5 bg-black rounded-full animate-bounce"
+                        className="w-1.5 h-1.5 bg-black dark:bg-white rounded-full animate-bounce"
                         style={{ animationDelay: "0.1s" }}
                       ></div>
                       <div
-                        className="w-1.5 h-1.5 bg-black rounded-full animate-bounce"
+                        className="w-1.5 h-1.5 bg-black dark:bg-white rounded-full animate-bounce"
                         style={{ animationDelay: "0.2s" }}
                       ></div>
                     </div>

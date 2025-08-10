@@ -138,12 +138,12 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
           </div>
           {username ? (
             <div className="flex items-center gap-4">
-              <span className="px-6 py-1 text-lg font-semibold text-white/80">
+              <span className="px-6 py-1 text-lg font-semibold text-black/70 dark:text-white/80 ">
                 {username}
               </span>
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 rounded-2xl text-sm font-semibold text-white bg-red-500/10 border border-red-600/20 hover:bg-red-600/20 transition cursor-pointer"
+                className="px-4 py-2 rounded-2xl text-sm font-semibold text-white bg-red-500/50 dark:bg-red-500/10 border border-red-600/20 hover:bg-red-500/80 transition cursor-pointer"
               >
                 Logout
               </button>
