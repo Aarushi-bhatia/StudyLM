@@ -19,3 +19,4 @@ Try it live : [🔗 studylm.vercel.app](https://studylm.vercel.app)
 | Auth & Tiers   | JWT, MongoDB                          |
 | AI & Search    | RAG (Retrieval-Augmented Generation), Langchain |
 | DevOps         | AWS, Vercel                           |
+

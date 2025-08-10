@@ -45,8 +45,17 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
       <nav className="flex justify-between items-center px-6 md:px-12 py-4 bg-white dark:bg-[#0F172A] bg-background text-text sticky top-0 z-50 rounded-2xl border border-none ">
         {/* left */}
         <div className="flex items-center gap-2 text-text text-black">
-          {/* <img src="/logo.png" alt="" className="w-10 h-10" /> */}
-          <MessageSquareCode />
+          <img
+            src="/logo-black.png"
+            alt="Logo"
+            className="w-10 h-10 dark:hidden"
+          />
+          <img
+            src="/logo-white.png"
+            alt="Logo"
+            className="w-10 h-10 hidden dark:block"
+          />
+
           <div
             className="text-2xl font-bold text-black text-text cursor-pointer"
             onClick={() => navigate("/")}
@@ -114,18 +123,18 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
             )}
           </div>
           <div className="">
-          <button
-            onClick={toggleDarkMode}
-            className="cursor-pointer flex items-center justify-center mx-4"
-            aria-label="Toggle Dark Mode"
-          >
-            {isDark ? (
-              <Moon className="w-5 h-5 text-white drop-shadow-[0_0_6px_rgba(250,204,21,0.7)]" />
-            ) : (
-              <Sun className="w-5 h-5 text-black drop-shadow-[0_0_6px_rgba(250,204,21,0.7)]" />
-            )}
-            {/* <SunMoonToggle /> */}
-          </button>
+            <button
+              onClick={toggleDarkMode}
+              className="cursor-pointer flex items-center justify-center mx-4"
+              aria-label="Toggle Dark Mode"
+            >
+              {isDark ? (
+                <Moon className="w-5 h-5 text-white drop-shadow-[0_0_6px_rgba(250,204,21,0.7)]" />
+              ) : (
+                <Sun className="w-5 h-5 text-black drop-shadow-[0_0_6px_rgba(250,204,21,0.7)]" />
+              )}
+              {/* <SunMoonToggle /> */}
+            </button>
           </div>
           {username ? (
             <div className="flex items-center gap-4">

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  MessageSquareCode,
-} from "lucide-react";
+import { MessageSquareCode } from "lucide-react";
 
 const PDFWidget = () => {
   const [currentMessage, setCurrentMessage] = useState(0);
@@ -88,9 +86,19 @@ const PDFWidget = () => {
             <div className="w-3 h-3 bg-green-500 rounded-full shadow-lg"></div>
           </div>
           <div className="flex items-center space-x-3">
-            <div className="flex items-center space-x-2 px-3 py-1 rounded-full ">
-              <MessageSquareCode className="w-4 h-4 text-white" />
-              <span className="text-sm text-white font-semibold bg-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <div className="flex items-center space-x-1 px-3 py-1 rounded-full ">
+              <img
+                src="/logo-black.png"
+                alt="Logo"
+                className="w-6 h-6 dark:hidden"
+              />
+              <img
+                src="/logo-white.png"
+                alt="Logo"
+                className="w-6 h-6 hidden dark:block"
+              />
+
+              <span className="text-sm dark:text-white text-black font-semibold ">
                 StudyLM
               </span>
             </div>

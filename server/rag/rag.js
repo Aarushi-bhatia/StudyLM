@@ -38,7 +38,7 @@ Answer:
  */
 function rankChunksByKeywordMatch(question, docs, topK = 5) {
   const keywords = question.toLowerCase().split(/\W+/).filter(Boolean);
-
+  
   const scored = docs.map((doc) => {
     const content = doc.pageContent.toLowerCase();
     const keywordHits = keywords.filter((k) => content.includes(k)).length;
@@ -73,9 +73,9 @@ export async function runRAG(text, question) {
 
     // Step 3: Gemini model setup
     const model = new ChatGoogleGenerativeAI({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.5-flash",
       apiKey: process.env.GOOGLE_API_KEY,
-      temperature: 0.2,
+      temperature: 0,
       systemInstruction:
         "Answer using only the document content. If not found, reply 'Not available in document.'",
     });
@@ -86,9 +86,10 @@ export async function runRAG(text, question) {
     const chain = RunnableSequence.from([
       async (input) => {
         const initialDocs = await retriever.getRelevantDocuments(input.question);
-        const topDocs = rankChunksByKeywordMatch(input.question, initialDocs, 5);
+        
+        // const topDocs = rankChunksByKeywordMatch(input.question, initialDocs, 5);
         return {
-          context: topDocs.map((d) => d.pageContent).join("\n\n"),
+          context: initialDocs.map((d) => d.pageContent).join("\n\n"),
           question: input.question,
         };
       },
@@ -99,6 +100,7 @@ export async function runRAG(text, question) {
 
     // Step 5: Run and return
     const answer = await chain.invoke({ question });
+    console.log(answer)
     return answer.trim();
   } catch (err) {
     console.error("❌ RAG Error:", err.message);
