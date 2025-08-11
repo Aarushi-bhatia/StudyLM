@@ -87,6 +87,10 @@ const Auth = () => {
   };
 
   return (
+    <>
+     <AuthProvider>
+        <Nav />
+      </AuthProvider>
     <div className="flex justify-center items-center h-[100vh] bg-background text-text -mt-10">
       <div className="bg-background text-text p-6 md:p-8 border border-gray-400 rounded-xl z-1 relative w-[90%] max-w-md text-center shadow-2xl">
         <h2 className="text-xl text-black dark:text-gray-100  font-medium mb-2">
@@ -184,6 +188,7 @@ const Auth = () => {
         <p className="mt-4 text-red-500">{message}</p>
       </div>
     </div>
+    </>
   );
 };
 

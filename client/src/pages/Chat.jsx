@@ -13,7 +13,7 @@ import { AuthProvider } from "../context/AuthContext";
 import ReactMarkdown from "react-markdown";
 
 const PDFChatHomepage = () => {
-  const backend_IP = import.meta.env.VITE_BACKEND_IP;
+  const backend_IP = import.meta.env.VITE_BACKEND_IP
 
   const [messages, setMessages] = useState([
     {
@@ -86,6 +86,7 @@ const PDFChatHomepage = () => {
       setIsTyping(false);
     }
   };
+  
 
   const handleFileUpload = (file) => {
     if (file && file.type === "application/pdf") {
@@ -100,19 +101,19 @@ const PDFChatHomepage = () => {
     }
   };
 
-  const handleResetDocument = () => {
-    setUploadedFile(null);
-    setMessages([
-      {
-        id: 1,
-        type: "bot",
-        content:
-          "Hi! I'm ready to help you analyze your PDF. Upload a document and ask me anything about it!",
-        timestamp: new Date(),
-      },
-    ]);
-    setInputValue("");
-  };
+const handleResetDocument = () => {
+  setUploadedFile(null);
+  setMessages([
+    {
+      id: 1,
+      type: "bot",
+      content:
+        "Hi! I'm ready to help you analyze your PDF. Upload a document and ask me anything about it!",
+      timestamp: new Date(),
+    },
+  ]);
+  setInputValue("");
+};
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -139,19 +140,13 @@ const PDFChatHomepage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#2C2025] via-purple-900 to-slate-900 flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <AuthProvider>
-        <Nav
-          uploadedFile={uploadedFile}
-          handleResetDocument={handleResetDocument}
-        />
+        <Nav uploadedFile={uploadedFile} handleResetDocument={handleResetDocument} />
       </AuthProvider>
 
-      <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#E2745B_0%,_transparent_40%)] blur-3xl opacity-50 top-20 left-250 z-0"></div>
-
-      <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#E2745B_0%,_transparent_35%)] blur-3xl opacity-30 top-90 left-50 z-0"></div>
-      {/* Main Content */}
+       {/* Main Content */}
       <div className="flex-1 flex max-w-4xl mx-auto w-full ">
         {/* Chat Area */}
         <div className="flex-1 flex flex-col">
@@ -242,15 +237,13 @@ const PDFChatHomepage = () => {
                 <div
                   className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl ${
                     message.type === "user"
-                      ? "bg-[#FF8163]/20  text-white backdrop-blur-sm border border-white/20"
+                      ? "bg-[#7182FF]/20  text-white backdrop-blur-sm border border-white/20"
                       : message.type === "system"
                       ? "bg-green-500/20 text-green-300 border border-green-500/30"
                       : "bg-white/10 text-white backdrop-blur-sm border border-white/20"
                   }`}
                 >
-                  <div className="text-sm">
-                    <ReactMarkdown>{message.content}</ReactMarkdown>
-                  </div>
+                  <div className="text-sm"><ReactMarkdown>{message.content}</ReactMarkdown></div>
                   <span className="text-xs opacity-70 mt-1 block">
                     {message.timestamp.toLocaleTimeString()}
                   </span>
@@ -317,7 +310,7 @@ const PDFChatHomepage = () => {
               <button
                 onClick={handleSendMessage}
                 disabled={!inputValue.trim() || !uploadedFile}
-                className="px-4 py-3 bg-[#FF8163] hover:bg-[#FF8163]/80 disabled:from-gray-600 disabled:to-gray-600 text-white rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-3 bg-[#7182FF] hover:bg-[#FF8163]/80 disabled:from-gray-600 disabled:to-gray-600 text-white rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send className="w-5 h-5" />
               </button>
