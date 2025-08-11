@@ -87,7 +87,7 @@ const Auth = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-[100vh] bg-background text-text relative">
+    <div className="flex justify-center items-center h-[100vh] bg-background text-text -mt-10">
       <div className="bg-background text-text p-6 md:p-8 border border-gray-400 rounded-xl z-1 relative w-[90%] max-w-md text-center shadow-2xl">
         <h2 className="text-xl text-black dark:text-gray-100  font-medium mb-2">
           {isLogin ? "Hi, welcome back!" : "Create your account"}
@@ -102,7 +102,7 @@ const Auth = () => {
             onClick={() => setIsLogin(true)}
             className={`px-6 py-2 rounded-xl border font-bold mr-2 shadow-md hover:shadow-lg transition ${
               isLogin
-                ? "bg-[#FF8163] text-black dark:text-gray-100  border-gray-400/10"
+                ? "bg-[#7182FF] text-black dark:text-gray-100  border-gray-400/10"
                 : "text-black dark:text-gray-100 border-gray-400"
             }`}
           >
@@ -112,7 +112,7 @@ const Auth = () => {
             onClick={() => setIsLogin(false)}
             className={`px-6 py-2 rounded-xl border font-bold shadow-md hover:shadow-lg transition ${
               !isLogin
-                ? "bg-[#FF8163]  text-black dark:text-gray-100  border-gray-400/10"
+                ? "bg-[#7182FF]  text-black dark:text-gray-100  border-gray-400/10"
                 : "text-black dark:text-gray-100 border-gray-400"
             }`}
           >
@@ -176,7 +176,7 @@ const Auth = () => {
 
         <button
           onClick={handleAuth}
-          className="px-6 py-2 text-black dark:text-gray-100  rounded-full border/10 border-gray-200 bg-bg-[#FF8163] font-bold transition bg-[#FF8163]/90 shadow-lg"
+          className="px-6 py-2 text-black dark:text-gray-100  rounded-full border/10 border-gray-200 bg-[#7182FF] font-bold transition bg-[#7182FF]/90 shadow-lg"
         >
           Continue
         </button>

@@ -106,7 +106,9 @@ const PDFWidget = () => {
         </div>
 
         {/* Content Area with Enhanced Design */}
-        <div className="relative p-6 dark:bg-[#3b4a6d]">
+        <div className="relative p-6 dark:bg-[#3b4a6d]/30 
+                backdrop-blur-md 
+               ">
           {/* Header Section */}
           <div className="flex items-center justify-between mb-6">
             <div className="relative">
@@ -118,7 +120,7 @@ const PDFWidget = () => {
           </div>
 
           {/* Enhanced Chat Preview */}
-          <div className="relative bg-white dark:bg-[#3b4a6d] rounded-xl p-4 mb-6 h-60 overflow-hidden dark:border dark:border-white/2">
+          <div className="relative bg-white dark:bg-[#3b4a6d]/30 backdrop-blur-md rounded-xl p-4 mb-6 h-60 overflow-hidden dark:border dark:border-white/2">
             <div className="space-y-3 h-full overflow-hidden">
               {mockMessages.slice(0, currentMessage + 1).map((msg, index) => (
                 <div
