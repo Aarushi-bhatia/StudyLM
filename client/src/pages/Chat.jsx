@@ -13,7 +13,7 @@ import { AuthProvider } from "../context/AuthContext";
 import ReactMarkdown from "react-markdown";
 
 const PDFChatHomepage = () => {
-  const backend_IP = import.meta.env.VITE_BACKEND_IP
+  const backend_IP = import.meta.env.VITE_BACKEND_IP;
 
   const [messages, setMessages] = useState([
     {
@@ -86,7 +86,6 @@ const PDFChatHomepage = () => {
       setIsTyping(false);
     }
   };
-  
 
   const handleFileUpload = (file) => {
     if (file && file.type === "application/pdf") {
@@ -101,19 +100,19 @@ const PDFChatHomepage = () => {
     }
   };
 
-const handleResetDocument = () => {
-  setUploadedFile(null);
-  setMessages([
-    {
-      id: 1,
-      type: "bot",
-      content:
-        "Hi! I'm ready to help you analyze your PDF. Upload a document and ask me anything about it!",
-      timestamp: new Date(),
-    },
-  ]);
-  setInputValue("");
-};
+  const handleResetDocument = () => {
+    setUploadedFile(null);
+    setMessages([
+      {
+        id: 1,
+        type: "bot",
+        content:
+          "Hi! I'm ready to help you analyze your PDF. Upload a document and ask me anything about it!",
+        timestamp: new Date(),
+      },
+    ]);
+    setInputValue("");
+  };
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -143,10 +142,12 @@ const handleResetDocument = () => {
     <div className="min-h-screen bg-[#2C2025] via-purple-900 to-slate-900 flex flex-col">
       {/* Header */}
       <AuthProvider>
-        <Nav uploadedFile={uploadedFile} handleResetDocument={handleResetDocument} />
+        <Nav
+          uploadedFile={uploadedFile}
+          handleResetDocument={handleResetDocument}
+        />
       </AuthProvider>
 
-     
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#E2745B_0%,_transparent_40%)] blur-3xl opacity-50 top-20 left-250 z-0"></div>
 
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,_#E2745B_0%,_transparent_35%)] blur-3xl opacity-30 top-90 left-50 z-0"></div>
@@ -247,7 +248,9 @@ const handleResetDocument = () => {
                       : "bg-white/10 text-white backdrop-blur-sm border border-white/20"
                   }`}
                 >
-                  <div className="text-sm"><ReactMarkdown>{message.content}</ReactMarkdown></div>
+                  <div className="text-sm">
+                    <ReactMarkdown>{message.content}</ReactMarkdown>
+                  </div>
                   <span className="text-xs opacity-70 mt-1 block">
                     {message.timestamp.toLocaleTimeString()}
                   </span>
