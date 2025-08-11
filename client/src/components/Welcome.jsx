@@ -16,13 +16,13 @@ const Welcome = () => {
           <h1 className="text-7xl text-white textShine font-bold mb-6">
             Understand
           </h1>
-          <p className="text-black/60 text-text text-2xl mb-20 max-w-2xl mt-10">
+          <p className="text-black/60 text-text text-2xl mb-18 max-w-2xl mt-10">
             Upload documents, get instant answers, and master your knowledge
             effortlessly.
           </p>
           <Link
             to="/chat"
-            className="text-base bg-black dark:bg-white text-white dark:text-black px-6 py-4 rounded-xl border/10 border-gray-300 font-medium hover:opacity-90 transition"
+            className="text-base bg-black dark:bg-white/80 text-white dark:text-black px-6 py-4 rounded-xl border/10 border-gray-300 font-medium hover:opacity-90 transition"
           >
             Go to Conversation
           </Link>

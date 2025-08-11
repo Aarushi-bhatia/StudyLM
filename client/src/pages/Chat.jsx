@@ -274,7 +274,7 @@ const handleResetDocument = () => {
           {/* Suggested Questions */}
           {uploadedFile && messages.length <= 2 && (
             <div className="px-6 pb-4">
-              <p className="text-gray-400 text-sm mb-3">Try asking:</p>
+              <p className="text-gray-400 text-text text-sm mb-3">Try asking:</p>
               <div className="flex flex-wrap gap-2">
                 {suggestedQuestions.map((question, index) => (
                   <button
