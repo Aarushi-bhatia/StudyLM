@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthProvider } from "../context/AuthContext";
+import Nav from "../components/Nav";
 
 const Auth = () => {
   const navigate = useNavigate();

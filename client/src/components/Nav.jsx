@@ -96,7 +96,7 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
               <li className="md:hidden">
                 <a
                   href="/auth"
-                  className="block px-6 py-1 text-lg border border-black/40 rounded-full text-white font-[550] bg-white hover:opacity-90 transition text-center"
+                  className="block px-6 py-1 text-lg border border-black/40 rounded-full text-white font-[550]  hover:opacity-90 transition text-center"
                 >
                   Login / Signup
                 </a>
@@ -151,7 +151,7 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
           ) : (
             <a
               href="/auth"
-              className="px-6 py-1 text-lg border border-black/30 rounded-2xl text-black font-[550] bg-white hover:opacity-90 transition"
+              className="px-6 py-1 text-lg border border-black/30 rounded-2xl text-black font-[550] dark:bg-white/80 hover:opacity-90 transition"
             >
               Login / Signup
             </a>
