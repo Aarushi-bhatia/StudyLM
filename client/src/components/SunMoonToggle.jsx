@@ -41,7 +41,7 @@ const SunMoonToggle = () => {
   };
 
   return (
-    <div className="flex items-center justify-center font-sans transition-all duration-500 overflow-hidden">
+    <div className="flex items-center justify-center font-sans transition-all duration-500">
       
       {/* Floating particles */}
       {/* <div className="absolute inset-0 pointer-events-none">
@@ -56,7 +56,7 @@ const SunMoonToggle = () => {
       <div className="relative p-5">
         <button
           onClick={handleToggle}
-          className={`relative w-32 h-16 rounded-full border cursor-pointer overflow-visible transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl active:translate-y-0 ${
+          className={`relative w-24 h-10 rounded-full border cursor-pointer overflow-visible transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl active:translate-y-0 ${
             isDark
               ? 'bg-gradient-to-br from-gray-800/90 to-gray-900/90 border-purple-400/30 shadow-2xl'
               : 'bg-gradient-to-br from-white/90 to-purple-50/80 border-white/20 shadow-xl'
@@ -88,8 +88,8 @@ const SunMoonToggle = () => {
           </div>
 
           {/* Toggle slider */}
-          <div className={`absolute top-1 left-1 w-14 h-14 rounded-full transition-all duration-600 flex items-center justify-center ${
-            isDark ? 'translate-x-16' : 'translate-x-0'
+          <div className={`absolute top-1 left-1 w-8 h-8 rounded-full transition-all duration-600 flex items-center justify-center ${
+            isDark ? 'translate-x-12' : 'translate-x-0'
           }`} style={{ transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)' }}>
             
             {/* Sun container */}
@@ -97,7 +97,7 @@ const SunMoonToggle = () => {
               isDark ? 'opacity-0 scale-[0.3] rotate-180' : 'opacity-100 scale-100 rotate-0'
             }`}>
               <div 
-                className="relative w-10 h-10 rounded-full animate-pulse"
+                className="relative w-6 h-6 rounded-full animate-pulse"
                 style={{
                   background: 'radial-gradient(circle at 30% 30%, #fff700, #ffed4a 40%, #ff8c00 70%, #ff6b35 100%)',
                   boxShadow: '0 0 20px rgba(255,215,0,0.8), 0 0 40px rgba(255,215,0,0.4), 0 0 60px rgba(255,140,0,0.2), inset 2px 2px 4px rgba(255,255,255,0.3)',
@@ -108,7 +108,7 @@ const SunMoonToggle = () => {
                 
                 {/* Sun glow */}
                 <div 
-                  className="absolute top-1/2 left-1/2 w-16 h-16 rounded-full animate-pulse"
+                  className="absolute top-1/2 left-1/2 w-10 h-10 rounded-full animate-pulse"
                   style={{
                     background: 'radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%)',
                     transform: 'translate(-50%, -50%)',
@@ -123,7 +123,7 @@ const SunMoonToggle = () => {
               isDark ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-[0.3] -rotate-180'
             }`}>
               <div 
-                className="relative w-10 h-10 rounded-full"
+                className="relative w-6 h-6 rounded-full"
                 style={{
                   background: 'radial-gradient(circle at 25% 25%, #f8f8ff, #e6e6fa 50%, #d8bfd8 100%)',
                   boxShadow: '0 0 20px rgba(230,230,250,0.6), 0 0 40px rgba(230,230,250,0.3), inset 2px 2px 4px rgba(255,255,255,0.4), inset -3px -3px 6px rgba(160,160,190,0.3)'

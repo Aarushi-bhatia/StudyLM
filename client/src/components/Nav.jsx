@@ -143,7 +143,7 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
               </span>
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 rounded-2xl text-sm font-semibold text-white bg-red-500/50 dark:bg-red-500/10 border border-red-600/20 hover:bg-red-500/80 transition cursor-pointer"
+                className="px-4 py-2 rounded-2xl text-sm font-semibold text-white bg-red-500/50 dark:bg-red-500/20 border border-red-600/20 hover:bg-red-500/80 transition cursor-pointer"
               >
                 Logout
               </button>
