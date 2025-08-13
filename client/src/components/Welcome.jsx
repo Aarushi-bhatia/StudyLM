@@ -11,7 +11,7 @@ const Welcome = () => {
       {/* Welcome message */}
       <div className="flex gap-10 -ml-20 -mt-20">
         {/* Subheading */}
-        <div className="hidden md:block md:relative md:text-left mt-16">
+        <div className="hidden md:block md:relative md:text-left mt-2">
           <h1 className="text-7xl text-blackfont-bold mb-6">Ask. Read.</h1>
           <h1 className="text-7xl text-white textShine font-bold mb-6">
             Understand
@@ -27,7 +27,7 @@ const Welcome = () => {
             Go to Conversation
           </Link>
         </div>
-        <div className="mt-8 hidden md:block">
+        <div className="-mt-6 hidden md:block">
           <PDFWidget />
         </div>
         {/* Mobile View */}
