@@ -108,13 +108,13 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
           <div className="max-w-4xl mx-auto flex align-right justify-between">
             {uploadedFile && (
               <div className="flex items-center mt-2 space-x-2 bg-green-500/20 px-3 py-2 rounded-lg border border-green-500/30">
-                <FileCheck className="w-4 h-4 text-green-400" />
-                <span className="text-sm text-green-300 truncate max-w-32">
+                <FileCheck className="w-4 h-4 text-green-600 dark:text-green-400" />
+                <span className="text-sm text-green-600 dark:text-green-300 truncate max-w-32">
                   {uploadedFile.name}
                 </span>
                 <button
                   onClick={handleResetDocument}
-                  className="text-green-300 hover:text-green-500 cursor-pointer"
+                  className="text-green-600 dark:text-green-300 hover:text-green-700 hover:dark:text-green-500 cursor-pointer"
                   title="Remove file"
                 >
                   <X className="w-4 h-4" />
