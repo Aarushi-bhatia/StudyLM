@@ -4,10 +4,12 @@ import Homepage from "./pages/Homepage";
 import PDFChatHomepage from "./pages/Chat";
 import Auth from "./auth/Auth";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { Analytics } from "@vercel/analytics/next"
 
 const DocumentQA = () => {
   return (
     <BrowserRouter>
+    <Analytics />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route
