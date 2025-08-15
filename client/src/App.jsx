@@ -4,7 +4,7 @@ import Homepage from "./pages/Homepage";
 import PDFChatHomepage from "./pages/Chat";
 import Auth from "./auth/Auth";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 
 const DocumentQA = () => {
   return (
