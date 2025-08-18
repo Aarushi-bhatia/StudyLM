@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthProvider } from "../context/AuthContext";
 import Nav from "../components/Nav";
@@ -14,7 +14,7 @@ const Auth = () => {
   const [password, setPassword] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [message, setMessage] = useState("");
-
+ 
   const handleAuth = async () => {
     setMessage("");
 
@@ -88,108 +88,145 @@ const Auth = () => {
     }
   };
 
+  const handleGoogleLogin = () => {
+    const popup = window.open(
+      `${import.meta.env.VITE_BACKEND_IP}/api/auth/google`, // backend route
+      "googleLogin",
+      "width=500,height=600"
+    );  
+     const checkPopup = setInterval(() => {
+    if (!popup || popup.closed) {
+      clearInterval(checkPopup);
+      // Check if token exists in localStorage
+      const token = localStorage.getItem("token");
+      if (token) navigate("/chat");
+    }
+  }, 500);
+  };
+  
+// useEffect(() => {
+//     const interval = setInterval(() => {
+//       const token = localStorage.getItem("token");
+//       if (token) {
+//         clearInterval(interval);
+//         navigate("/chat");
+//       }
+//     }, 500);
+
+//     return () => clearInterval(interval);
+//   }, []);
   return (
     <>
-     <AuthProvider>
+      <AuthProvider>
         <Nav />
       </AuthProvider>
-    <div className="flex justify-center items-center h-[100vh] bg-background text-text -mt-10">
-      <div className="bg-background text-text p-6 md:p-8 border border-gray-400 rounded-xl z-1 relative w-[90%] max-w-md text-center shadow-2xl">
-        <h2 className="text-xl text-black dark:text-gray-100  font-medium mb-2">
-          {isLogin ? "Hi, welcome back!" : "Create your account"}
-        </h2>
-        <p className="text-sm text-black dark:text-gray-200 mb-4">
-          {isLogin
-            ? "Please enter your credentials to continue."
-            : "Join us and explore your PDFs like never before."}
-        </p>
-        <div className="flex justify-left mb-4">
+      <div className="flex justify-center items-center h-[100vh] bg-background text-text -mt-10">
+        <div className="bg-background text-text p-6 md:p-8 border border-gray-400 rounded-xl z-1 relative w-[90%] max-w-md text-center shadow-2xl">
+          <h2 className="text-xl text-black dark:text-gray-100  font-medium mb-2">
+            {isLogin ? "Hi, welcome back!" : "Create your account"}
+          </h2>
+          <p className="text-sm text-black dark:text-gray-200 mb-4">
+            {isLogin
+              ? "Please enter your credentials to continue."
+              : "Join us and explore your PDFs like never before."}
+          </p>
+          <div className="flex justify-left mb-4">
+            <button
+              onClick={() => setIsLogin(true)}
+              className={`px-6 py-2 rounded-xl border font-bold mr-2 shadow-md hover:shadow-lg transition ${
+                isLogin
+                  ? "bg-[#7182FF] text-black dark:text-gray-100  border-gray-400/10"
+                  : "text-black dark:text-gray-100 border-gray-400"
+              }`}
+            >
+              Login
+            </button>
+            <button
+              onClick={() => setIsLogin(false)}
+              className={`px-6 py-2 rounded-xl border font-bold shadow-md hover:shadow-lg transition ${
+                !isLogin
+                  ? "bg-[#7182FF]  text-black dark:text-gray-100  border-gray-400/10"
+                  : "text-black dark:text-gray-100 border-gray-400"
+              }`}
+            >
+              SignUp
+            </button>
+          </div>
+
+          <div className="text-left font-poppins font-[550] mb-4">
+            {!isLogin && (
+              <>
+                <label className="block text-black dark:text-gray-100 mb-1">
+                  Name:
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter Your Name"
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full text-black dark:text-gray-100 p-2 mb-4 border border-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                />
+              </>
+            )}
+
+            <label className="block text-black dark:text-gray-100 mb-1">
+              Email Id:
+            </label>
+            <input
+              type="email"
+              placeholder="Enter Your Registered Email"
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full text-black dark:text-gray-100  p-2 mb-4 border rounded-lg border-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+            />
+
+            <label className="block text-black dark:text-gray-100 mb-1">
+              Password:
+            </label>
+            <input
+              type="password"
+              placeholder="Enter Password"
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full text-black dark:text-gray-100  p-2 border  border-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+            />
+
+            {!isLogin && (
+              <div className="flex items-center mt-4">
+                <input
+                  type="checkbox"
+                  checked={agreed}
+                  onChange={(e) => setAgreed(e.target.checked)}
+                  className="mr-2 w-4 h-4 rounded border border-gray-400 bg-white checked:bg-black appearance-none checked:appearance-auto"
+                />
+                <label className="text-sm text-black dark:text-gray-500">
+                  I agree to the Terms & Conditions
+                </label>
+              </div>
+            )}
+          </div>
+
+          <p className="text-sm text-black dark:text-gray-300 mb-4">
+            By continuing you agree with our Terms &amp; Conditions
+          </p>
+
           <button
-            onClick={() => setIsLogin(true)}
-            className={`px-6 py-2 rounded-xl border font-bold mr-2 shadow-md hover:shadow-lg transition ${
-              isLogin
-                ? "bg-[#7182FF] text-black dark:text-gray-100  border-gray-400/10"
-                : "text-black dark:text-gray-100 border-gray-400"
-            }`}
+            onClick={handleAuth}
+            className="px-6 py-2 text-black dark:text-gray-100  rounded-full border/10 border-gray-200 bg-[#7182FF] font-bold transition bg-[#7182FF]/90 shadow-lg"
           >
-            Login
+            Continue
           </button>
           <button
-            onClick={() => setIsLogin(false)}
-            className={`px-6 py-2 rounded-xl border font-bold shadow-md hover:shadow-lg transition ${
-              !isLogin
-                ? "bg-[#7182FF]  text-black dark:text-gray-100  border-gray-400/10"
-                : "text-black dark:text-gray-100 border-gray-400"
-            }`}
+            onClick={handleGoogleLogin}
+            className="mt-4 px-6 py-2 flex items-center justify-center w-full rounded-full border border-gray-300 bg-white text-black font-medium shadow-md hover:shadow-lg transition"
           >
-            SignUp
+            <img
+              src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+              alt="Google"
+              className="w-5 h-5 mr-2"
+            />
+            Continue with Google
           </button>
+          <p className="mt-4 text-red-500">{message}</p>
         </div>
-
-        <div className="text-left font-poppins font-[550] mb-4">
-          {!isLogin && (
-            <>
-              <label className="block text-black dark:text-gray-100 mb-1">
-                Name:
-              </label>
-              <input
-                type="text"
-                placeholder="Enter Your Name"
-                onChange={(e) => setName(e.target.value)}
-                className="w-full text-black dark:text-gray-100 p-2 mb-4 border border-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-              />
-            </>
-          )}
-
-          <label className="block text-black dark:text-gray-100 mb-1">
-            Email Id:
-          </label>
-          <input
-            type="email"
-            placeholder="Enter Your Registered Email"
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full text-black dark:text-gray-100  p-2 mb-4 border rounded-lg border-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-          />
-
-          <label className="block text-black dark:text-gray-100 mb-1">
-            Password:
-          </label>
-          <input
-            type="password"
-            placeholder="Enter Password"
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full text-black dark:text-gray-100  p-2 border  border-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-          />
-
-          {!isLogin && (
-            <div className="flex items-center mt-4">
-              <input
-                type="checkbox"
-                checked={agreed}
-                onChange={(e) => setAgreed(e.target.checked)}
-                className="mr-2 w-4 h-4 rounded border border-gray-400 bg-white checked:bg-black appearance-none checked:appearance-auto"
-              />
-              <label className="text-sm text-black dark:text-gray-500">
-                I agree to the Terms & Conditions
-              </label>
-            </div>
-          )}
-        </div>
-
-        <p className="text-sm text-black dark:text-gray-300 mb-4">
-          By continuing you agree with our Terms &amp; Conditions
-        </p>
-
-        <button
-          onClick={handleAuth}
-          className="px-6 py-2 text-black dark:text-gray-100  rounded-full border/10 border-gray-200 bg-[#7182FF] font-bold transition bg-[#7182FF]/90 shadow-lg"
-        >
-          Continue
-        </button>
-
-        <p className="mt-4 text-red-500">{message}</p>
       </div>
-    </div>
     </>
   );
 };
