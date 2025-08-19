@@ -222,7 +222,7 @@ const PDFChatHomepage = () => {
                     Drop PDF here or click to upload
                   </p>
                   <p className="text-gray-400 text-sm">
-                    Support for PDF files up to 10MB
+                    Support for PDF files containing text
                   </p>
                 </div>
 
