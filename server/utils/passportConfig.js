@@ -9,14 +9,11 @@ passport.use(
       callbackURL: process.env.GOOGLE_CALLBACK_URL,
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log("🔹 Inside GoogleStrategy verify callback");
-      console.log("Google profile:", profile);
       const user = {
         id: profile.id,
         name: profile.displayName,
         email: profile.emails[0].value,
       };
-       console.log("User object created:", user);
       return done(null, user);
     }
   )
