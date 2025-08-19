@@ -11,8 +11,9 @@
   },
   "dependencies": {
     "@pinecone-database/pinecone": "^6.1.1",
+    "@react-oauth/google": "^0.12.2",
     "@tailwindcss/vite": "^4.0.14",
-    "axios": "^1.8.3",
+    "axios": "^1.11.0",
     "chromadb": "^3.0.3",
     "lucide-react": "^0.511.0",
     "react": "^19.0.0",

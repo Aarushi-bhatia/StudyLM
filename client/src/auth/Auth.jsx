@@ -14,7 +14,7 @@ const Auth = () => {
   const [password, setPassword] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [message, setMessage] = useState("");
- 
+
   const handleAuth = async () => {
     setMessage("");
 
@@ -87,34 +87,10 @@ const Auth = () => {
       console.error(err);
     }
   };
-
   const handleGoogleLogin = () => {
-    const popup = window.open(
-      `${import.meta.env.VITE_BACKEND_IP}/api/auth/google`, // backend route
-      "googleLogin",
-      "width=500,height=600"
-    );  
-     const checkPopup = setInterval(() => {
-    if (!popup || popup.closed) {
-      clearInterval(checkPopup);
-      // Check if token exists in localStorage
-      const token = localStorage.getItem("token");
-      if (token) navigate("/chat");
-    }
-  }, 500);
+    window.location.href = "http://localhost:5000/auth/google";
   };
-  
-// useEffect(() => {
-//     const interval = setInterval(() => {
-//       const token = localStorage.getItem("token");
-//       if (token) {
-//         clearInterval(interval);
-//         navigate("/chat");
-//       }
-//     }, 500);
 
-//     return () => clearInterval(interval);
-//   }, []);
   return (
     <>
       <AuthProvider>

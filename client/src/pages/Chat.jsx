@@ -11,10 +11,41 @@ import Nav from "../components/Nav";
 import axios from "axios";
 import { AuthProvider } from "../context/AuthContext";
 import ReactMarkdown from "react-markdown";
+import { useNavigate } from "react-router-dom";
+
 
 const PDFChatHomepage = () => {
-  const backend_IP = import.meta.env.VITE_BACKEND_IP;
+const navigate = useNavigate();
+  
+useEffect(() => {    
+    // Read token from URL first
+    const params = new URLSearchParams(window.location.search);
+    const urlToken = params.get("token");
+    
 
+    if (urlToken) {
+      // Store token in localStorage
+      localStorage.setItem("token", urlToken);
+
+      // Remove token from URL for security
+      window.history.replaceState({}, document.title, "/chat");
+      return; // Don't check further, we have a valid token
+    }
+
+    // Only check localStorage if no URL token was found
+    const existingToken = localStorage.getItem("token");
+    
+    if (!existingToken) {
+      // Add a small delay to see the logs
+      setTimeout(() => {
+        navigate("/auth");
+      }, 2000);
+    } else {
+      console.log("🔹 Using existing token, staying on chat page");
+    }
+  }, [navigate]);
+
+  const backend_IP = import.meta.env.VITE_BACKEND_IP;
   const [messages, setMessages] = useState([
     {
       id: 1,

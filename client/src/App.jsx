@@ -5,11 +5,11 @@ import PDFChatHomepage from "./pages/Chat";
 import Auth from "./auth/Auth";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Analytics } from "@vercel/analytics/react"
-import AuthPopup from "./auth/Popup";
 
 const DocumentQA = () => {
   return (
     <BrowserRouter>
+    
     <Analytics />
       <Routes>
         <Route path="/" element={<Homepage />} />
@@ -23,7 +23,7 @@ const DocumentQA = () => {
           }
         />
         <Route path="/auth" element={<Auth />} />
-        <Route path="/auth-popup" element={<AuthPopup />} />
+        {/* <Route path="/auth-popup" element={<AuthPopup />} /> */}
         <Route />
       </Routes>
     </BrowserRouter>
