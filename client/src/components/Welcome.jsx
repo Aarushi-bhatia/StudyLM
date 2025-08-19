@@ -32,7 +32,9 @@ const Welcome = () => {
         </div>
         {/* Mobile View */}
         <div className="md:hidden absolute inset-0 block text-center flex flex-col items-center justify-center  ">
-          <h1 className="text-6xl text-black dark:text-white font-bold mb-6">Ask. Read.</h1>
+          <h1 className="text-6xl text-black dark:text-white font-bold mb-6">
+            Ask. Read.
+          </h1>
           <h1 className="text-6xl text-white textShine font-bold mb-6">
             Understand
           </h1>

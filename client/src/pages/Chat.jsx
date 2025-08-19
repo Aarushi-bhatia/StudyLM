@@ -13,25 +13,24 @@ import { AuthProvider, useAuth } from "../context/AuthContext";
 import ReactMarkdown from "react-markdown";
 import { useNavigate } from "react-router-dom";
 
-
 const PDFChatHomepage = () => {
-const navigate = useNavigate();
-const { login } = useAuth(); // Get login function from AuthContext
+  const navigate = useNavigate();
+  const { login } = useAuth(); // Get login function from AuthContext
 
   useEffect(() => {
     // Read token from URL first
     const params = new URLSearchParams(window.location.search);
     const urlToken = params.get("token");
-    
+
     if (urlToken) {
       // Decode the JWT token to get user info
       try {
-        const tokenPayload = JSON.parse(atob(urlToken.split('.')[1]));
+        const tokenPayload = JSON.parse(atob(urlToken.split(".")[1]));
         const userData = {
           username: tokenPayload.name || tokenPayload.email,
-          token: urlToken
+          token: urlToken,
         };
-        
+
         // Update AuthContext and localStorage
         login(userData);
 
@@ -45,7 +44,7 @@ const { login } = useAuth(); // Get login function from AuthContext
 
     // Only check localStorage if no URL token was found
     const existingToken = localStorage.getItem("token");
-    
+
     if (!existingToken) {
       // Add a small delay to see the logs
       setTimeout(() => {
@@ -181,11 +180,11 @@ const { login } = useAuth(); // Get login function from AuthContext
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
-      
-        <Nav
-          uploadedFile={uploadedFile}
-          handleResetDocument={handleResetDocument}
-        />
+
+      <Nav
+        uploadedFile={uploadedFile}
+        handleResetDocument={handleResetDocument}
+      />
 
       {/* Main Content */}
       <div className="flex-1 flex max-w-4xl mx-auto w-full ">
