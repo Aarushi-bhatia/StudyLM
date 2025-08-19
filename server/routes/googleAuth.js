@@ -9,7 +9,6 @@ router.get("/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
-
 // Callback
 router.get(
   "/google/callback",
@@ -23,7 +22,7 @@ router.get(
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
-    res.redirect(`http://localhost:5173/chat?token=${token}`);
+    res.redirect(`{process.env.FRONTEND_URL}/chat?token=${token}`);
   }
 );
 app.get("/fail", (req, res) => res.send("Google Auth Failed"));
