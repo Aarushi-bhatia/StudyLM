@@ -22,7 +22,7 @@ router.get(
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
-    res.redirect(`{process.env.FRONTEND_URL}/chat?token=${token}`);
+    res.redirect(`${process.env.FRONTEND_URL}/chat?token=${token}`);
   }
 );
 router.get("/fail", (req, res) => res.send("Google Auth Failed"));
