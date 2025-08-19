@@ -4,29 +4,31 @@ import Homepage from "./pages/Homepage";
 import PDFChatHomepage from "./pages/Chat";
 import Auth from "./auth/Auth";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
+import { AuthProvider } from "./context/AuthContext";
 
 const DocumentQA = () => {
   return (
-    <BrowserRouter>
-    
-    <Analytics />
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route
-          path="/chat"
-          element={
-            <ProtectedRoute>
-              {" "}
-              <PDFChatHomepage />{" "}
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/auth" element={<Auth />} />
-        {/* <Route path="/auth-popup" element={<AuthPopup />} /> */}
-        <Route />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Analytics />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route
+            path="/chat"
+            element={
+              <ProtectedRoute>
+                {" "}
+                <PDFChatHomepage />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/auth" element={<Auth />} />
+          {/* <Route path="/auth-popup" element={<AuthPopup />} /> */}
+          <Route />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 };
 

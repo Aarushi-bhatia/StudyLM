@@ -9,27 +9,38 @@ import {
 } from "lucide-react";
 import Nav from "../components/Nav";
 import axios from "axios";
-import { AuthProvider } from "../context/AuthContext";
+import { AuthProvider, useAuth } from "../context/AuthContext";
 import ReactMarkdown from "react-markdown";
 import { useNavigate } from "react-router-dom";
 
 
 const PDFChatHomepage = () => {
 const navigate = useNavigate();
-  
-useEffect(() => {    
+const { login } = useAuth(); // Get login function from AuthContext
+
+  useEffect(() => {
     // Read token from URL first
     const params = new URLSearchParams(window.location.search);
     const urlToken = params.get("token");
     
-
     if (urlToken) {
-      // Store token in localStorage
-      localStorage.setItem("token", urlToken);
+      // Decode the JWT token to get user info
+      try {
+        const tokenPayload = JSON.parse(atob(urlToken.split('.')[1]));
+        const userData = {
+          username: tokenPayload.name || tokenPayload.email,
+          token: urlToken
+        };
+        
+        // Update AuthContext and localStorage
+        login(userData);
 
-      // Remove token from URL for security
-      window.history.replaceState({}, document.title, "/chat");
-      return; // Don't check further, we have a valid token
+        // Remove token from URL for security
+        window.history.replaceState({}, document.title, "/chat");
+        return;
+      } catch (error) {
+        console.error("Error decoding token:", error);
+      }
     }
 
     // Only check localStorage if no URL token was found
@@ -40,10 +51,8 @@ useEffect(() => {
       setTimeout(() => {
         navigate("/auth");
       }, 2000);
-    } else {
-      console.log("🔹 Using existing token, staying on chat page");
     }
-  }, [navigate]);
+  }, [navigate, login]); // Add login to dependencies
 
   const backend_IP = import.meta.env.VITE_BACKEND_IP;
   const [messages, setMessages] = useState([
@@ -172,12 +181,11 @@ useEffect(() => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
-      <AuthProvider>
+      
         <Nav
           uploadedFile={uploadedFile}
           handleResetDocument={handleResetDocument}
         />
-      </AuthProvider>
 
       {/* Main Content */}
       <div className="flex-1 flex max-w-4xl mx-auto w-full ">
