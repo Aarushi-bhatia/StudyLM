@@ -25,6 +25,6 @@ router.get(
     res.redirect(`{process.env.FRONTEND_URL}/chat?token=${token}`);
   }
 );
-app.get("/fail", (req, res) => res.send("Google Auth Failed"));
+router.get("/fail", (req, res) => res.send("Google Auth Failed"));
 
 export default router;
