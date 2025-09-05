@@ -275,15 +275,15 @@ const PDFChatHomepage = () => {
                 }`}
               >
                 <div
-                  className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl ${
+                  className={` px-4 py-3 rounded-2xl ${
                     message.type === "user"
-                      ? "bg-[#7182FF]/10 dark:bg-[#7182FF]/20 text-gray-600 dark:text-white backdrop-blur-sm border border-[#7182FF]/40 dark:border-white/20"
+                      ? "max-w-xs lg:max-w-md bg-[#7182FF]/10 dark:bg-[#7182FF]/20 text-gray-600 dark:text-white backdrop-blur-sm border border-[#7182FF]/40 dark:border-white/20"
                       : message.type === "system"
-                      ? "bg-green-500/10 dark:bg-green-500/20 text-green-600 dark:text-green-300 border border-green-500/30"
-                      : "bg-black/5 dark:bg-white/10 text-gray-600 dark:text-white backdrop-blur-sm border border-black/10 dark:border-white/20"
+                      ? "max-w-xs lg:max-w-md bg-green-500/10 dark:bg-green-500/20 text-green-600 dark:text-green-300 border border-green-500/30"
+                      : "w-full max-w-6xl  text-left text-gray-600 dark:text-white leading-relaxed"
                   }`}
                 >
-                  <div className="text-sm">
+                  <div className="text-md">
                     <ReactMarkdown>{message.content}</ReactMarkdown>
                   </div>
                   <span className="text-xs opacity-70 mt-1 block">
