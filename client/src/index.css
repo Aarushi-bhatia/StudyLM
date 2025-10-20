@@ -47,3 +47,40 @@
         background-position: 100% 50%;
     }
 }
+
+/*
+ * Style the scrollbar for Webkit browsers (Chrome, Safari, Edge)
+ * by targeting our new custom class.
+ */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px; /* Makes the scrollbar thin */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Makes the track transparent */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #0a0f1c; /* Your desired color */
+  border-radius: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-button {
+  display: none !important; /* Hide them */
+  height: 0;     /* Force them to have no space */
+  width: 0;
+}
+
+.custom-scrollbar::-webkit-scrollbar-button:start {
+  display: none !important; /* Hide the top one */
+}
+
+.custom-scrollbar::-webkit-scrollbar-button:end {
+  display: none !important; /* Hide the bottom one */
+}
+/*
+ * Style the scrollbar for Firefox
+ */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #d8d8d9 transparent; /* thumb color | track color */
+}

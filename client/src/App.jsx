@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
-import PDFChatHomepage from "./pages/Chat";
 import Auth from "./auth/Auth";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Analytics } from "@vercel/analytics/react";
 import { AuthProvider } from "./context/AuthContext";
+import ChatPage from "./pages/ChatPage";
 
 const DocumentQA = () => {
   return (
@@ -19,7 +19,7 @@ const DocumentQA = () => {
             element={
               <ProtectedRoute>
                 {" "}
-                <PDFChatHomepage />{" "}
+                <ChatPage />{" "}
               </ProtectedRoute>
             }
           />

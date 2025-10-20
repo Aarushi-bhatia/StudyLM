@@ -73,7 +73,7 @@ export async function runRAG(text, question) {
 
     // Step 3: Gemini model setup
     const model = new ChatGoogleGenerativeAI({
-      model: "gemini-2.5-flash",
+      model: "gemini-1.5-pro",
       apiKey: process.env.GOOGLE_API_KEY,
       temperature: 0,
       systemInstruction:
