@@ -42,7 +42,7 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
 
   return (
     <main className="top-0 sticky z-30 bg-none px-[3%] bg-background text-text">
-      <nav className="flex justify-between items-center px-6 md:px-12 py-4 bg-white dark:bg-[#0F172A] bg-background text-text sticky top-0 z-50 rounded-2xl border border-none ">
+      <nav className="flex justify-between items-center px-6 md:px-0 py-4 bg-white dark:bg-[#0F172A] bg-background text-text sticky top-0 z-50 rounded-2xl border border-none ">
         {/* left */}
         <div className="flex items-center gap-2 text-text text-black">
           <img

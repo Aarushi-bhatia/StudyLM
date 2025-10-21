@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { Analytics } from "@vercel/analytics/react";
 import { AuthProvider } from "./context/AuthContext";
 import ChatPage from "./pages/ChatPage";
+import { ChatWindow } from "./components/ChatWindow";
 
 const DocumentQA = () => {
   return (
@@ -24,6 +25,7 @@ const DocumentQA = () => {
             }
           />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/chat/:chatId" element={<ChatWindow />} />
           {/* <Route path="/auth-popup" element={<AuthPopup />} /> */}
           <Route />
         </Routes>

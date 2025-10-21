@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { cn } from "../lib/util";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "motion/react";
