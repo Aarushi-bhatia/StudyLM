@@ -68,7 +68,7 @@ export function SidebarDemo() {
               </div>
             </div>
             <div>
-              <SidebarLink
+              {/* <SidebarLink
                 link={{
                   label: "Manu Arora",
                   href: "#",
@@ -82,7 +82,7 @@ export function SidebarDemo() {
                     />
                   ),
                 }}
-              />
+              /> */}
             </div>
           </SidebarBody>
         </Sidebar>
@@ -95,7 +95,7 @@ const SidebarToggle = ({ isPinned, onToggle, isOpen }) => {
   return (
     <button
       onClick={onToggle}
-      className="relative cursor-pointer z-20 flex items-center space-x-2 p-2 rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-800"
+      className="group relative cursor-pointer z-20 flex items-center space-x-2 p-2 rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-800"
       aria-label={isPinned ? "Collapse menu" : "Pin sidebar open"}
     >
       {/* Show Pin or Menu icon based on state */}

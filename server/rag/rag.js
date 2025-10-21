@@ -65,7 +65,7 @@ export async function runRAG(text, question) {
 
     // Step 2: Embed chunks and store in vector DB
     const embeddings = new GoogleGenerativeAIEmbeddings({
-      model: "embedding-001",
+      model: "gemini-embedding-001",
       apiKey: process.env.GOOGLE_API_KEY,
     });
     const vectorstore = await MemoryVectorStore.fromDocuments(docs, embeddings);
@@ -73,7 +73,7 @@ export async function runRAG(text, question) {
 
     // Step 3: Gemini model setup
     const model = new ChatGoogleGenerativeAI({
-      model: "gemini-1.5-pro",
+      model: "gemini-2.5-flash",
       apiKey: process.env.GOOGLE_API_KEY,
       temperature: 0,
       systemInstruction:
