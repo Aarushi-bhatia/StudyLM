@@ -12,11 +12,14 @@ import axios from "axios";
 import { AuthProvider, useAuth } from "../context/AuthContext";
 import ReactMarkdown from "react-markdown";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const PDFChatHomepage = () => {
   const navigate = useNavigate();
-  const { login } = useAuth(); // Get login function from AuthContext
+  const { login } = useAuth();
+  const { chatId } = useParams();
 
+  // auth useEffect
   useEffect(() => {
     // Read token from URL first
     const params = new URLSearchParams(window.location.search);
@@ -42,6 +45,7 @@ const PDFChatHomepage = () => {
       }
     }
 
+
     // Only check localStorage if no URL token was found
     const existingToken = localStorage.getItem("token");
 
@@ -52,6 +56,22 @@ const PDFChatHomepage = () => {
       }, 2000);
     }
   }, [navigate, login]); // Add login to dependencies
+
+   useEffect(() => {
+      if (!chatId) {
+        setUploadedFile(null);
+        setMessages([
+          {
+            id: 1,
+            type: "bot",
+            content:
+              "Hi! I'm ready to help you analyze your PDF. Upload a document and ask me anything about it!",
+            timestamp: new Date(),
+          },
+        ]);
+        setInputValue("");
+      }
+    }, [chatId]);
 
   const backend_IP = import.meta.env.VITE_BACKEND_IP;
   const [messages, setMessages] = useState([
@@ -104,6 +124,11 @@ const PDFChatHomepage = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      if (response.data.chatId) {
+        navigate(`/chat/${response.data.chatId}`);
+        return; // Stop executing the rest of this function
+      }
 
       const botResponse = {
         id: Date.now() + 1,
