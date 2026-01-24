@@ -30,7 +30,7 @@ const Nav = ({ uploadedFile, handleResetDocument }) => {
     }
   }, [location]);
 
-  const isChatRoute = location.pathname === "/chat";
+  const isChatRoute = location.pathname.startsWith("/chat");
 
   const handleLogout = () => {
     localStorage.removeItem("token");

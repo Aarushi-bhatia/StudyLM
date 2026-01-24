@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
+@plugin "@tailwindcss/typography";
 
 @theme {
   --color-background: #ffffff;
@@ -83,4 +84,18 @@
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: #d8d8d9 transparent; /* thumb color | track color */
+}
+
+/* Add this to your globals.css or main CSS file */
+.prose p {
+  margin-bottom: 1rem;
+}
+.prose ul, .prose ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+.prose li {
+  margin-bottom: 0.25rem;
 }

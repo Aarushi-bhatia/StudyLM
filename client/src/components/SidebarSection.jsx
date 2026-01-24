@@ -11,7 +11,7 @@ import {
 } from "@tabler/icons-react";
 import { useLocation } from "react-router-dom";
 import { motion } from "motion/react";
-import PDFChatHomepage from "./Chat.jsx";
+import Chat from "./Chat.jsx";
 import { MessageSquare, SquarePen } from "lucide-react";
 
 export function SidebarDemo() {
@@ -30,72 +30,70 @@ export function SidebarDemo() {
   const [chats, setChats] = useState([]);
   const location = useLocation();
 
-  useEffect(() => {
-    // This function fetches from your backend
-    const fetchChatHistory = async () => {
-      try {
-        // Assuming you have a way to make authenticated API calls
-        const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_IP}/api/chats`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+  // useEffect(() => {
+  //   // This function fetches from your backend
+  //   const fetchChatHistory = async () => {
+  //     try {
+  //       // Assuming you have a way to make authenticated API calls
+  //       const response = await fetch(
+  //         `${import.meta.env.VITE_BACKEND_IP}/api/chats`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //             "Content-Type": "application/json",
+  //           },
+  //         }
+  //       );
 
-        // --- FIX ---
-        // 1. Check if the response is OK
-        if (!response.ok) {
-          throw new Error("Failed to fetch chat history");
-        }
+  //       // --- FIX ---
+  //       // 1. Check if the response is OK
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch chat history");
+  //       }
 
-        // 2. Get the JSON data (which is your array of chats)
-        const data = await response.json();
+  //       // 2. Get the JSON data (which is your array of chats)
+  //       const data = await response.json();
 
-        // 3. Set the chats in state
-        setChats(data);
+  //       // 3. Set the chats in state
+  //       setChats(data);
 
-        // 4. Delete the broken 'if' block that was here
-        // ----------------
-      } catch (error) {
-        console.error("Error fetching chats:", error);
-      }
-    };
-    fetchChatHistory();
-  }, [location.pathname]);
+  //       // 4. Delete the broken 'if' block that was here
+  //       // ----------------
+  //     } catch (error) {
+  //       console.error("Error fetching chats:", error);
+  //     }
+  //   };
+  //   fetchChatHistory();
+  // }, [location.pathname]);
 
-  const togglePin = () => {
-    // Flip the mode
-    setIsHoverMode((prev) => {
-      const newMode = !prev;
-      // If we are *entering* pinned mode (newMode is false),
-      // force the sidebar open.
-      if (newMode === false) {
-        setOpen(true);
-      }
-      return newMode;
-    });
-  };
-  const isOpen = isHoverMode ? open : true;
+  // const togglePin = () => {
+  //   // Flip the mode
+  //   setIsHoverMode((prev) => {
+  //     const newMode = !prev;
+  //     // If we are *entering* pinned mode (newMode is false),
+  //     // force the sidebar open.
+  //     if (newMode === false) {
+  //       setOpen(true);
+  //     }
+  //     return newMode;
+  //   });
+  // };
+  // const isOpen = isHoverMode ? open : true;
 
   return (
     <div className=" bg-background ">
       {/* Header */}
       <div className="flex w-full h-screen  ">
-        <Sidebar open={open} setOpen={setOpen} animate={isHoverMode}>
+        {/* <Sidebar open={open} setOpen={setOpen} animate={isHoverMode}>
           <SidebarBody className="justify-between gap-10">
             <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
               <div className="py-1">
-                {/* 7. Update SidebarToggle props */}
                 <SidebarToggle
                   onToggle={togglePin}
                   isPinned={!isHoverMode}
                   isOpen={isOpen}
                 />
               </div>
-              {/* {open ? <Logo /> : <LogoIcon />} */}
               <div
                 className={`mt-14 flex flex-col gap-2 ${
                   isOpen ? "items-start" : "items-center"
@@ -104,8 +102,6 @@ export function SidebarDemo() {
                 {links.map((link, idx) => (
                   <SidebarLink key={idx} link={link} />
                 ))}
-                {/* --- START: Added Chat History List --- */}
-                {/* Show "Recent" heading only if there are chats */}
                 {chats.length > 0 && (
                   <h2
                     className={`mt-8 text-sm font-semibold text-neutral-600 dark:text-white ${
@@ -116,12 +112,11 @@ export function SidebarDemo() {
                   </h2>
                 )}
 
-                {/* Map over the fetched chats */}
                 {chats.map((chat) => (
                   <SidebarLink
                     key={chat._id}
                     link={{
-                      label: chat.title, // PDF name
+                      label: chat.title, 
                       href: `/chat/${chat._id}`,
                       icon: (
                         <MessageSquare className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
@@ -133,8 +128,8 @@ export function SidebarDemo() {
             </div>
             <div></div>
           </SidebarBody>
-        </Sidebar>
-        <PDFChatHomepage />
+        </Sidebar> */}
+        <Chat />
       </div>
     </div>
   );

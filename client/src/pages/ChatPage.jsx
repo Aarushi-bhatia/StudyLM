@@ -1,13 +1,14 @@
-import React from 'react'
-import { SidebarDemo } from '../components/SidebarSection'
-import PDFChatHomepage from '../components/Chat'
+import React from "react";
+import { SidebarDemo } from "../components/SidebarSection";
+import Chat from "../components/Chat";
 
 const ChatPage = () => {
   return (
-  <>
-    <SidebarDemo />
-</>
-  )
-}
+    <>
+      <SidebarDemo />
+      {/* <Chat /> */}
+    </>
+  );
+};
 
-export default ChatPage
+export default ChatPage;
