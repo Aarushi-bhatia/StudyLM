@@ -4,14 +4,22 @@ const Schema = mongoose.Schema;
 const chatSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'User', // Links to your existing User model
+    ref: 'User',
     required: true
+  },
+  pdfId: {
+    type: String,
+    default: null  // links to the uploaded document name / id
   },
   title: {
     type: String,
-    required: true // This will be the "PDF name"
+    required: true
+  },
+  lastMessagePreview: {
+    type: String,
+    default: ''
   }
-}, { timestamps: true }); // Adds createdAt and updatedAt
+}, { timestamps: true }); // Adds createdAt and updatedAt automatically
 
 const Chat = mongoose.model('Chat', chatSchema);
 export default Chat;
