@@ -134,7 +134,7 @@ export function SidebarDemo() {
       <div className="flex w-full h-screen">
         <Sidebar open={open} setOpen={setOpen} animate={isHoverMode}>
           <SidebarBody className="justify-between gap-10">
-            <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
+            <div className={`flex flex-1 flex-col overflow-x-hidden ${isOpen ? "overflow-y-auto custom-scrollbar" : "overflow-y-hidden"}`}>
               <div className="py-1">
                 <SidebarToggle
                   onToggle={togglePin}
