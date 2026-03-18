@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useState, useCallback } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../../ui/sidebar.jsx";
 import {
@@ -40,9 +39,11 @@ export function SidebarDemo() {
 
   // ─── Fetch sidebar chat list ───
   const fetchChatHistory = useCallback(async () => {
+    const token = localStorage.getItem("token");
+    if (!token || token === "undefined") return;
     try {
-      const token = localStorage.getItem("token");
-      if (!token) return;
+      // const token = localStorage.getItem("token");
+      // if (!token) return;
 
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_IP}/api/chats`,
@@ -188,12 +189,6 @@ export function SidebarDemo() {
                         <p className="text-neutral-700 dark:text-neutral-200 text-sm truncate">
                           {chat.title}
                         </p>
-                        {/* <div className="flex items-center gap-1 mt-0.5">
-                          <Clock className="h-3 w-3 text-neutral-400" />
-                          <span className="text-xs text-neutral-400 truncate">
-                            {formatRelativeTime(chat.updatedAt)}
-                          </span>
-                        </div> */}
                         {chat.lastMessagePreview && (
                           <p className="text-xs text-neutral-400 truncate mt-0.5">
                             {chat.lastMessagePreview}

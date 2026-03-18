@@ -8,15 +8,13 @@ import {
   Zap,
 } from "lucide-react";
 import Nav from "../layout/Navbar";
-import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import { useChat } from "../../hooks/useChat";
 import MessageBubble from "./MessageBubble";
+import { useAuthRedirect } from "../../hooks/useAuthRedirect";
 
 const Chat = ({ activeChatId, setActiveChatId, onNewChat }) => {
-  const navigate = useNavigate();
-  const { login } = useAuth();
 
+  useAuthRedirect();
   const {
     messages,
     inputValue,
@@ -26,33 +24,8 @@ const Chat = ({ activeChatId, setActiveChatId, onNewChat }) => {
     handleSendMessage,
     handleFileUpload,
     handleResetDocument,
+    
   } = useChat(activeChatId, setActiveChatId, onNewChat);
-
-  // ─── Auth: handle Google OAuth token from URL ───
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const urlToken = params.get("token");
-
-    if (urlToken) {
-      try {
-        const tokenPayload = JSON.parse(atob(urlToken.split(".")[1]));
-        const userData = {
-          username: tokenPayload.name || tokenPayload.email,
-          token: urlToken,
-        };
-        login(userData);
-        window.history.replaceState({}, document.title, "/chat");
-        return;
-      } catch (error) {
-        console.error("Error decoding token:", error);
-      }
-    }
-
-    const existingToken = localStorage.getItem("token");
-    if (!existingToken) {
-      setTimeout(() => navigate("/auth"), 2000);
-    }
-  }, [navigate, login]);
 
   const [isDragging, setIsDragging] = useState(false);
   const messagesEndRef = useRef(null);
