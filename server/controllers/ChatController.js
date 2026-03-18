@@ -2,15 +2,15 @@ import mongoose from "mongoose";
 import Chat from "../models/Chat.js";
 import Message from "../models/Message.js";
 
-/**
- * Helper: Auto-generate a short title from the first user message.
- * Takes the first ~50 chars and appends "..." if truncated.
- */
-function generateTitle(message) {
-  const cleaned = message.replace(/\s+/g, " ").trim();
-  if (cleaned.length <= 50) return cleaned;
-  return cleaned.substring(0, 50).trim() + "...";
-}
+// /**
+//  * Helper: Auto-generate a short title from the first user message.
+//  * Takes the first ~50 chars and appends "..." if truncated.
+//  */
+// function generateTitle(message) {
+//   const cleaned = message.replace(/\s+/g, " ").trim();
+//   if (cleaned.length <= 50) return cleaned;
+//   return cleaned.substring(0, 50).trim() + "...";
+// }
 
 /**
  * GET /api/chats
@@ -120,11 +120,11 @@ export const sendMessage = async (req, res) => {
         return res.status(400).json({ error: "PDF file is required for a new chat" });
       }
 
-      const title = generateTitle(content);
+      // const title = generateTitle(content);
       chat = new Chat({
         user: userId,
         pdfId: pdfId || req.file?.originalname || null,
-        title,
+        title : req.file?.originalname || "Untitled Document",
         lastMessagePreview: content.substring(0, 100),
       });
       await chat.save({ session });

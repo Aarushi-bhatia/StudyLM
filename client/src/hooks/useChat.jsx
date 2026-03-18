@@ -83,7 +83,6 @@ export const useChat = (activeChatId, setActiveChatId, onNewChat) => {
     loadMessages();
   }, [activeChatId, backend_IP]);
 
-
   const handleSendMessage = async () => {
     if (!inputValue.trim() || !uploadedFile) return;
 

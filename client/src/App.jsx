@@ -21,14 +21,16 @@ const DocumentQA = () => {
                 <ChatPage />
               </ProtectedRoute>
             }
-          />          <Route
+          />{" "}
+          <Route
             path="/chat/:chatId"
             element={
               <ProtectedRoute>
                 <ChatPage />
               </ProtectedRoute>
             }
-          />          <Route path="/auth" element={<Auth />} />
+          />{" "}
+          <Route path="/auth" element={<Auth />} />
           <Route />
         </Routes>
       </BrowserRouter>

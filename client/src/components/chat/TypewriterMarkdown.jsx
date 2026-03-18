@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 
-
 const TypewriterMarkdown = ({ content, speed = 10, onType }) => {
   const [displayedText, setDisplayedText] = useState("");
   const [index, setIndex] = useState(0);

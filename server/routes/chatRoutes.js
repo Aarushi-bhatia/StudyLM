@@ -11,7 +11,6 @@ import {
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-// All chat routes require authentication
 router.use(authMiddleware);
 
 /**

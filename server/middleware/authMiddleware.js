@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 
-
 export function authMiddleware(req, res, next) {
 
   console.log("Current Secret:", process.env.JWT_SECRET);

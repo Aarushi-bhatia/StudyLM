@@ -12,7 +12,6 @@ const Homepage = () => {
       </AuthProvider>
       <div className="flex flex-col font-myfont h-screen bg-white dark:bg-[#0F172A]">
         <main className="block flex-grow p-4">
-          
           <Welcome />
         </main>
       </div>

@@ -14,7 +14,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Initialize auth state from localStorage on app start
   useEffect(() => {
     const token = localStorage.getItem("token");
     const username = localStorage.getItem("username");
