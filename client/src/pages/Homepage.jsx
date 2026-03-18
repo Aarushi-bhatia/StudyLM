@@ -1,7 +1,7 @@
 import Nav from "../components/layout/Navbar.jsx";
 import Welcome from "../components/home/Welcome.jsx";
 import { AuthProvider } from "../context/AuthContext";
-import Features from "../components/home/Welcome.jsx";
+import Features from "../components/home/Features.jsx";
 import Footer from "../components/layout/Footer.jsx";
 
 const Homepage = () => {
