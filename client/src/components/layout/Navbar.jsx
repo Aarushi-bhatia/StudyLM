@@ -2,8 +2,8 @@ import { useState } from "react";
 import { FileCheck, MessageSquareCode, Moon, Sun, X } from "lucide-react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import useDarkMode from "../hooks/useDarkMode";
-import SunMoonToggle from "./SunMoonToggle";
+import useDarkMode from "../../hooks/useDarkMode.jsx";
+// import SunMoonToggle from "./SunMoonToggle";
 
 const navlinks = [
   { navs: "/#home", name: "Home" },

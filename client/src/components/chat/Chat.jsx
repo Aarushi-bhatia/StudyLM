@@ -7,40 +7,26 @@ import {
   MessageSquare,
   Zap,
 } from "lucide-react";
-import Nav from "./Nav";
-import axios from "axios";
-import { useAuth } from "../context/AuthContext";
-import ReactMarkdown from "react-markdown";
+import Nav from "../layout/Navbar";
+import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useChat } from "../../hooks/useChat";
+import MessageBubble from "./MessageBubble";
 
-const TypewriterMarkdown = ({ content, speed = 10, onType }) => {
-  const [displayedText, setDisplayedText] = useState("");
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    if (index < content.length) {
-      const timeout = setTimeout(() => {
-        setDisplayedText((prev) => prev + content[index]);
-        setIndex((prev) => prev + 1);
-        if (onType) onType();
-      }, speed);
-      return () => clearTimeout(timeout);
-    }
-  }, [index, content, speed, onType]);
-
-  return <ReactMarkdown>{displayedText}</ReactMarkdown>;
-};
-
-/**
- * Chat component — the main chat interface.
- * Props:
- *   activeChatId   — currently active chat's _id (null for new chat)
- *   setActiveChatId — setter from parent to update active chat
- *   onNewChat      — callback to refresh the sidebar after a new chat is created
- */
 const Chat = ({ activeChatId, setActiveChatId, onNewChat }) => {
   const navigate = useNavigate();
   const { login } = useAuth();
+
+  const {
+    messages,
+    inputValue,
+    setInputValue,
+    uploadedFile,
+    isTyping,
+    handleSendMessage,
+    handleFileUpload,
+    handleResetDocument,
+  } = useChat(activeChatId, setActiveChatId, onNewChat);
 
   // ─── Auth: handle Google OAuth token from URL ───
   useEffect(() => {
@@ -68,22 +54,7 @@ const Chat = ({ activeChatId, setActiveChatId, onNewChat }) => {
     }
   }, [navigate, login]);
 
-  const backend_IP = import.meta.env.VITE_BACKEND_IP;
-
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      type: "bot",
-      role: "model",
-      content:
-        "Hi! I'm ready to help you analyze your PDF. Upload a document and ask me anything about it!",
-      timestamp: new Date(),
-    },
-  ]);
-  const [inputValue, setInputValue] = useState("");
   const [isDragging, setIsDragging] = useState(false);
-  const [uploadedFile, setUploadedFile] = useState(null);
-  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
 
@@ -95,190 +66,6 @@ const Chat = ({ activeChatId, setActiveChatId, onNewChat }) => {
     scrollToBottom();
   }, [messages, scrollToBottom]);
 
-  // ─── Load messages when activeChatId changes ───
-  useEffect(() => {
-    if (!activeChatId) {
-      // Reset to fresh state for a new chat
-      setMessages([
-        {
-          id: 1,
-          type: "bot",
-          role: "model",
-          content:
-            "Hi! I'm ready to help you analyze your PDF. Upload a document and ask me anything about it!",
-          timestamp: new Date(),
-        },
-      ]);
-      setUploadedFile(null);
-      setInputValue("");
-      return;
-    }
-
-    // Load existing chat messages
-    const loadMessages = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await fetch(
-          `${backend_IP}/api/chats/${activeChatId}/messages`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (!response.ok) throw new Error("Failed to fetch messages");
-        const data = await response.json();
-
-        // Convert DB messages to component format
-        const loadedMessages = data.messages.map((msg, idx) => ({
-          id: msg._id || idx,
-          type: msg.role === "user" ? "user" : "bot",
-          role: msg.role,
-          content: msg.content,
-          timestamp: new Date(msg.createdAt),
-        }));
-
-        setMessages(
-          loadedMessages.length > 0
-            ? loadedMessages
-            : [
-                {
-                  id: 1,
-                  type: "bot",
-                  role: "model",
-                  content: "This chat has no messages yet. Ask something!",
-                  timestamp: new Date(),
-                },
-              ]
-        );
-
-        // Restore PDF context info from chat metadata
-        if (data.chat?.pdfId) {
-          // We mark that a PDF was associated; user may need to re-upload
-          // for RAG to work on follow-up questions.
-          setUploadedFile({ name: data.chat.pdfId, fromHistory: true });
-        }
-      } catch (err) {
-        console.error("Error loading chat messages:", err);
-      }
-    };
-
-    loadMessages();
-  }, [activeChatId, backend_IP]);
-
-  // ─── Send Message (unified: new chat + follow-up) ───
-  const handleSendMessage = async () => {
-    if (!inputValue.trim() || !uploadedFile) return;
-
-    const userContent = inputValue.trim();
-    const newMessage = {
-      id: Date.now(),
-      type: "user",
-      role: "user",
-      content: userContent,
-      timestamp: new Date(),
-    };
-
-    setMessages((prev) => [...prev, newMessage]);
-    setInputValue("");
-    setIsTyping(true);
-
-    try {
-      const token = localStorage.getItem("token");
-      const formData = new FormData();
-      formData.append("content", userContent);
-
-      // Attach chatId if continuing an existing conversation
-      if (activeChatId) {
-        formData.append("chatId", activeChatId);
-      }
-
-      // Attach PDF — always send it so RAG works
-      if (uploadedFile && !uploadedFile.fromHistory) {
-        formData.append("document", uploadedFile);
-      }
-
-      // If from history, include pdfId reference
-      if (uploadedFile?.fromHistory) {
-        formData.append("pdfId", uploadedFile.name);
-      }
-
-      const response = await axios.post(
-        `${backend_IP}/api/chats/message`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const { chatId, aiMessage, isNewChat } = response.data;
-
-      // If a new chat was created, update activeChatId
-      if (isNewChat && chatId) {
-        setActiveChatId(chatId);
-        // Notify sidebar to refresh
-        if (onNewChat) onNewChat();
-      }
-
-      // Add AI response to messages
-      const botResponse = {
-        id: aiMessage?._id || Date.now() + 1,
-        type: "bot",
-        role: "model",
-        content: aiMessage?.content || "Sorry, no answer was returned.",
-        timestamp: new Date(aiMessage?.createdAt || Date.now()),
-      };
-      setMessages((prev) => [...prev, botResponse]);
-
-      // Notify sidebar to refresh updatedAt order
-      if (onNewChat) onNewChat();
-    } catch (error) {
-      const errorMessage = {
-        id: Date.now(),
-        type: "bot",
-        role: "model",
-        content: "Oops, something went wrong. Please try again.",
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, errorMessage]);
-      console.error(error);
-    } finally {
-      setIsTyping(false);
-    }
-  };
-
-  const handleFileUpload = (file) => {
-    if (file && file.type === "application/pdf") {
-      setUploadedFile(file);
-      const uploadMessage = {
-        id: Date.now(),
-        type: "system",
-        content: `PDF "${file.name}" uploaded successfully! You can now ask questions about this document.`,
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, uploadMessage]);
-    }
-  };
-
-  const handleResetDocument = () => {
-    setUploadedFile(null);
-    setActiveChatId(null);
-    setMessages([
-      {
-        id: 1,
-        type: "bot",
-        role: "model",
-        content:
-          "Hi! I'm ready to help you analyze your PDF. Upload a document and ask me anything about it!",
-        timestamp: new Date(),
-      },
-    ]);
-    setInputValue("");
-  };
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -390,46 +177,15 @@ const Chat = ({ activeChatId, setActiveChatId, onNewChat }) => {
               </div>
             )}
 
-            {messages.map((message, index) => {
-              const isLastMessage = index === messages.length - 1;
-
-              return (
-                <div
-                  key={message.id}
-                  className={`flex ${
-                    message.type === "user" ? "justify-end" : "justify-start"
-                  }`}
-                >
-                  <div
-                    className={` px-4 py-3 rounded-2xl ${
-                      message.type === "user"
-                        ? "max-w-xs lg:max-w-md bg-[#7182FF]/10 dark:bg-[#7182FF]/20 text-gray-600 dark:text-white backdrop-blur-sm border border-[#7182FF]/40 dark:border-white/20"
-                        : message.type === "system"
-                        ? "max-w-xs lg:max-w-md bg-green-500/10 dark:bg-green-500/20 text-green-600 dark:text-green-300 border border-green-500/30"
-                        : "w-full max-w-6xl text-left text-gray-600 dark:text-white leading-relaxed"
-                    }`}
-                  >
-                    <div
-                      className={`text-md ${
-                        message.type === "bot"
-                          ? "prose prose-sm md:prose-base dark:prose-invert max-w-none"
-                          : ""
-                      }`}
-                    >
-                      {message.type === "bot" && isLastMessage && !isTyping ? (
-                        <TypewriterMarkdown
-                          content={message.content}
-                          speed={5}
-                          onType={scrollToBottom}
-                        />
-                      ) : (
-                        <ReactMarkdown>{message.content}</ReactMarkdown>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {messages.map((message, index) => (
+              <MessageBubble
+                key={message.id}
+                message={message}
+                isLastMessage={index === messages.length - 1}
+                isTyping={isTyping}
+                scrollToBottom={scrollToBottom}
+              />
+            ))}
 
             {isTyping && (
               <div className="flex justify-start">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { Send } from 'lucide-react'; // Assuming you use lucide for icons
+import { Send } from 'lucide-react'; 
 
 export function ChatWindow() {
   const { chatId } = useParams();
@@ -62,7 +62,6 @@ export function ChatWindow() {
       );
       
       if (response.ok) {
-        // Here you would typically trigger the AI response call
         console.log("Message saved successfully");
       }
     } catch (err) {

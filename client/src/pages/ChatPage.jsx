@@ -1,12 +1,11 @@
 import React from "react";
-import { SidebarDemo } from "../components/SidebarSection";
-import Chat from "../components/Chat";
+import { SidebarDemo } from "../components/chat/SidebarSection.jsx";
+import Chat from "../components/chat/Chat.jsx";
 
 const ChatPage = () => {
   return (
     <>
       <SidebarDemo />
-      {/* <Chat /> */}
     </>
   );
 };
