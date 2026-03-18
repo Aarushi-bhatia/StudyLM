@@ -1,111 +1,40 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../../ui/sidebar.jsx";
-import {
-  IconMenu2,
-} from "@tabler/icons-react";
+import { IconMenu2 } from "@tabler/icons-react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Chat from "./Chat.jsx";
 import { MessageSquare, SquarePen, Clock, Trash2 } from "lucide-react";
+import { useChatHistory } from "../../hooks/useChatHistory.jsx";
+import { useChatNavigation } from "../../hooks/useChatNavigation.jsx";
 
 export function SidebarDemo() {
   const [open, setOpen] = useState(false);
   const [isHoverMode, setIsHoverMode] = useState(true);
-  const [chats, setChats] = useState([]);
-  const navigate = useNavigate();
   const { chatId: urlChatId } = useParams();
   const [activeChatId, setActiveChatId] = useState(urlChatId || null);
   const location = useLocation();
 
-  // Sync activeChatId from URL on mount / URL change
   useEffect(() => {
     if (urlChatId && urlChatId !== activeChatId) {
       setActiveChatId(urlChatId);
     }
   }, [urlChatId]);
 
-  // Sync URL when activeChatId changes (push to history)
-  useEffect(() => {
-    if (activeChatId) {
-      const targetPath = `/chat/${activeChatId}`;
-      if (location.pathname !== targetPath) {
-        navigate(targetPath, { replace: true });
-      }
-    } else {
-      if (location.pathname !== "/chat") {
-        navigate("/chat", { replace: true });
-      }
-    }
-  }, [activeChatId]);
+  const { chats, fetchChatHistory, handleDeleteChat } = useChatHistory(activeChatId, setActiveChatId);
+  useChatNavigation(activeChatId);
 
-  // ─── Fetch sidebar chat list ───
-  const fetchChatHistory = useCallback(async () => {
-    const token = localStorage.getItem("token");
-    if (!token || token === "undefined") return;
-    try {
-      // const token = localStorage.getItem("token");
-      // if (!token) return;
-
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_IP}/api/chats`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) throw new Error("Failed to fetch chat history");
-      const data = await response.json();
-      setChats(data);
-    } catch (error) {
-      console.error("Error fetching chats:", error);
-    }
-  }, []);
-
-  // Fetch on mount and when path changes
   useEffect(() => {
     fetchChatHistory();
   }, [location.pathname, fetchChatHistory]);
 
-  // ─── Handle new chat button ───
   const handleNewChat = () => {
     setActiveChatId(null); // Reset to fresh state
   };
 
-  // ─── Handle clicking a sidebar chat ───
   const handleSelectChat = (chatId) => {
     setActiveChatId(chatId);
   };
 
-  // ─── Handle deleting a chat ───
-  const handleDeleteChat = async (e, chatId) => {
-    e.preventDefault();
-    e.stopPropagation();
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_IP}/api/chats/${chatId}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.ok) {
-        // If we deleted the active chat, reset
-        if (activeChatId === chatId) {
-          setActiveChatId(null);
-        }
-        fetchChatHistory();
-      }
-    } catch (err) {
-      console.error("Error deleting chat:", err);
-    }
-  };
-
-  // ─── Sidebar toggle ───
   const togglePin = () => {
     setIsHoverMode((prev) => {
       const newMode = !prev;
@@ -115,27 +44,18 @@ export function SidebarDemo() {
   };
   const isOpen = isHoverMode ? open : true;
 
-  // Format relative time for sidebar
-  const formatRelativeTime = (dateStr) => {
-    const now = new Date();
-    const date = new Date(dateStr);
-    const diffMs = now - date;
-    const diffMins = Math.floor(diffMs / 60000);
-    if (diffMins < 1) return "just now";
-    if (diffMins < 60) return `${diffMins}m ago`;
-    const diffHours = Math.floor(diffMins / 60);
-    if (diffHours < 24) return `${diffHours}h ago`;
-    const diffDays = Math.floor(diffHours / 24);
-    if (diffDays < 7) return `${diffDays}d ago`;
-    return date.toLocaleDateString();
-  };
-
   return (
     <div className="bg-background">
       <div className="flex w-full h-screen">
         <Sidebar open={open} setOpen={setOpen} animate={isHoverMode}>
           <SidebarBody className="justify-between gap-10">
-            <div className={`flex flex-1 flex-col overflow-x-hidden ${isOpen ? "overflow-y-auto custom-scrollbar" : "overflow-y-hidden"}`}>
+            <div
+              className={`flex flex-1 flex-col overflow-x-hidden ${
+                isOpen
+                  ? "overflow-y-auto custom-scrollbar"
+                  : "overflow-y-hidden"
+              }`}
+            >
               <div className="py-1">
                 <SidebarToggle
                   onToggle={togglePin}
@@ -174,10 +94,10 @@ export function SidebarDemo() {
                 )}
 
                 {chats.map((chat) => (
-                  <button
+                  <div
                     key={chat._id}
                     onClick={() => handleSelectChat(chat._id)}
-                    className={`flex items-center gap-2 py-2 px-2 rounded-lg transition-colors w-full text-left group/chat ${
+                    className={`flex items-center gap-2 py-2 px-2 rounded-lg transition-colors w-full cursor-pointer text-left group/chat ${
                       activeChatId === chat._id
                         ? "bg-neutral-200 dark:bg-neutral-800"
                         : "hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50"
@@ -199,13 +119,13 @@ export function SidebarDemo() {
                     {isOpen && (
                       <button
                         onClick={(e) => handleDeleteChat(e, chat._id)}
-                        className="opacity-0 group-hover/chat:opacity-100 p-1 rounded hover:bg-red-500/20 transition-all"
+                        className="opacity-0 group-hover/chat:opacity-100 p-1 rounded hover:bg-red-500/20 cursor-pointer transition-all"
                         title="Delete chat"
                       >
                         <Trash2 className="h-3.5 w-3.5 text-red-400" />
                       </button>
                     )}
-                  </button>
+                  </div>
                 ))}
               </div>
             </div>
@@ -213,7 +133,6 @@ export function SidebarDemo() {
           </SidebarBody>
         </Sidebar>
 
-        {/* Pass activeChatId and callbacks to Chat */}
         <Chat
           activeChatId={activeChatId}
           setActiveChatId={setActiveChatId}
@@ -224,7 +143,6 @@ export function SidebarDemo() {
   );
 }
 
-// Sidebar toggle button component
 const SidebarToggle = ({ isPinned, onToggle, isOpen }) => {
   return (
     <button
