@@ -46,7 +46,7 @@ export function SidebarDemo() {
 
   return (
     <div className="bg-background">
-      <div className="flex w-full h-screen">
+      <div className="flex flex-col md:flex-row w-full h-screen">
         <Sidebar open={open} setOpen={setOpen} animate={isHoverMode}>
           <SidebarBody className="justify-between gap-10">
             <div
