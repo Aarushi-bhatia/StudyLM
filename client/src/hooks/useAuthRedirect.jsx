@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export const useAuthRedirect = () => {
-    const navigate = useNavigate();
-    const {login} = useAuth();
-useEffect(() => {
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
+  useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const urlToken = params.get("token");
 
@@ -26,7 +27,7 @@ useEffect(() => {
 
     const existingToken = localStorage.getItem("token");
     if (!existingToken) {
-      setTimeout(() => Navigate("/auth"), 2000);
+      setTimeout(() => navigate("/auth"), 2000);
     }
   }, [navigate, login]);
-}
+};

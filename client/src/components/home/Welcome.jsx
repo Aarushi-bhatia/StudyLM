@@ -11,7 +11,7 @@ const Welcome = () => {
       {/* Desktop view */}
       <div className="hidden md:flex gap-10 -ml-20 -mt-20">
         <div className="relative text-left mt-2">
-          <h1 className="text-7xl text-black font-bold mb-6">Ask. Read.</h1>
+          <h1 className="text-7xl mb-6">Ask. Read.</h1>
           <h1 className="text-7xl text-white textShine font-bold mb-6">
             Understand
           </h1>
