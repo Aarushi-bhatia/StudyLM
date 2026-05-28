@@ -52,7 +52,7 @@ export const getChatMessages = async (req, res) => {
       .sort({ createdAt: "asc" })
       .select("role content createdAt");
 
-    // Also return chat metadata so frontend can restore PDF context
+    // Also return chat metadata so frontend can restore document context
     res.json({
       chat: {
         _id: chat._id,
@@ -103,6 +103,7 @@ export const sendMessage = async (req, res) => {
 
     let chat;
     let isNewChat = false;
+    let documentText = null;
 
     // ─── EXISTING CHAT ───
     if (chatId) {
@@ -112,6 +113,22 @@ export const sendMessage = async (req, res) => {
         await session.abortTransaction();
         session.endSession();
         return res.status(403).json({ error: "Access denied or chat not found" });
+      }
+
+      if (req.file && !isSupportedDocument(req.file)) {
+        await session.abortTransaction();
+        session.endSession();
+        return res.status(400).json({
+          error: "Unsupported file type. Please upload PDF, DOCX, CSV, XLS, or XLSX files.",
+        });
+      }
+
+      if (req.file && chat.documentText && chat.pdfId && req.file.originalname !== chat.pdfId) {
+        await session.abortTransaction();
+        session.endSession();
+        return res.status(400).json({
+          error: "This chat already has a document. Start a new chat to upload another.",
+        });
       }
     }
     // ─── NEW CHAT ───
@@ -124,11 +141,22 @@ export const sendMessage = async (req, res) => {
           .json({ error: "Document file is required for a new chat" });
       }
 
+      if (!isSupportedDocument(req.file)) {
+        await session.abortTransaction();
+        session.endSession();
+        return res.status(400).json({
+          error: "Unsupported file type. Please upload PDF, DOCX, CSV, XLS, or XLSX files.",
+        });
+      }
+
+      documentText = await extractTextFromDocument(req.file);
+
       // const title = generateTitle(content);
       chat = new Chat({
         user: userId,
         pdfId: pdfId || req.file?.originalname || null,
         title : req.file?.originalname || "Untitled Document",
+        documentText,
         lastMessagePreview: content.substring(0, 100),
       });
       await chat.save({ session });
@@ -146,30 +174,28 @@ export const sendMessage = async (req, res) => {
     // ─── RUN RAG PIPELINE ───
     let answerText = "Sorry, I couldn't process the document.";
 
-    if (req.file) {
-      if (!isSupportedDocument(req.file)) {
-        await session.abortTransaction();
-        session.endSession();
-        return res.status(400).json({
-          error: "Unsupported file type. Please upload PDF, DOCX, CSV, XLS, or XLSX files.",
-        });
-      }
+    if (req.file && !documentText) {
+      documentText = await extractTextFromDocument(req.file);
+    }
 
-      const documentText = await extractTextFromDocument(req.file);
+    if (documentText) {
       answerText = await runRAG(documentText, content);
-    } else if (!req.file && chatId) {
-      // Continuing conversation — re-use PDF context
-      // For follow-up questions without a new PDF upload,
-      // the frontend should re-send the PDF or we need stored text.
-      // For now, return a message asking to re-upload
-      answerText =
-        "Please re-upload the document to continue asking questions, or start a new chat.";
 
-      // If the frontend sends the PDF on every message, this block won't execute.
-      if (req.file) {
-        const documentText = await extractTextFromDocument(req.file);
-        answerText = await runRAG(documentText, content);
+      if (chat) {
+        chat.documentText = documentText;
+        if (req.file?.originalname) {
+          chat.pdfId = req.file.originalname;
+          chat.title = req.file.originalname;
+        }
       }
+    } else if (chat?.documentText) {
+      answerText = await runRAG(chat.documentText, content);
+    } else {
+      await session.abortTransaction();
+      session.endSession();
+      return res.status(400).json({
+        error: "This chat requires a document. Please upload one to continue.",
+      });
     }
 
     // ─── SAVE AI RESPONSE ───

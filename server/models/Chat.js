@@ -11,6 +11,10 @@ const chatSchema = new Schema({
     type: String,
     default: null  // links to the uploaded document name / id
   },
+  documentText: {
+    type: String,
+    default: null
+  },
   title: {
     type: String,
     required: true
