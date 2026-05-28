@@ -15,7 +15,8 @@ import "./utils/passportConfig.js";
 const app = express();
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://studylm.vercel.app"
+  "https://studylm.vercel.app",
+  "https://realty-saving-pci-chapel.trycloudflare.com"
 ];
 
 app.use(cors({

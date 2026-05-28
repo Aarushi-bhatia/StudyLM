@@ -28,6 +28,7 @@ const Chat = ({ activeChatId, setActiveChatId, onNewChat }) => {
   } = useChat(activeChatId, setActiveChatId, onNewChat);
 
   const [isDragging, setIsDragging] = useState(false);
+  const [selectedModel, setSelectedModel] = useState("studylm-balanced");
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
 
@@ -62,6 +63,12 @@ const Chat = ({ activeChatId, setActiveChatId, onNewChat }) => {
     "Summarize the key points",
     "Find specific information about...",
     "What are the conclusions?",
+  ];
+
+  const modelOptions = [
+    { value: "studylm-pro", label: "Gemini 2.5 Flash" },
+    { value: "studylm-balanced", label: "GPT 4.1" },
+    { value: "studylm-fast", label: "Claude haiku 4.5" },
   ];
 
   return (
@@ -201,6 +208,24 @@ const Chat = ({ activeChatId, setActiveChatId, onNewChat }) => {
 
         {/* Input Area */}
         <div className=" p-6 bg-black/5 w-full max-w-5xl mx-auto dark:bg-black/20 backdrop-blur-xl border-t border-black/10 dark:border-white/10">
+          <div className="flex items-center justify-between w-full max-w-4xl mx-auto mb-3 gap-3">
+            <span className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-300">
+              Model
+            </span>
+            <div className="relative">
+              <select
+                value={selectedModel}
+                onChange={(e) => setSelectedModel(e.target.value)}
+                className="px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-gray-700 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#7182FF]"
+              >
+                {modelOptions.map((model) => (
+                  <option key={model.value} value={model.value}>
+                    {model.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
           <div className="flex space-x-3 w-full max-w-4xl mx-auto">
             <div className="flex-1 relative">
               <input
