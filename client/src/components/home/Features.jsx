@@ -18,8 +18,8 @@ const Features = () => {
             </div>
             <h3 className="text-lg sm:text-xl text-black dark:text-white font-semibold mb-3 sm:mb-4">Easy Upload</h3>
             <p className="text-black/40 dark:text-white/40 text-sm sm:text-base leading-relaxed">
-              Simply drag and drop your PDF documents or click to browse and
-              upload instantly.
+              Simply drag and drop your documents (PDF, DOCX, CSV, XLS, XLSX)
+              or click to browse and upload instantly.
             </p>
           </div>
           

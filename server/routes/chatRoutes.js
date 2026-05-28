@@ -30,7 +30,7 @@ router.get("/:chatId/messages", getChatMessages);
  * Unified message endpoint:
  *   - No chatId → creates a new chat session + sends first message + gets AI reply
  *   - With chatId → appends to existing chat + gets AI reply
- * Accepts multipart/form-data with optional "document" (PDF) field.
+ * Accepts multipart/form-data with optional "document" field.
  */
 router.post("/message", upload.single("document"), sendMessage);
 

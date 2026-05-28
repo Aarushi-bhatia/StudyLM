@@ -1,6 +1,31 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const SUPPORTED_DOCUMENT_EXTENSIONS = [".pdf", ".docx", ".csv", ".xlsx", ".xls"];
+const SUPPORTED_DOCUMENT_MIME_TYPES = new Set([
+  "application/pdf",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "text/csv",
+  "application/csv",
+  "application/vnd.ms-excel",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+]);
+const SUPPORTED_DOCUMENT_LABEL = "PDF, DOCX, CSV, XLS, or XLSX";
+
+const getFileExtension = (name) => {
+  const dotIndex = name.lastIndexOf(".");
+  return dotIndex >= 0 ? name.slice(dotIndex).toLowerCase() : "";
+};
+
+const isSupportedDocument = (file) => {
+  if (!file) return false;
+  const extension = getFileExtension(file.name || "");
+  return (
+    SUPPORTED_DOCUMENT_MIME_TYPES.has(file.type) ||
+    SUPPORTED_DOCUMENT_EXTENSIONS.includes(extension)
+  );
+};
+
 export const useChat = (activeChatId, setActiveChatId, onNewChat) => {
   const backend_IP = import.meta.env.VITE_BACKEND_IP;
 
@@ -10,7 +35,7 @@ export const useChat = (activeChatId, setActiveChatId, onNewChat) => {
       type: "bot",
       role: "model",
       content:
-        "Hi! I'm ready to help you analyze your PDF. Upload a document and ask me anything about it!",
+        `Hi! I'm ready to help you analyze your document. Upload a ${SUPPORTED_DOCUMENT_LABEL} file and ask me anything about it!`,
       timestamp: new Date(),
     },
   ]);
@@ -26,7 +51,7 @@ export const useChat = (activeChatId, setActiveChatId, onNewChat) => {
           type: "bot",
           role: "model",
           content:
-            "Hi! I'm ready to help you analyze your PDF. Upload a document and ask me anything about it!",
+            `Hi! I'm ready to help you analyze your document. Upload a ${SUPPORTED_DOCUMENT_LABEL} file and ask me anything about it!`,
           timestamp: new Date(),
         },
       ]);
@@ -159,12 +184,23 @@ export const useChat = (activeChatId, setActiveChatId, onNewChat) => {
     }
   };
   const handleFileUpload = (file) => {
-    if (file && file.type === "application/pdf") {
+    if (file && isSupportedDocument(file)) {
       setUploadedFile(file);
       const uploadMessage = {
         id: Date.now(),
         type: "system",
-        content: `PDF "${file.name}" uploaded successfully! You can now ask questions about this document.`,
+        content: `Document "${file.name}" uploaded successfully! You can now ask questions about it.`,
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, uploadMessage]);
+      return;
+    }
+
+    if (file) {
+      const uploadMessage = {
+        id: Date.now(),
+        type: "system",
+        content: `Unsupported file type. Please upload ${SUPPORTED_DOCUMENT_LABEL} files.`,
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, uploadMessage]);
@@ -180,7 +216,7 @@ export const useChat = (activeChatId, setActiveChatId, onNewChat) => {
         type: "bot",
         role: "model",
         content:
-          "Hi! I'm ready to help you analyze your PDF. Upload a document and ask me anything about it!",
+          `Hi! I'm ready to help you analyze your document. Upload a ${SUPPORTED_DOCUMENT_LABEL} file and ask me anything about it!`,
         timestamp: new Date(),
       },
     ]);

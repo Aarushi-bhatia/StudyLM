@@ -88,11 +88,11 @@ const Chat = ({ activeChatId, setActiveChatId, onNewChat }) => {
                   <FileText className="w-10 h-10 text-white" />
                 </div>
                 <h2 className="text-2xl font-bold text-black dark:text-white mb-3">
-                  Upload Your PDF to Get Started
+                  Upload Your Document to Get Started
                 </h2>
                 <p className="text-gray-400 mb-8 max-w-md mx-auto">
-                  Drop your PDF here or click to upload. I'll analyze it and
-                  answer any questions you have about the content.
+                  Drop your document here or click to upload. I'll analyze it
+                  and answer any questions you have about the content.
                 </p>
 
                 {/* Drop Zone */}
@@ -109,17 +109,17 @@ const Chat = ({ activeChatId, setActiveChatId, onNewChat }) => {
                 >
                   <Upload className="w-12 h-12 text-[#7182FF] mx-auto mb-4" />
                   <p className="text-black dark:text-white font-medium mb-2">
-                    Drop PDF here or click to upload
+                    Drop document here or click to upload
                   </p>
                   <p className="text-gray-400 text-sm">
-                    Support for PDF files containing text
+                    Supports PDF, DOCX, CSV, XLS, and XLSX
                   </p>
                 </div>
 
                 <input
                   ref={fileInputRef}
                   type="file"
-                  accept=".pdf"
+                  accept=".pdf,.docx,.csv,.xlsx,.xls"
                   onChange={(e) => handleFileUpload(e.target.files[0])}
                   className="hidden"
                 />
@@ -235,8 +235,8 @@ const Chat = ({ activeChatId, setActiveChatId, onNewChat }) => {
                 onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
                 placeholder={
                   uploadedFile
-                    ? "Ask anything about your PDF..."
-                    : "Upload a PDF to start chatting..."
+                    ? "Ask anything about your document..."
+                    : "Upload a document to start chatting..."
                 }
                 disabled={!uploadedFile}
                 className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-gray-700 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7182FF] focus:border-transparent backdrop-blur-sm disabled:opacity-50"

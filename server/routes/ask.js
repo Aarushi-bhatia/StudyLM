@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import extractTextFromPDF from "../utils/extractPdf.js";
+import extractTextFromDocument, { isSupportedDocument } from "../utils/extractDocument.js";
 import Document from "../models/Document.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 import { runRAG } from "../rag/rag.js";
@@ -15,9 +15,15 @@ router.post("/", authMiddleware, upload.single("document"), async (req, res) => 
     const { question } = req.body;
     if (!question) return res.status(400).json({ error: "No question provided" });
 
-    const pdfText = await extractTextFromPDF(req.file.buffer);
+    if (!isSupportedDocument(req.file)) {
+      return res.status(400).json({
+        error: "Unsupported file type. Please upload PDF, DOCX, CSV, XLS, or XLSX files.",
+      });
+    }
 
-   const answer = await runRAG(pdfText, question);
+    const documentText = await extractTextFromDocument(req.file);
+
+    const answer = await runRAG(documentText, question);
 
     await Document.create({
       name: req.file.originalname,

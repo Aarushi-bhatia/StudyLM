@@ -81,7 +81,7 @@ export const getChatMessages = async (req, res) => {
  * Then runs RAG pipeline and saves the AI response.
  *
  * Body: { chatId?, content, pdfId? }
- * File: PDF file (multipart/form-data via "document" field)
+ * File: Document file (multipart/form-data via "document" field)
  */
 export const sendMessage = async (req, res) => {
   const session = await mongoose.startSession();
@@ -97,7 +97,9 @@ export const sendMessage = async (req, res) => {
 
     // Dynamic import to avoid circular deps
     const { runRAG } = await import("../rag/rag.js");
-    const extractTextFromPDF = (await import("../utils/extractPdf.js")).default;
+    const { default: extractTextFromDocument, isSupportedDocument } = await import(
+      "../utils/extractDocument.js"
+    );
 
     let chat;
     let isNewChat = false;
@@ -117,7 +119,9 @@ export const sendMessage = async (req, res) => {
       if (!req.file) {
         await session.abortTransaction();
         session.endSession();
-        return res.status(400).json({ error: "PDF file is required for a new chat" });
+        return res
+          .status(400)
+          .json({ error: "Document file is required for a new chat" });
       }
 
       // const title = generateTitle(content);
@@ -143,20 +147,28 @@ export const sendMessage = async (req, res) => {
     let answerText = "Sorry, I couldn't process the document.";
 
     if (req.file) {
-      // PDF was uploaded with this message
-      const pdfText = await extractTextFromPDF(req.file.buffer);
-      answerText = await runRAG(pdfText, content);
+      if (!isSupportedDocument(req.file)) {
+        await session.abortTransaction();
+        session.endSession();
+        return res.status(400).json({
+          error: "Unsupported file type. Please upload PDF, DOCX, CSV, XLS, or XLSX files.",
+        });
+      }
+
+      const documentText = await extractTextFromDocument(req.file);
+      answerText = await runRAG(documentText, content);
     } else if (!req.file && chatId) {
       // Continuing conversation — re-use PDF context
       // For follow-up questions without a new PDF upload,
       // the frontend should re-send the PDF or we need stored text.
       // For now, return a message asking to re-upload
-      answerText = "Please re-upload the PDF to continue asking questions, or start a new chat.";
+      answerText =
+        "Please re-upload the document to continue asking questions, or start a new chat.";
 
       // If the frontend sends the PDF on every message, this block won't execute.
       if (req.file) {
-        const pdfText = await extractTextFromPDF(req.file.buffer);
-        answerText = await runRAG(pdfText, content);
+        const documentText = await extractTextFromDocument(req.file);
+        answerText = await runRAG(documentText, content);
       }
     }
 

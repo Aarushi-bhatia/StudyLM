@@ -101,7 +101,7 @@ const Auth = () => {
           <p className="text-sm text-black dark:text-gray-200 mb-4">
             {isLogin
               ? "Please enter your credentials to continue."
-              : "Join us and explore your PDFs like never before."}
+              : "Join us and explore your documents like never before."}
           </p>
           <div className="flex justify-left mb-4">
             <button
